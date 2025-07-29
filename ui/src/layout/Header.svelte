@@ -6,7 +6,7 @@
   import Link from 'src/components/Link.svelte'
 </script>
 
-<header class="py-4 sm:py-8 flex justify-between items-center">
+<header class="py-4 sm:py-8 flex justify-between items-center" aria-roledescription="Navigation" aria-controls="headerNav">
   <div class="sm:w-60">
     <Link to=""><Logo/></Link>
   </div>

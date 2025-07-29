@@ -1,10 +1,10 @@
 <script lang="ts">
   import {t} from 'src/i18n'
 
-  export let label: string|undefined = undefined
+  export let label: string | undefined = undefined
   export let helpText = ''
-  export let value: string|number = ''
-  export let validator: ((value: string) => string)|undefined = undefined
+  export let value: string | number = ''
+  export let validator: ((value: string) => string) | undefined = undefined
   export let id = label?.replace(/\./g, '-')
 
   export let minlength = 0
@@ -19,7 +19,11 @@
   {#if label}
     <label for={id}>
       {label}
-      {#if helpText}<span class="help-text" title={helpText}>ⓘ</span>{/if}
+      {#if helpText}
+      <span class="help-text" tabindex="0" aria-label={helpText} role="note">
+          <span title={helpText} aria-hidden="true">ⓘ</span>
+        </span>
+      {/if}
       {#if !required}<span class="text-muted">({t.general.optional})</span>{/if}
     </label>
   {/if}
