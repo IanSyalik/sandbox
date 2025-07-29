@@ -10,13 +10,12 @@
   <div class="sm:w-60">
     <Link to=""><Logo/></Link>
   </div>
-
-  <div class="mr-auto">
-    <Navigation />
+  <div class="mr-auto flex items-center gap-x-4">
+    <Navigation/>
   </div>
 
   <div class="flex sm:gap-3 items-center">
     <LangSelect/>
-    <UserMenu />
+    <UserMenu/>
   </div>
 </header>
