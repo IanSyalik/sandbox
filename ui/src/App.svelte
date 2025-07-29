@@ -7,6 +7,7 @@
   import MockEmailsPage from 'src/prototyping/emails/MockEmailsPage.svelte'
   import MockEmailNotifications from 'src/prototyping/emails/MockEmailNotifications.svelte'
   import {Route, Router} from 'svelte-routing'
+  import AccessibilityFormElements from './pages/AccessibilityFormElements.svelte';
 </script>
 
 <svelte:head>
@@ -18,6 +19,7 @@
 <Router>
   <div class="App min-h-screen flex flex-col">
     <Route path="/" component={HomePage}/>
+    <Route path="/Accessibility" component={AccessibilityFormElements}/>
     <Route path="/samples/*path" let:params>
       {#await import('src/samples/SamplesPage.svelte')}
         <Spinner/>
