@@ -1,0 +1,43 @@
+{
+  "engines": {
+    "node": "~22"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "i18n-compile i18n build/i18n && cp -u i18n/* build/i18n && vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --diagnostic-sources js,svelte --compiler-warnings a11y-missing-attribute:ignore,a11y-label-has-associated-control:ignore,a11y-click-events-have-key-events:ignore,security-anchor-rel-noreferrer:ignore,a11y-autofocus:ignore,a11y-no-static-element-interactions:ignore",
+    "check:vite": "npm run check || true",
+    "check:dev": "npm run check -- --watch",
+    "test": "vitest watch",
+    "test:ci": "vitest run --no-color"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "not dead"
+  ],
+  "dependencies": {
+    "@codeborne/i18n-json": "^0.3.7",
+    "svelte": "^5.15.0",
+    "svelte-routing": "github:Monadic-Cat/svelte-routing#c4d24dc4c4deb3d5b21f492006cf6d45a8ae4464"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^4.0.4",
+    "@tailwindcss/forms": "^0.5.5",
+    "@tailwindcss/vite": "^4.0.6",
+    "@testing-library/svelte": "^5.2.6",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/chai": "^4.3.3",
+    "@types/mocha": "^10.0.0",
+    "@vitest/ui": "^0.34.3",
+    "chai": "^4.3.6",
+    "jsdom": "^25.0.1",
+    "svelte-check": "^4.1.1",
+    "svelte-preprocess": "^6.0.3",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vite-plugin-run": "^0.6.0",
+    "vitest": "^2.1.8"
+  }
+}
