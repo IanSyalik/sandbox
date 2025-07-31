@@ -45,6 +45,13 @@
     helicopter: 'Attack helicopter'
   }
 
+  const enlistmentFormLabels = {
+    main: 'Welcome, please fill Army Enlistment Form',
+    form: 'Welcome, please fill Army Enlistment Form',
+    badge: 'Personal invite',
+    // ...other labels
+  };
+
   function handleSubmit() {
     // You can handle form submission here
     alert('Form submitted!')
@@ -52,14 +59,14 @@
 </script>
 
 <MainPageLayout>
-  <main id="main" tabindex="-1" aria-label="Army Enlistment Form">
+  <main id="main" tabindex="-1" aria-label={enlistmentFormLabels.main}>
     <div class="flex justify-center items-center">
       <div class="flex justify-center min-w-[440px] px-6 py-4 rounded-2xl bg-white shadow">
         <form class="flex w-full flex-col gap-4" on:submit|preventDefault={handleSubmit} aria-labelledby="form-title">
-          <div class="flex gap-2 items-center">
+          <div class="flex gap-2 items-center" aria-label="{enlistmentFormLabels.form}">
             <h2 id="form-title" aria-hidden="true">Army Enlistment Form</h2>
             <div>
-              <Badge size="sm" color="success">Personal invite</Badge>
+              <Badge size="sm" color="success">{enlistmentFormLabels.badge}</Badge>
             </div>
           </div>
           <FormField label="Full Name" id="name" bind:value={formData.name} required autocomplete="name" aria-required="true" aria-describedby="name-desc" helpText="Enter your full legal name."/>
