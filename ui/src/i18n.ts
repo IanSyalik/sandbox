@@ -39,8 +39,12 @@ export const yesterday = date.toLocaleDateString('lt')
 date.setDate(date.getDate() + 2)
 export const tomorrow = date.toLocaleDateString('lt')
 
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 export function path(to: string) {
-  return `/${to}`
+  const normalized = to.replace(/^\/+/, '')
+  if (!basePath) return normalized ? `/${normalized}` : '/'
+  return normalized ? `${basePath}/${normalized}` : `${basePath}/`
 }
 
 let refreshNavigate = false

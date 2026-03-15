@@ -9,6 +9,8 @@
   import MockEmailNotifications from 'src/prototyping/emails/MockEmailNotifications.svelte'
   import {Route, Router} from 'svelte-routing'
   import AccessibilityFormElements from './pages/AccessibilityFormElements.svelte';
+
+  const routerBasePath = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
 </script>
 
 <svelte:head>
@@ -17,7 +19,7 @@
 
 <Toasts/>
 
-<Router>
+<Router basepath={routerBasePath}>
   <div class="App min-h-screen flex flex-col">
     <Route path="/" component={HomePage}/>
     <Route path="/Accessibility" component={AccessibilityFormElements}/>

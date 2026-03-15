@@ -6,9 +6,12 @@ import * as path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 
 const isTest = process.env.NODE_ENV === 'test'
+const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1]
+const base = process.env.BASE_PATH ?? (process.env.GITHUB_ACTIONS === 'true' && repoName ? `/${repoName}/` : '/')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base,
   resolve: {
     alias: {
       src: path.resolve(__dirname, './src'),
