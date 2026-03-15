@@ -3,7 +3,7 @@
   import Toasts from './components/Toasts.svelte'
   import NotFoundPage from './layout/NotFoundPage.svelte'
   import HomePage from 'src/pages/HomePage.svelte'
-  import NotWeddingPage from 'src/pages/NotWeddingPage.svelte'
+  import NotWeddingPage from 'src/pages/not-wedding/NotWeddingPage.svelte'
   import Spinner from 'src/components/Spinner.svelte'
   import MockEmailsPage from 'src/prototyping/emails/MockEmailsPage.svelte'
   import MockEmailNotifications from 'src/prototyping/emails/MockEmailNotifications.svelte'
