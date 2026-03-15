@@ -5,7 +5,8 @@
   import {t} from 'src/i18n'
 
   const menu = [
-    {path: '', label: t.home.title, roles: [Role.ADMIN, Role.TRAINER, Role.CUSTOMER]}
+    {path: '', label: t.home.title, roles: [Role.ADMIN, Role.TRAINER, Role.CUSTOMER]},
+    {path: 'not-wedding', label: 'Not Wedding', roles: [Role.ADMIN, Role.TRAINER, Role.CUSTOMER]}
   ]
 </script>
 <a href="#main" class="btn soft primary sm">Skip to main content</a>
