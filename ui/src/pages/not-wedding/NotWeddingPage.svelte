@@ -1,4 +1,6 @@
 <script lang="ts">
+  import {onMount} from 'svelte'
+
   const schedule = [
     {time: '14:00', title: 'Ceremony', details: 'Glasshouse Garden. Please arrive 20 minutes early for welcome drinks.'},
     {time: '16:00', title: 'Dinner', details: 'Seasonal dinner under the orangery lights, followed by speeches and music.'},
@@ -16,10 +18,10 @@
     title: 'Jaan & Jana Wedding',
     location: 'Metsalu Manor',
     description: 'Join us for our wedding celebration at Metsalu Manor.',
-    localStart: '20260921T140000',
-    localEnd: '20260921T235900',
-    googleStartUtc: '20260921T110000Z',
-    googleEndUtc: '20260921T205900Z',
+    localStart: '20260808T140000',
+    localEnd: '20260808T235900',
+    googleStartUtc: '20260808T110000Z',
+    googleEndUtc: '20260808T205900Z',
     timeZone: 'Europe/Tallinn'
   }
 
@@ -60,6 +62,56 @@
   }
 
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.googleStartUtc}/${event.googleEndUtc}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&ctz=${encodeURIComponent(event.timeZone)}`
+
+  let heroSection: HTMLElement | undefined
+  let heroTitleOffset = 0
+  let heroBodyOffset = 0
+  let reduceMotion = false
+
+  function updateHeroParallax() {
+    if (!heroSection || reduceMotion) {
+      heroTitleOffset = 0
+      heroBodyOffset = 0
+      return
+    }
+
+    const rect = heroSection.getBoundingClientRect()
+    const progress = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1.1)
+    heroTitleOffset = progress * 34
+    heroBodyOffset = progress * 18
+  }
+
+  onMount(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let ticking = false
+
+    const syncMotionPreference = () => {
+      reduceMotion = media.matches
+      updateHeroParallax()
+    }
+
+    const scheduleUpdate = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        updateHeroParallax()
+        ticking = false
+      })
+    }
+
+    syncMotionPreference()
+    scheduleUpdate()
+
+    window.addEventListener('scroll', scheduleUpdate, {passive: true})
+    window.addEventListener('resize', scheduleUpdate)
+    media.addEventListener?.('change', syncMotionPreference)
+
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      media.removeEventListener?.('change', syncMotionPreference)
+    }
+  })
 </script>
 
 <svelte:head>
@@ -70,26 +122,26 @@
 </svelte:head>
 
 <main id="main" tabindex="-1" class="page-shell">
-  <section class="page-section">
-    <nav class="page-nav">
-      <a href="#story">Story</a>
-      <a href="#day">Day Plan</a>
-      <a href="#details">Details</a>
-      <a href="#calendar">Calendar</a>
-    </nav>
+  <nav class="page-nav">
+    <a href="#story">Story</a>
+    <a href="#day">Day Plan</a>
+    <a href="#details">Details</a>
+    <a href="#calendar">Calendar</a>
+  </nav>
 
-    <p class="eyebrow">Saturday, 21 September 2026</p>
-    <h1>Jaan & Jana</h1>
-    <p class="lead">
+  <section bind:this={heroSection} class="page-section hero-section">
+    <p class="eyebrow">Saturday, 8 August 2026</p>
+    <h1 class="hero-title" style={`transform: translate3d(0, ${heroTitleOffset}px, 0);`}>Jaan & Jana</h1>
+    <p class="lead hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>
       A warm, modern one-pager for your wedding site. Use it for the story, the timeline, the venue notes, and one clear calendar action.
     </p>
-    <p class="text-links">
+    <p class="text-links hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>
       <a href="#calendar" class="button-link">Add To Calendar</a>
       <a href="#day" class="button-link button-link-secondary">View Schedule</a>
     </p>
-    <p>Where: Metsalu Manor</p>
-    <p>Weekend Mood: Slow morning, golden evening, loud dance floor.</p>
-    <p>Dress Code: Garden formal with room to move.</p>
+    <p class="hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>Where: Metsalu Manor</p>
+    <p class="hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>Weekend Mood: Slow morning, golden evening, loud dance floor.</p>
+    <p class="hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>Dress Code: Garden formal with room to move.</p>
   </section>
 
   <section id="story" class="page-section scroll-mt-28">
@@ -135,7 +187,7 @@
       <button type="button" class="button-link" on:click={downloadCalendarEvent}>Download .ics</button>
       <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="button-link">Google Calendar</a>
     </p>
-    <p>The event is prefilled for 21 September 2026 at Metsalu Manor, starting at 14:00 Tallinn time.</p>
+    <p>The event is prefilled for Saturday, 8 August 2026 at Metsalu Manor, starting at 14:00 Tallinn time.</p>
   </section>
 </main>
 
@@ -162,12 +214,23 @@
     margin-top: 4rem;
   }
 
+  .hero-section {
+    padding: 2rem 1.5rem;
+    border: 1px solid #d6d3d1;
+    background: #f4eee7;
+  }
+
   .page-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 3rem;
+    padding: 0.75rem 0;
     font-size: 0.95rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fffdf8;
   }
 
   .page-nav a {
@@ -228,6 +291,11 @@
   .lead {
     font-size: 1.125rem;
     max-width: 40rem;
+  }
+
+  .hero-title,
+  .hero-copy {
+    will-change: transform;
   }
 
   .text-links {
