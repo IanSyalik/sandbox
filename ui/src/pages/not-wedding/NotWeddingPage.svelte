@@ -1,23 +1,8 @@
 <script lang="ts">
-  import {onMount} from 'svelte'
-
-  const schedule = [
-    {time: '14:00', title: 'Ceremony', details: 'Glasshouse Garden. Please arrive 20 minutes early for welcome drinks.'},
-    {time: '16:00', title: 'Dinner', details: 'Seasonal dinner under the orangery lights, followed by speeches and music.'},
-    {time: '19:30', title: 'Golden Hour', details: 'Courtyard portraits, dessert table, and the first dance as the sun drops.'},
-    {time: '21:00', title: 'Party', details: 'Cocktail bar, midnight snacks, and a dance floor that should stay busy.'}
-  ]
-
-  const details = [
-    {eyebrow: 'Venue', title: 'Metsalu Manor', text: 'A restored country estate with a ceremony garden, indoor dining hall, and overnight cottages for close family.'},
-    {eyebrow: 'Dress Code', title: 'Garden Formal', text: 'Think tailored, romantic, and comfortable enough for lawn games, dinner, and a late dance set.'},
-    {eyebrow: 'Stay Nearby', title: 'Weekend Plan', text: 'We suggest arriving on Friday, enjoying a slow breakfast on Sunday, and making the whole thing a weekend escape.'}
-  ]
-
   const event = {
     title: 'Jaan & Jana Wedding',
-    location: 'Metsalu Manor',
-    description: 'Join us for our wedding celebration at Metsalu Manor.',
+    location: 'Yayaki House, Narva mnt 7, 2 этаж',
+    description: 'Свадебный день Jaan & Jana.',
     localStart: '20260808T140000',
     localEnd: '20260808T235900',
     googleStartUtc: '20260808T110000Z',
@@ -62,56 +47,6 @@
   }
 
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.googleStartUtc}/${event.googleEndUtc}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&ctz=${encodeURIComponent(event.timeZone)}`
-
-  let heroSection: HTMLElement | undefined
-  let heroTitleOffset = 0
-  let heroBodyOffset = 0
-  let reduceMotion = false
-
-  function updateHeroParallax() {
-    if (!heroSection || reduceMotion) {
-      heroTitleOffset = 0
-      heroBodyOffset = 0
-      return
-    }
-
-    const rect = heroSection.getBoundingClientRect()
-    const progress = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1.1)
-    heroTitleOffset = progress * 34
-    heroBodyOffset = progress * 18
-  }
-
-  onMount(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let ticking = false
-
-    const syncMotionPreference = () => {
-      reduceMotion = media.matches
-      updateHeroParallax()
-    }
-
-    const scheduleUpdate = () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => {
-        updateHeroParallax()
-        ticking = false
-      })
-    }
-
-    syncMotionPreference()
-    scheduleUpdate()
-
-    window.addEventListener('scroll', scheduleUpdate, {passive: true})
-    window.addEventListener('resize', scheduleUpdate)
-    media.addEventListener?.('change', syncMotionPreference)
-
-    return () => {
-      window.removeEventListener('scroll', scheduleUpdate)
-      window.removeEventListener('resize', scheduleUpdate)
-      media.removeEventListener?.('change', syncMotionPreference)
-    }
-  })
 </script>
 
 <svelte:head>
@@ -123,71 +58,92 @@
 
 <main id="main" tabindex="-1" class="page-shell">
   <nav class="page-nav">
-    <a href="#story">Story</a>
-    <a href="#day">Day Plan</a>
-    <a href="#details">Details</a>
+    <a href="#location">Location</a>
+    <a href="#dress-code">Dress Code</a>
+    <a href="#day">Wedding Day</a>
+    <a href="#love">With Love</a>
     <a href="#calendar">Calendar</a>
   </nav>
 
-  <section bind:this={heroSection} class="page-section hero-section">
-    <p class="eyebrow">Saturday, 8 August 2026</p>
-    <h1 class="hero-title" style={`transform: translate3d(0, ${heroTitleOffset}px, 0);`}>Jaan & Jana</h1>
-    <p class="lead hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>
-      A warm, modern one-pager for your wedding site. Use it for the story, the timeline, the venue notes, and one clear calendar action.
+  <section class="page-section hero-section">
+    <h1>JAAN & JANA</h1>
+    <p class="eyebrow">Save the Date</p>
+    <p class="date-text">08.08.2026</p>
+    <p>Мы будем счастливы разделить с вами этот день 🤍</p>
+    <p>
+      Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
+      Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
     </p>
-    <p class="text-links hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>
+    <p class="quote">You are my today and all of my tomorrows.</p>
+    <p class="placeholder-note">Календарь с фото и отмеченной датой 8.08</p>
+    <p class="text-links">
       <a href="#calendar" class="button-link">Add To Calendar</a>
       <a href="#day" class="button-link button-link-secondary">View Schedule</a>
     </p>
-    <p class="hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>Where: Metsalu Manor</p>
-    <p class="hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>Weekend Mood: Slow morning, golden evening, loud dance floor.</p>
-    <p class="hero-copy" style={`transform: translate3d(0, ${heroBodyOffset}px, 0);`}>Dress Code: Garden formal with room to move.</p>
   </section>
 
-  <section id="story" class="page-section scroll-mt-28">
-    <p class="eyebrow">Our Story</p>
-    <h2>Built for a couple who wants one elegant page instead of five tiny ones.</h2>
+  <section id="location" class="page-section scroll-mt-28">
+    <h2>Location</h2>
+    <p class="section-label">Yayaki House</p>
+    <p class="section-label">Narva mnt 7, 2 этаж</p>
     <p>
-      Replace the names, date, and venue first. Then swap in your own story, add your meal and travel details, and connect the calendar section to the final event information.
+      Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании 🤍
     </p>
+    <p class="quote">Where there is love, there is home.</p>
+  </section>
+
+  <section id="dress-code" class="page-section scroll-mt-28">
+    <h2>Dress Code</h2>
     <p>
-      This template now leans entirely on typography: the layout is quiet, direct, and easy to adapt.
+      Мы будем рады видеть девушек в нарядах в нежных пастельных оттенках, а мужчин в классике 🤍
     </p>
+    <p class="placeholder-note">Здесь будет палитра цветов</p>
+    <p class="quote">Elegance is when love meets style.</p>
   </section>
 
   <section id="day" class="page-section scroll-mt-28">
-    <p class="eyebrow">Day Plan</p>
-    <h2>A simple rhythm for the whole celebration.</h2>
-    <p>Keep the structure clean. Guests should understand the flow in ten seconds.</p>
+    <h2>Wedding Day</h2>
+    <p class="section-label">14:30 — Церемония в ЗАГСе Таллинна</p>
+    <p>Тот самый момент, когда мы скажем друг другу «да»</p>
 
-    {#each schedule as item}
-      <h3>{item.time} - {item.title}</h3>
-      <p>{item.details}</p>
-    {/each}
+    <p class="section-label">15:00 — Фотографии</p>
+    <p>Сохраним первые мгновения этого дня — искренние улыбки, объятия и эмоции</p>
+
+    <p class="section-label">16:00 — Начало праздника</p>
+    <p>Соберёмся вместе, чтобы поздравить, обнять и разделить радость этого дня</p>
+
+    <p class="section-label">18:00 — Вечер и танцы</p>
+    <p>Время наслаждаться атмосферой, музыкой и друг другом</p>
+
+    <p class="section-label">21:00 — Торт-сюрприз</p>
+    <p>Сладкое завершение этого особенного дня 🎂</p>
+
+    <p class="quote">Forever starts here.</p>
   </section>
 
-  <section id="details" class="page-section scroll-mt-28">
-    <p class="eyebrow">Need To Know</p>
-    <h2>Everything important in one scroll.</h2>
+  <section id="love" class="page-section scroll-mt-28">
+    <h2>With Love</h2>
+    <p>Мы очень ценим ваше внимание и заботу 🤍</p>
     <p>
-      This section works well for venue notes, accommodation, transport, or anything guests would normally miss in a long email.
+      И будем очень благодарны, если вы обойдетесь без подарков в виде картин и предметов декора.
+      Если вы хотите порадовать нас, приятным и удобным вариантом станет конверт ✨
     </p>
-
-    {#each details as item}
-      <h3>{item.eyebrow}: {item.title}</h3>
-      <p>{item.text}</p>
-    {/each}
+    <p>
+      Ваши тёплые слова и поздравления мы с радостью примем, когда соберёмся вместе после ЗАГСа.
+    </p>
+    <p>
+      Пожалуйста, приходите в ЗАГС не менее чем за 15 минут до начала церемонии.
+    </p>
+    <p>Самое главное для нас — это ваше присутствие и разделённая с нами радость этого дня 🤍</p>
   </section>
 
   <section id="calendar" class="page-section scroll-mt-28">
-    <p class="eyebrow">Save The Date</p>
-    <h2>Add the wedding to your calendar in one click.</h2>
-    <p>Replace the event details if needed, then let guests save the full day straight from the page.</p>
+    <h2>Calendar</h2>
+    <p>Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
     <p class="text-links">
       <button type="button" class="button-link" on:click={downloadCalendarEvent}>Download .ics</button>
       <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="button-link">Google Calendar</a>
     </p>
-    <p>The event is prefilled for Saturday, 8 August 2026 at Metsalu Manor, starting at 14:00 Tallinn time.</p>
   </section>
 </main>
 
@@ -211,26 +167,25 @@
   }
 
   .page-section + .page-section {
-    margin-top: 4rem;
+    margin-top: 1.25rem;
   }
 
   .hero-section {
-    padding: 2rem 1.5rem;
-    border: 1px solid #d6d3d1;
-    background: #f4eee7;
+    padding-top: 2.5rem;
   }
 
   .page-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 3rem;
-    padding: 0.75rem 0;
+    margin-bottom: 1.25rem;
+    padding: 1rem 0;
     font-size: 0.95rem;
     position: sticky;
     top: 0;
     z-index: 10;
     background: #fffdf8;
+    border-bottom: 1px solid #d6d3d1;
   }
 
   .page-nav a {
@@ -250,14 +205,6 @@
     text-decoration: none;
   }
 
-  .eyebrow {
-    margin-bottom: 0.75rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-
   h1,
   h2 {
     font-family: 'Rouge Script', cursive;
@@ -275,11 +222,10 @@
     font-size: clamp(2.8rem, 8vw, 4.5rem);
   }
 
-  h3 {
-    margin: 2rem 0 0.35rem;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.5;
+  .page-section {
+    background: #ffffff;
+    border: 1px solid #d6d3d1;
+    padding: 1.5rem;
   }
 
   p {
@@ -288,14 +234,22 @@
     line-height: 1.75;
   }
 
-  .lead {
-    font-size: 1.125rem;
-    max-width: 40rem;
+  .date-text {
+    font-size: 1.1rem;
+    font-weight: 600;
   }
 
-  .hero-title,
-  .hero-copy {
-    will-change: transform;
+  .section-label {
+    margin-bottom: 0.35rem;
+    font-weight: 700;
+  }
+
+  .quote {
+    font-style: italic;
+  }
+
+  .placeholder-note {
+    color: #78716c;
   }
 
   .text-links {
