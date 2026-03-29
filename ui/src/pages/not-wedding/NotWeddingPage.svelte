@@ -52,7 +52,7 @@
   const innerClass = 'mx-auto w-full max-w-[1000px] px-6 sm:px-6'
   const sectionClass = 'scroll-mt-24 border-t border-[rgba(96,78,66,0.16)] bg-[#fffdf9] py-[clamp(3rem,7vw,5rem)]'
   const navLinkClass = 'text-[0.92rem] font-medium tracking-[0.02em] text-[#4d4038] transition-colors duration-150 hover:text-[#261f1b] focus-visible:text-[#261f1b]'
-  const displayH2Class = "mb-6 font-['Rouge_Script'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-[#4d4038]"
+  const displayH2Class = 'mb-6 font-[\'Rouge_Script\'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-[#4d4038]'
   const bodyTextClass = 'text-[1rem] leading-[1.8] text-[#3f342e]'
   const buttonBaseClass = 'inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150'
   const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
@@ -129,20 +129,26 @@
   <section class="min-h-[calc(100svh-4.5rem)] bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
     <div class={`${innerClass} flex flex-col items-center justify-center min-h-[calc(100svh-9rem)] gap-[clamp(2rem,5vw,4rem)]`}>
       <div class="text-center">
-        <h1 class="m-0 mb-4 font-['Rouge_Script'] text-[clamp(4.8rem,11vw,8rem)] leading-[0.92] text-[#4d4038]">Jaan & Jana</h1>
+        <div class="flex items-center justify-center mb-8 relative gap-8">
+          <h1 class="m-0 -mt-38">Jaan</h1>
+          <h1 class="m-0 opacity-20 !text-[20rem] absolute ml-4 left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 ">&</h1>
+          <h1 class="m-0 -mt-8">Jana</h1>
+        </div>
         <p class="m-0 text-[0.98rem] font-semibold uppercase tracking-[0.08em] text-[#5f5149]">Saturday / 08.08.2026</p>
       </div>
 
       <div class="flex w-full flex-col gap-[clamp(2rem,5vw,4.5rem)] md:flex-row md:items-center">
         <div class="min-w-0 flex-1">
-          <p class="mb-4 max-w-[25rem] text-[1.12rem] leading-[1.8] text-[#261f1b]">Мы будем счастливы разделить с вами этот день.</p>
+          <p class="mb-4 max-w-[25rem] text-[1.12rem] leading-[1.8] text-[#261f1b]">Мы будем счастливы разделить с вами
+            этот день.</p>
           <p class="mb-6 max-w-[31rem] text-[1rem] leading-[1.8] text-[#3f342e]">
             Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
             Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
           </p>
 
           <div class="flex flex-wrap items-center gap-4">
-            <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь</button>
+            <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь
+            </button>
             <a href="#day" class={secondaryButtonClass}>Смотреть тайминг</a>
           </div>
         </div>
@@ -214,28 +220,32 @@
           <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">14:30</p>
           <div>
             <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Церемония в ЗАГСе Таллинна</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Тот самый момент, когда мы скажем друг другу «да».</p>
+            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Тот самый момент, когда мы скажем друг другу
+              «да».</p>
           </div>
         </li>
         <li class="grid gap-2 border-t border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
           <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">15:00</p>
           <div>
             <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Фотографии</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Сохраним первые мгновения этого дня — искренние улыбки, объятия и эмоции.</p>
+            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Сохраним первые мгновения этого дня — искренние
+              улыбки, объятия и эмоции.</p>
           </div>
         </li>
         <li class="grid gap-2 border-t border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
           <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">16:00</p>
           <div>
             <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Начало праздника</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Соберёмся вместе, чтобы поздравить, обнять и разделить радость этого дня.</p>
+            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Соберёмся вместе, чтобы поздравить, обнять и
+              разделить радость этого дня.</p>
           </div>
         </li>
         <li class="grid gap-2 border-t border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
           <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">18:00</p>
           <div>
             <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Вечер и танцы</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Время наслаждаться атмосферой, музыкой и друг другом.</p>
+            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Время наслаждаться атмосферой, музыкой и друг
+              другом.</p>
           </div>
         </li>
         <li class="grid gap-2 border-y border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
@@ -267,7 +277,8 @@
         <p class={`${bodyTextClass} mb-4`}>
           Пожалуйста, приходите в ЗАГС не менее чем за 15 минут до начала церемонии.
         </p>
-        <p class={`${bodyTextClass} m-0`}>Самое главное для нас — это ваше присутствие и разделённая с нами радость этого дня.</p>
+        <p class={`${bodyTextClass} m-0`}>Самое главное для нас — это ваше присутствие и разделённая с нами радость
+          этого дня.</p>
       </div>
     </div>
   </section>
@@ -281,7 +292,9 @@
 
       <div class="flex flex-wrap items-center gap-4">
         <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь</button>
-        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class={secondaryButtonClass}>Открыть Google Календарь</a>
+        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class={secondaryButtonClass}>Открыть Google
+          Календарь
+        </a>
       </div>
     </div>
   </section>
@@ -292,6 +305,10 @@
     :global(html) {
       scroll-behavior: smooth;
     }
+  }
+
+  h1 {
+    @apply font-['Rouge_Script'] text-[clamp(4.8rem,11vw,8rem)] leading-[0.92] text-[#4d4038];
   }
 
   :global(body) {
