@@ -127,14 +127,14 @@
   </nav>
 
   <section class="min-h-[calc(100svh-4.5rem)] bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
-    <div class={`${innerClass} grid min-h-[calc(100svh-9rem)] gap-[clamp(2rem,5vw,4rem)]`}>
+    <div class={`${innerClass} flex flex-col items-center justify-center min-h-[calc(100svh-9rem)] gap-[clamp(2rem,5vw,4rem)]`}>
       <div class="text-center">
         <h1 class="m-0 mb-4 font-['Rouge_Script'] text-[clamp(4.8rem,11vw,8rem)] leading-[0.92] text-[#4d4038]">Jaan & Jana</h1>
         <p class="m-0 text-[0.98rem] font-semibold uppercase tracking-[0.08em] text-[#5f5149]">Saturday / 08.08.2026</p>
       </div>
 
-      <div class="grid items-center gap-[clamp(2rem,5vw,4.5rem)] md:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)]">
-        <div class="max-w-[31rem]">
+      <div class="flex w-full flex-col gap-[clamp(2rem,5vw,4.5rem)] md:flex-row md:items-center">
+        <div class="min-w-0 flex-1">
           <p class="mb-4 max-w-[25rem] text-[1.12rem] leading-[1.8] text-[#261f1b]">Мы будем счастливы разделить с вами этот день.</p>
           <p class="mb-6 max-w-[31rem] text-[1rem] leading-[1.8] text-[#3f342e]">
             Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
@@ -147,13 +147,12 @@
           </div>
         </div>
 
-        <div class="relative min-h-[20rem] md:min-h-[26rem]" bind:this={heroVisual}>
+        <div class="relative aspect-square w-full max-w-[300px] shrink-0 self-center md:self-auto" bind:this={heroVisual}>
           <div
-            class="relative flex h-full min-h-[22rem] items-end justify-between overflow-hidden rounded-[2rem] border border-[rgba(96,78,66,0.18)] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.7),transparent_34%),linear-gradient(135deg,#ede2d6_0%,#d8c6b6_45%,#b79e8e_100%)] p-6 transition-transform duration-150 will-change-transform md:min-h-[28rem]"
+            class="relative flex h-full aspect-square items-end justify-between overflow-hidden rounded-[2rem] border border-[rgba(96,78,66,0.18)] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.7),transparent_34%),linear-gradient(135deg,#ede2d6_0%,#d8c6b6_45%,#b79e8e_100%)] p-6 transition-transform duration-150 will-change-transform"
             style={`transform: translate3d(0, ${heroVisualOffset}px, 0);`}
           >
             <div class="pointer-events-none absolute inset-4 rounded-[1.4rem] border border-[rgba(255,255,255,0.38)]"></div>
-            <span class="relative z-[1] text-[0.82rem] font-semibold uppercase tracking-[0.12em] text-[rgba(38,31,27,0.78)]">Фото пары</span>
             <div class="relative z-[1] grid min-w-[6.5rem] gap-[0.15rem] rounded-[1.3rem] border border-[rgba(255,255,255,0.45)] bg-[rgba(255,253,249,0.62)] px-4 pt-[0.9rem] pb-4 text-center backdrop-blur-[6px]">
               <span class="text-[0.75rem] font-bold uppercase tracking-[0.18em] text-[#7c6558]">AUG</span>
               <strong class="text-[2rem] font-bold leading-none text-[#4d4038]">08</strong>
