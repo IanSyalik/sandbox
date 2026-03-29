@@ -56,94 +56,113 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rouge+Script&display=swap" rel="stylesheet">
 </svelte:head>
 
-<main id="main" tabindex="-1" class="page-shell">
+<main id="main" tabindex="-1">
   <nav class="page-nav">
-    <a href="#location">Location</a>
-    <a href="#dress-code">Dress Code</a>
-    <a href="#day">Wedding Day</a>
-    <a href="#love">With Love</a>
-    <a href="#calendar">Calendar</a>
+    <div class="section-inner nav-inner">
+      <a href="#location">Локация</a>
+      <a href="#dress-code">Дресс-код</a>
+      <a href="#day">Свадебный день</a>
+      <a href="#love">Пожелания</a>
+    </div>
   </nav>
 
   <section class="page-section hero-section">
-    <h1>JAAN & JANA</h1>
-    <p class="eyebrow">Save the Date</p>
-    <p class="date-text">08.08.2026</p>
-    <p>Мы будем счастливы разделить с вами этот день 🤍</p>
-    <p>
-      Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
-      Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
-    </p>
-    <p class="quote">You are my today and all of my tomorrows.</p>
-    <p class="placeholder-note">Календарь с фото и отмеченной датой 8.08</p>
-    <p class="text-links">
-      <a href="#calendar" class="button-link">Add To Calendar</a>
-      <a href="#day" class="button-link button-link-secondary">View Schedule</a>
-    </p>
+    <div class="section-inner">
+      <div class="text-center mb-6">
+      <h1>Jaan & Jana</h1>
+      <h3 class="eyebrow">Save the Date 08.08.2026</h3>
+      </div>
+      <div class="flex gap-4">
+      <div class="flex-1">
+        <p>Мы будем счастливы разделить с вами этот день.</p>
+        <p>
+          Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
+          Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
+        </p>
+        <p class="text-links">
+          <button type="button" class="button-link" on:click={downloadCalendarEvent}>Добавить в календарь</button>
+          <a href="#day" class="button-link button-link-secondary">Смотреть тайминг</a>
+        </p>
+      </div>
+      <div class="flex items-center justify-center p-4 border rounded-lg">
+        <p class="placeholder-note">Календарь с фото и отмеченной датой 8.08</p>
+      </div>
+      </div>
+    </div>
   </section>
 
   <section id="location" class="page-section scroll-mt-28">
-    <h2>Location</h2>
-    <p class="section-label">Yayaki House</p>
-    <p class="section-label">Narva mnt 7, 2 этаж</p>
-    <p>
-      Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании 🤍
-    </p>
-    <p class="quote">Where there is love, there is home.</p>
+      <div class="section-inner">
+      <h2>Location</h2>
+      <p class="section-label">Yayaki House</p>
+      <p class="section-label">Narva mnt 7, 2 этаж</p>
+      <p>
+        Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
+      </p>
+      <p class="quote">Where there is love, there is home.</p>
+    </div>
   </section>
 
   <section id="dress-code" class="page-section scroll-mt-28">
-    <h2>Dress Code</h2>
-    <p>
-      Мы будем рады видеть девушек в нарядах в нежных пастельных оттенках, а мужчин в классике 🤍
-    </p>
-    <p class="placeholder-note">Здесь будет палитра цветов</p>
-    <p class="quote">Elegance is when love meets style.</p>
+      <div class="section-inner">
+      <h2>Dress Code</h2>
+      <p>
+        Мы будем рады видеть девушек в нарядах в нежных пастельных оттенках, а мужчин в классике.
+      </p>
+      <p class="placeholder-note">Здесь будет палитра цветов</p>
+      <p class="quote">Elegance is when love meets style.</p>
+    </div>
   </section>
 
   <section id="day" class="page-section scroll-mt-28">
-    <h2>Wedding Day</h2>
-    <p class="section-label">14:30 — Церемония в ЗАГСе Таллинна</p>
-    <p>Тот самый момент, когда мы скажем друг другу «да»</p>
+      <div class="section-inner">
+      <h2>Wedding Day</h2>
+      <p class="section-label">14:30 — Церемония в ЗАГСе Таллинна</p>
+      <p>Тот самый момент, когда мы скажем друг другу «да»</p>
 
-    <p class="section-label">15:00 — Фотографии</p>
-    <p>Сохраним первые мгновения этого дня — искренние улыбки, объятия и эмоции</p>
+      <p class="section-label">15:00 — Фотографии</p>
+      <p>Сохраним первые мгновения этого дня — искренние улыбки, объятия и эмоции</p>
 
-    <p class="section-label">16:00 — Начало праздника</p>
-    <p>Соберёмся вместе, чтобы поздравить, обнять и разделить радость этого дня</p>
+      <p class="section-label">16:00 — Начало праздника</p>
+      <p>Соберёмся вместе, чтобы поздравить, обнять и разделить радость этого дня</p>
 
-    <p class="section-label">18:00 — Вечер и танцы</p>
-    <p>Время наслаждаться атмосферой, музыкой и друг другом</p>
+      <p class="section-label">18:00 — Вечер и танцы</p>
+      <p>Время наслаждаться атмосферой, музыкой и друг другом</p>
 
-    <p class="section-label">21:00 — Торт-сюрприз</p>
-    <p>Сладкое завершение этого особенного дня 🎂</p>
+      <p class="section-label">21:00 — Торт-сюрприз</p>
+      <p>Сладкое завершение этого особенного дня.</p>
 
-    <p class="quote">Forever starts here.</p>
+      <p class="quote">Forever starts here.</p>
+    </div>
   </section>
 
   <section id="love" class="page-section scroll-mt-28">
-    <h2>With Love</h2>
-    <p>Мы очень ценим ваше внимание и заботу 🤍</p>
-    <p>
-      И будем очень благодарны, если вы обойдетесь без подарков в виде картин и предметов декора.
-      Если вы хотите порадовать нас, приятным и удобным вариантом станет конверт ✨
-    </p>
-    <p>
-      Ваши тёплые слова и поздравления мы с радостью примем, когда соберёмся вместе после ЗАГСа.
-    </p>
-    <p>
-      Пожалуйста, приходите в ЗАГС не менее чем за 15 минут до начала церемонии.
-    </p>
-    <p>Самое главное для нас — это ваше присутствие и разделённая с нами радость этого дня 🤍</p>
+      <div class="section-inner">
+      <h2>With Love</h2>
+      <p>Мы очень ценим ваше внимание и заботу.</p>
+      <p>
+        И будем очень благодарны, если вы обойдетесь без подарков в виде картин и предметов декора.
+        Если вы хотите порадовать нас, приятным и удобным вариантом станет конверт.
+      </p>
+      <p>
+        Ваши тёплые слова и поздравления мы с радостью примем, когда соберёмся вместе после ЗАГСа.
+      </p>
+      <p>
+        Пожалуйста, приходите в ЗАГС не менее чем за 15 минут до начала церемонии.
+      </p>
+      <p>Самое главное для нас — это ваше присутствие и разделённая с нами радость этого дня.</p>
+    </div>
   </section>
 
   <section id="calendar" class="page-section scroll-mt-28">
-    <h2>Calendar</h2>
-    <p>Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
-    <p class="text-links">
-      <button type="button" class="button-link" on:click={downloadCalendarEvent}>Download .ics</button>
-      <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="button-link">Google Calendar</a>
-    </p>
+      <div class="section-inner">
+      <h2>Calendar</h2>
+      <p>Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
+      <p class="text-links">
+        <button type="button" class="button-link" on:click={downloadCalendarEvent}>Добавить в календарь</button>
+        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="button-link">Открыть Google Календарь</a>
+      </p>
+    </div>
   </section>
 </main>
 
@@ -158,16 +177,16 @@
     background: #fffdf8;
   }
 
-  .page-shell {
-    max-width: 52rem;
+  .section-inner {
+    width: min(100%, 1000px);
     margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-    color: #1c1917;
-    font-family: 'Inter', sans-serif;
+    padding: 0 1.5rem;
   }
 
-  .page-section + .page-section {
-    margin-top: 1.25rem;
+  .nav-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .hero-section {
@@ -175,10 +194,6 @@
   }
 
   .page-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
     padding: 1rem 0;
     font-size: 0.95rem;
     position: sticky;
@@ -206,7 +221,7 @@
   }
 
   h1,
-  h2 {
+  h2, h3 {
     font-family: 'Rouge Script', cursive;
     font-weight: 400;
     line-height: 0.95;
@@ -215,28 +230,31 @@
   }
 
   h1 {
-    font-size: clamp(4rem, 10vw, 7rem);
+    font-size: clamp(4.5rem, 11vw, 7rem);
   }
 
   h2 {
-    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    font-size: clamp(3rem, 7vw, 4.8rem);
+  }
+
+  h3 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
   }
 
   .page-section {
     background: #ffffff;
     border: 1px solid #d6d3d1;
-    padding: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .page-section + .page-section {
+    margin-top: -1px;
   }
 
   p {
     margin: 0 0 1rem;
     font-size: 1rem;
     line-height: 1.75;
-  }
-
-  .date-text {
-    font-size: 1.1rem;
-    font-weight: 600;
   }
 
   .section-label {
