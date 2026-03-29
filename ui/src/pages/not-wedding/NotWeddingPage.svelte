@@ -58,22 +58,23 @@
   const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
   const secondaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-transparent text-[#261f1b] hover:-translate-y-px hover:bg-[rgba(38,31,27,0.06)] focus-visible:-translate-y-px focus-visible:bg-[rgba(38,31,27,0.06)]`
 
-  let heroVisual: HTMLElement | undefined
-  let heroVisualOffset = 0
+  let heroSection: HTMLElement | undefined
+  let heroBackdropOffset = 0
+  let heroContentOffset = 0
   let reduceMotion = false
 
   function updateHeroParallax() {
-    if (!heroVisual || reduceMotion) {
-      heroVisualOffset = 0
+    if (!heroSection || reduceMotion) {
+      heroBackdropOffset = 0
+      heroContentOffset = 0
       return
     }
 
-    const rect = heroVisual.getBoundingClientRect()
-    const viewport = Math.max(window.innerHeight, 1)
-    const progress = (viewport - rect.top) / (viewport + rect.height)
-    const clamped = Math.min(Math.max(progress, 0), 1)
+    const rect = heroSection.getBoundingClientRect()
+    const travel = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1)
 
-    heroVisualOffset = (clamped - 0.5) * 28
+    heroBackdropOffset = travel * 96
+    heroContentOffset = travel * -34
   }
 
   onMount(() => {
@@ -126,8 +127,16 @@
     </div>
   </nav>
 
-  <section class="min-h-[calc(100svh-4.5rem)] bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
-    <div class={`${innerClass} flex flex-col items-center justify-center min-h-[calc(100svh-9rem)] gap-[clamp(2rem,5vw,4rem)]`}>
+  <section bind:this={heroSection} class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
+    <div
+      class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl will-change-transform"
+      style={`transform: translate3d(0, ${heroBackdropOffset}px, 0);`}
+    ></div>
+
+    <div
+      class={`${innerClass} relative z-[1] flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center gap-[clamp(2rem,5vw,4rem)] will-change-transform`}
+      style={`transform: translate3d(0, ${heroContentOffset}px, 0);`}
+    >
       <div class="text-center">
         <div class="flex items-center justify-center mb-8 relative gap-8">
           <h1 class="m-0 -mt-38">Jaan</h1>
@@ -153,10 +162,9 @@
           </div>
         </div>
 
-        <div class="relative aspect-square w-full max-w-[300px] shrink-0 self-center md:self-auto" bind:this={heroVisual}>
+        <div class="relative aspect-square w-full max-w-[300px] shrink-0 self-center md:self-auto">
           <div
             class="relative flex h-full aspect-square items-end justify-between overflow-hidden rounded-[2rem] border border-[rgba(96,78,66,0.18)] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.7),transparent_34%),linear-gradient(135deg,#ede2d6_0%,#d8c6b6_45%,#b79e8e_100%)] p-6 transition-transform duration-150 will-change-transform"
-            style={`transform: translate3d(0, ${heroVisualOffset}px, 0);`}
           >
             <div class="pointer-events-none absolute inset-4 rounded-[1.4rem] border border-[rgba(255,255,255,0.38)]"></div>
             <div class="relative z-[1] grid min-w-[6.5rem] gap-[0.15rem] rounded-[1.3rem] border border-[rgba(255,255,255,0.45)] bg-[rgba(255,253,249,0.62)] px-4 pt-[0.9rem] pb-4 text-center backdrop-blur-[6px]">
