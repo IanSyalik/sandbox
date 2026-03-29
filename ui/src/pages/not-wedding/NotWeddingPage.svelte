@@ -1,6 +1,4 @@
 <script lang="ts">
-  import {onMount} from 'svelte'
-
   const event = {
     title: 'Jaan & Jana Wedding',
     location: 'Yayaki House, Narva mnt 7, 2 этаж',
@@ -57,57 +55,6 @@
   const buttonBaseClass = 'inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150'
   const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
   const secondaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-transparent text-[#261f1b] hover:-translate-y-px hover:bg-[rgba(38,31,27,0.06)] focus-visible:-translate-y-px focus-visible:bg-[rgba(38,31,27,0.06)]`
-
-  let heroSection: HTMLElement | undefined
-  let heroBackdropOffset = 0
-  let heroContentOffset = 0
-  let reduceMotion = false
-
-  function updateHeroParallax() {
-    if (!heroSection || reduceMotion) {
-      heroBackdropOffset = 0
-      heroContentOffset = 0
-      return
-    }
-
-    const rect = heroSection.getBoundingClientRect()
-    const travel = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1)
-
-    heroBackdropOffset = travel * 96
-    heroContentOffset = travel * -34
-  }
-
-  onMount(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let ticking = false
-
-    const syncMotionPreference = () => {
-      reduceMotion = media.matches
-      updateHeroParallax()
-    }
-
-    const scheduleUpdate = () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => {
-        updateHeroParallax()
-        ticking = false
-      })
-    }
-
-    syncMotionPreference()
-    scheduleUpdate()
-
-    window.addEventListener('scroll', scheduleUpdate, {passive: true})
-    window.addEventListener('resize', scheduleUpdate)
-    media.addEventListener?.('change', syncMotionPreference)
-
-    return () => {
-      window.removeEventListener('scroll', scheduleUpdate)
-      window.removeEventListener('resize', scheduleUpdate)
-      media.removeEventListener?.('change', syncMotionPreference)
-    }
-  })
 </script>
 
 <svelte:head>
@@ -127,16 +74,10 @@
     </div>
   </nav>
 
-  <section bind:this={heroSection} class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
-    <div
-      class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl will-change-transform"
-      style={`transform: translate3d(0, ${heroBackdropOffset}px, 0);`}
-    ></div>
+  <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
+    <div class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl"></div>
 
-    <div
-      class={`${innerClass} relative z-[1] flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center gap-[clamp(2rem,5vw,4rem)] will-change-transform`}
-      style={`transform: translate3d(0, ${heroContentOffset}px, 0);`}
-    >
+    <div class={`${innerClass} relative z-[1] flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center gap-[clamp(2rem,5vw,4rem)]`}>
       <div class="text-center">
         <div class="flex items-center justify-center mb-8 relative gap-8">
           <h1 class="m-0 -mt-38">Jaan</h1>
