@@ -86,7 +86,11 @@
     dressCodeSwatch5,
     dressCodeSwatch6
   ]
-  const heroPanelImages = [heroPanelPhoto1, heroPanelPhoto2, heroPanelPhoto3]
+  const heroPanelImages = [
+    {src: heroPanelPhoto1, title: '08'},
+    {src: heroPanelPhoto2, title: '08'},
+    {src: heroPanelPhoto3, title: '26'}
+  ]
   const locationSlideIntervalMs = 4200
 
   let currentLocationSlide = 0
@@ -121,41 +125,42 @@
     </div>
   </nav>
 
-  <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)]">
+  <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] flex flex-col justify-center py-8 px-4 gap-14">
     <div class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl"></div>
-    <NotWeddingHeroNamesDate containerClass="pt-6 pb-12"/>
-    <div class="mx-auto w-full max-w-[1200px] px-6 relative flex min-h-[calc(100svh-9rem)] flex-col justify-center">
-      <div class="flex gap-14 w-full py-12">
-          <h1 class="py-4 pr-8 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] opacity-60 whitespace-pre-line uppercase tracking-[-0.04em]">
-            Save
-            the
-            Date
-          </h1>
-          {#each heroPanelImages as heroPanelImage}
+    <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
+    <div class="mx-auto w-full max-w-[1200px] relative flex flex-col justify-center">
+      <div class="flex gap-10 w-full">
+        <h1 class="py-4 pr-6 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] opacity-60 whitespace-pre-line uppercase tracking-[-0.04em]">
+          Save
+          the
+          Date
+        </h1>
+        {#each heroPanelImages as heroPanelImage}
+          <div class="flex flex-1 relative">
             <div
-              class="border border-[rgba(96,78,66,0.16)] flex flex-1 w-full overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat shadow-[0_18px_45px_rgba(68,49,37,0.08)]"
-              style={`background-image: linear-gradient(180deg, rgba(255,253,249,0.08) 0%, rgba(255,253,249,0.02) 40%, rgba(38,31,27,0.08) 100%), url(${heroPanelImage});`}
-            ></div>
-          {/each}
-      </div>
-
-      <div class="flex items-center justify-center flex-1">
-        <div class="min-w-0 max-w-[40rem] flex-1">
-          <h3 class="mb-4 text-[#261f1b]">Мы будем счастливы разделить с вами
-            этот день.</h3>
-          <p class="mb-6  text-[1rem] leading-[1.8] text-[#3f342e]">
-            Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
-            Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
-          </p>
-          <div class="flex flex-wrap items-center gap-4">
-            <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь
-            </button>
-            <a href="#day" class={secondaryButtonClass}>Примерная программа</a>
+              class="flex flex-1 w-full overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat"
+              style={`background-image: linear-gradient(180deg, rgba(255,253,249,0.08) 0%, rgba(255,253,249,0.02) 40%, rgba(38,31,27,0.08) 100%), url(${heroPanelImage.src});`}
+            >
+            </div>
+            <div class="absolute right-0 text-right -mr-1 bottom-0 font-['Bodoni_Moda'] text-[6rem] leading-[1] -mb-1">{heroPanelImage.title}</div>
           </div>
-        </div>
-<!--        <NotWeddingAugustCalendar/>-->
+        {/each}
       </div>
     </div>
+    <div class="min-w-0 max-w-[60rem] mx-auto  flex flex-col gap-2 justify-center items-center">
+      <h3 class=" text-[#261f1b] font-['Bodoni_Moda']">Мы будем счастливы разделить с вами
+        этот день.</h3>
+      <p class="text-[#3f342e] pb-4">
+        Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
+        Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
+      </p>
+      <div class="flex items-center gap-4">
+        <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь
+        </button>
+        <a href="#day" class={secondaryButtonClass}>Примерная программа</a>
+      </div>
+    </div>
+
   </section>
 
   <section id="location" class={sectionClass}>
