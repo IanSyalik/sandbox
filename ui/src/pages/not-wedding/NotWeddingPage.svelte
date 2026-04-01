@@ -135,22 +135,6 @@
       description: 'Сладкое завершение этого особенного дня.'
     }
   ]
-  const innerClass = 'mx-auto w-full max-w-[1000px] px-6'
-  const sectionClass = 'scroll-mt-24 border-t border-[rgba(96,78,66,0.16)] bg-[#fffdf9] py-[clamp(3rem,7vw,5rem)]'
-  const navLinkClass = 'text-[0.92rem] font-medium tracking-[0.02em] text-[#4d4038] transition-colors duration-150 hover:text-[#261f1b] focus-visible:text-[#261f1b]'
-  const displayH2Class = 'mb-6 font-[\'Rouge_Script\'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-[#4d4038]'
-  const bodyTextClass = 'leading-[1.8] text-[#3f342e]'
-  const buttonBaseClass = 'inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150'
-  const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
-  const secondaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-transparent text-[#261f1b] hover:-translate-y-px hover:bg-[rgba(38,31,27,0.06)] focus-visible:-translate-y-px focus-visible:bg-[rgba(38,31,27,0.06)]`
-  const locationLinkClass = 'inline-flex items-center gap-3 border-b border-[rgba(38,31,27,0.24)] pb-1 text-[1.02rem] font-semibold text-[#261f1b] transition-all duration-200 hover:border-[#8a6f62] hover:text-[#8a6f62] focus-visible:border-[#8a6f62] focus-visible:text-[#8a6f62]'
-  const heroPanelClass = 'flex w-full flex-1 overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat'
-  const heroPanelLabelClass = "absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1]"
-  const dressCodeSwatchClass = 'inline-block h-[5.25rem] w-[5.25rem] rounded-full border border-[rgba(96,78,66,0.14)] bg-cover bg-center bg-no-repeat shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]'
-  const timelineItemBaseClass = 'grid gap-2 py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6'
-  const timelineTimeClass = 'm-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]'
-  const timelineTitleClass = 'mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]'
-  const timelineDescriptionClass = 'm-0 text-[1rem] leading-[1.8] text-[#3f342e]'
   const locationSlideIntervalMs = 4200
 
   let currentLocationSlide = 0
@@ -175,58 +159,58 @@
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Rouge+Script&display=swap" rel="stylesheet">
 </svelte:head>
 
-<main id="main" tabindex="-1" class="bg-[#faf7f2] font-['Inter'] text-[#261f1b]">
-  <nav class="sticky top-0 z-20 border-b border-[rgba(96,78,66,0.16)] bg-[rgba(250,247,242,0.88)] backdrop-blur-[14px]">
-    <div class={`${innerClass} flex flex-wrap gap-5 py-4`}>
+<main id="main" tabindex="-1" class="page-main">
+  <nav class="site-nav">
+    <div class="page-inner site-nav-inner">
       {#each navItems as item}
-        <a href={item.href} class={navLinkClass}>{item.label}</a>
+        <a href={item.href} class="nav-link">{item.label}</a>
       {/each}
     </div>
   </nav>
 
-  <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] flex flex-col justify-center py-8 px-4 gap-14">
-    <div class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl"></div>
+  <section class="hero-section">
+    <div class="hero-glow"></div>
     <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
-    <div class="mx-auto w-full max-w-[1200px] relative flex flex-col justify-center">
-      <div class="flex gap-10 w-full">
-        <h1 class="py-4 pr-6 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] opacity-60 whitespace-pre-line uppercase tracking-[-0.04em]">
+    <div class="hero-shell">
+      <div class="hero-gallery-row">
+        <h1 class="hero-title">
           Save
           the
           Date
         </h1>
         {#each heroPanelImages as heroPanelImage}
-          <div class="flex flex-1 relative">
+          <div class="hero-panel-frame">
             <div
-              class={heroPanelClass}
+              class="hero-panel"
               style={`background-image: linear-gradient(180deg, rgba(255,253,249,0.08) 0%, rgba(255,253,249,0.02) 40%, rgba(38,31,27,0.08) 100%), url(${heroPanelImage.src});`}
             >
             </div>
-            <div class={heroPanelLabelClass}>{heroPanelImage.label}</div>
+            <div class="hero-panel-label">{heroPanelImage.label}</div>
           </div>
         {/each}
       </div>
     </div>
-    <div class="min-w-0 max-w-[60rem] mx-auto  flex flex-col gap-2 justify-center items-center">
-      <h3 class=" text-[#261f1b] font-['Bodoni_Moda']">Мы будем счастливы разделить с вами
+    <div class="hero-copy">
+      <h3 class="hero-copy-title">Мы будем счастливы разделить с вами
         этот день.</h3>
-      <p class="text-[#3f342e] pb-4 text-center">
+      <p class="hero-copy-text">
         Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
         Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
       </p>
-      <div class="flex items-center gap-4">
-        <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь
+      <div class="hero-copy-actions">
+        <button type="button" class="button button--primary" on:click={downloadCalendarEvent}>Добавить в календарь
         </button>
-        <a href="#day" class={secondaryButtonClass}>Примерная программа</a>
+        <a href="#day" class="button button--secondary">Примерная программа</a>
       </div>
     </div>
 
   </section>
 
-  <section id="location" class={sectionClass}>
-    <div class={`${innerClass} grid gap-10 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.18fr)] md:items-center md:gap-[clamp(2.5rem,6vw,5.5rem)]`}>
-      <div class="max-w-[29rem]">
-        <h2 class={`${displayH2Class} mb-5`}>Location</h2>
-        <p class={`${bodyTextClass} mb-6 max-w-[24rem]`}>
+  <section id="location" class="section-shell">
+    <div class="page-inner location-grid">
+      <div class="location-copy">
+        <h2 class="section-title location-title">Location</h2>
+        <p class="body-text location-description">
           Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
         </p>
         <p class="m-0">
@@ -234,10 +218,10 @@
             href="https://maps.google.com/?q=Yayaki+House,+Narva+mnt+7,+Tallinn"
             target="_blank"
             rel="noreferrer"
-            class={`${locationLinkClass} group`}
+            class="location-link"
           >
             <span>Yayaki House, Narva mnt 7, 2 этаж</span>
-            <span aria-hidden="true" class="text-[1.05rem] leading-none transition-transform duration-200 group-hover:translate-x-0.5">
+            <span aria-hidden="true" class="location-link-arrow">
               ↗
             </span>
           </a>
@@ -246,9 +230,9 @@
 
       <figure class="location-media-shell group/location-media m-0">
         <div
-          class="relative h-[20rem] overflow-hidden rounded-[1.85rem] border border-[rgba(96,78,66,0.14)] bg-[#f4ece1] shadow-[0_24px_70px_rgba(68,49,37,0.12)] sm:h-[24rem] lg:h-[28rem]"
+          class="location-media-frame"
         >
-          <div class="pointer-events-none absolute inset-[0.85rem] z-[1] rounded-[1.2rem] border border-[rgba(255,255,255,0.46)]"></div>
+          <div class="location-media-inner-border"></div>
           {#each locationSlides as photo, index (photo.src)}
             <img
               src={photo.src}
@@ -262,27 +246,27 @@
               decoding="async"
             >
           {/each}
-          <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,253,249,0.04)_0%,rgba(255,253,249,0)_34%,rgba(38,31,27,0.04)_100%)]"></div>
+          <div class="location-media-overlay"></div>
         </div>
         <figcaption class="sr-only">Фотографии площадки Yayaki House, где пройдет свадебный вечер.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section id="dress-code" class={sectionClass}>
-    <div class={`${innerClass} flex flex-col items-center gap-8 text-center`}>
-      <div class="w-full max-w-[42rem]">
-        <h2 class={displayH2Class}>Dress Code</h2>
-        <p class={bodyTextClass}>
+  <section id="dress-code" class="section-shell">
+    <div class="page-inner dress-code-shell">
+      <div class="dress-code-copy">
+        <h2 class="section-title">Dress Code</h2>
+        <p class="body-text">
           Мы будем рады видеть девушек в нарядах в нежных пастельных оттенках, а мужчин в классике.
         </p>
       </div>
 
-      <div class="flex w-full flex-wrap items-center justify-center gap-[0.9rem]" aria-label="Палитра дресс-кода">
+      <div class="dress-code-swatches" aria-label="Палитра дресс-кода">
         {#each dressCodeSwatches as swatch}
           <span
             aria-hidden="true"
-            class={dressCodeSwatchClass}
+            class="dress-code-swatch"
             style={`background-image: url(${swatch});`}
           ></span>
         {/each}
@@ -290,19 +274,19 @@
     </div>
   </section>
 
-  <section id="day" class={sectionClass}>
-    <div class={`${innerClass} grid gap-8`}>
-      <div class="max-w-[37rem]">
-        <h2 class={displayH2Class}>Wedding Day</h2>
+  <section id="day" class="section-shell">
+    <div class="page-inner timeline-shell">
+      <div class="timeline-heading">
+        <h2 class="section-title">Wedding Day</h2>
       </div>
 
-      <ol class="m-0 list-none p-0">
+      <ol class="timeline-list">
         {#each timelineItems as item, index}
-          <li class={`${timelineItemBaseClass} ${index === timelineItems.length - 1 ? 'border-y' : 'border-t'} border-[rgba(96,78,66,0.16)]`}>
-            <p class={timelineTimeClass}>{item.time}</p>
+          <li class="timeline-item" class:timeline-item--last={index === timelineItems.length - 1}>
+            <p class="timeline-time">{item.time}</p>
             <div>
-              <h3 class={timelineTitleClass}>{item.title}</h3>
-              <p class={timelineDescriptionClass}>{item.description}</p>
+              <h3 class="timeline-title">{item.title}</h3>
+              <p class="timeline-description">{item.description}</p>
             </div>
           </li>
         {/each}
@@ -310,40 +294,40 @@
     </div>
   </section>
 
-  <section id="love" class={sectionClass}>
-    <div class={`${innerClass} grid gap-8 md:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.3fr)]`}>
-      <div class="max-w-[37rem]">
-        <h2 class={displayH2Class}>With Love</h2>
+  <section id="love" class="section-shell">
+    <div class="page-inner love-grid">
+      <div class="love-heading">
+        <h2 class="section-title">With Love</h2>
       </div>
 
-      <div class="max-w-[38rem]">
-        <p class={`${bodyTextClass} mb-4`}>Мы очень ценим ваше внимание и заботу.</p>
-        <p class={`${bodyTextClass} mb-4`}>
+      <div class="love-copy">
+        <p class="body-text love-paragraph">Мы очень ценим ваше внимание и заботу.</p>
+        <p class="body-text love-paragraph">
           И будем очень благодарны, если вы обойдетесь без подарков в виде картин и предметов декора.
           Если вы хотите порадовать нас, приятным и удобным вариантом станет конверт.
         </p>
-        <p class={`${bodyTextClass} mb-4`}>
+        <p class="body-text love-paragraph">
           Ваши тёплые слова и поздравления мы с радостью примем, когда соберёмся вместе после ЗАГСа.
         </p>
-        <p class={`${bodyTextClass} mb-4`}>
+        <p class="body-text love-paragraph">
           Пожалуйста, приходите в ЗАГС не менее чем за 15 минут до начала церемонии.
         </p>
-        <p class={`${bodyTextClass} m-0`}>Самое главное для нас — это ваше присутствие и разделённая с нами радость
+        <p class="body-text m-0">Самое главное для нас — это ваше присутствие и разделённая с нами радость
           этого дня.</p>
       </div>
     </div>
   </section>
 
-  <section id="calendar" class={`${sectionClass} bg-[#f8f3ec]`}>
-    <div class={`${innerClass} flex flex-wrap items-end justify-between gap-x-8 gap-y-6`}>
-      <div class="max-w-[37rem]">
-        <h2 class={displayH2Class}>Calendar</h2>
-        <p class={`${bodyTextClass} m-0`}>Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
+  <section id="calendar" class="section-shell section-shell--muted">
+    <div class="page-inner calendar-shell">
+      <div class="calendar-copy">
+        <h2 class="section-title">Calendar</h2>
+        <p class="body-text m-0">Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
       </div>
 
-      <div class="flex flex-wrap items-center gap-4">
-        <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь</button>
-        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class={secondaryButtonClass}>Открыть Google
+      <div class="calendar-actions">
+        <button type="button" class="button button--primary" on:click={downloadCalendarEvent}>Добавить в календарь</button>
+        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="button button--secondary">Открыть Google
           Календарь
         </a>
       </div>
@@ -352,10 +336,279 @@
 </main>
 
 <style lang="postcss">
+  @reference "./../../global.css";
+
   @media (prefers-reduced-motion: no-preference) {
     :global(html) {
       scroll-behavior: smooth;
     }
+  }
+
+  .page-main {
+    @apply font-['Inter'];
+    background: #faf7f2;
+    color: #261f1b;
+  }
+
+  .page-inner {
+    @apply mx-auto w-full max-w-[1000px] px-6;
+  }
+
+  .site-nav {
+    @apply sticky top-0 z-20 border-b backdrop-blur-[14px];
+    border-color: rgba(96, 78, 66, 0.16);
+    background: rgba(250, 247, 242, 0.88);
+  }
+
+  .site-nav-inner {
+    @apply flex flex-wrap gap-5 py-4;
+  }
+
+  .nav-link {
+    @apply text-[0.92rem] font-medium tracking-[0.02em] transition-colors duration-150;
+    color: #4d4038;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: #261f1b;
+  }
+
+  .hero-section {
+    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center gap-14 overflow-hidden px-4 py-8;
+    background: linear-gradient(180deg, #fcfaf6 0%, #f4ece1 100%);
+  }
+
+  .hero-glow {
+    @apply pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full blur-3xl;
+    background: radial-gradient(circle, rgba(214, 196, 180, 0.42) 0%, rgba(214, 196, 180, 0.14) 42%, transparent 72%);
+  }
+
+  .hero-shell {
+    @apply relative mx-auto flex w-full max-w-[1200px] flex-col justify-center;
+  }
+
+  .hero-gallery-row {
+    @apply flex w-full gap-10;
+  }
+
+  .hero-title {
+    @apply py-4 pr-6 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] whitespace-pre-line uppercase tracking-[-0.04em];
+    opacity: 0.6;
+  }
+
+  .hero-panel-frame {
+    @apply relative flex flex-1;
+  }
+
+  .hero-panel {
+    @apply flex w-full flex-1 overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat;
+  }
+
+  .hero-panel-label {
+    @apply absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1];
+  }
+
+  .hero-copy {
+    @apply mx-auto flex min-w-0 max-w-[60rem] flex-col items-center justify-center gap-2;
+  }
+
+  .hero-copy-title {
+    @apply font-['Bodoni_Moda'];
+    color: #261f1b;
+  }
+
+  .hero-copy-text {
+    @apply pb-4 text-center;
+    color: #3f342e;
+  }
+
+  .hero-copy-actions {
+    @apply flex items-center gap-4;
+  }
+
+  .section-shell {
+    @apply scroll-mt-24 py-[clamp(3rem,7vw,5rem)];
+    border-top: 1px solid rgba(96, 78, 66, 0.16);
+    background: #fffdf9;
+  }
+
+  .section-shell--muted {
+    background: #f8f3ec;
+  }
+
+  .section-title {
+    @apply mb-6 font-['Rouge_Script'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92];
+    color: #4d4038;
+  }
+
+  .body-text {
+    @apply leading-[1.8];
+    color: #3f342e;
+  }
+
+  .button {
+    @apply inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150;
+  }
+
+  .button--primary {
+    border-color: #261f1b;
+    background: #261f1b;
+    color: #fffdf9;
+  }
+
+  .button--primary:hover,
+  .button--primary:focus-visible {
+    @apply -translate-y-px;
+    border-color: #3b302a;
+    background: #3b302a;
+  }
+
+  .button--secondary {
+    border-color: #261f1b;
+    background: transparent;
+    color: #261f1b;
+  }
+
+  .button--secondary:hover,
+  .button--secondary:focus-visible {
+    @apply -translate-y-px;
+    background: rgba(38, 31, 27, 0.06);
+  }
+
+  .location-grid {
+    @apply grid gap-10 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.18fr)] md:items-center md:gap-[clamp(2.5rem,6vw,5.5rem)];
+  }
+
+  .location-copy {
+    @apply max-w-[29rem];
+  }
+
+  .location-title {
+    @apply mb-5;
+  }
+
+  .location-description {
+    @apply mb-6 max-w-[24rem];
+  }
+
+  .location-link {
+    @apply inline-flex items-center gap-3 border-b pb-1 text-[1.02rem] font-semibold transition-all duration-200;
+    border-color: rgba(38, 31, 27, 0.24);
+    color: #261f1b;
+  }
+
+  .location-link:hover,
+  .location-link:focus-visible {
+    border-color: #8a6f62;
+    color: #8a6f62;
+  }
+
+  .location-link:hover .location-link-arrow,
+  .location-link:focus-visible .location-link-arrow {
+    transform: translateX(0.125rem);
+  }
+
+  .location-link-arrow {
+    @apply text-[1.05rem] leading-none transition-transform duration-200;
+  }
+
+  .location-media-frame {
+    @apply relative h-[20rem] overflow-hidden rounded-[1.85rem] bg-[#f4ece1] sm:h-[24rem] lg:h-[28rem];
+    border: 1px solid rgba(96, 78, 66, 0.14);
+    box-shadow: 0 24px 70px rgba(68, 49, 37, 0.12);
+  }
+
+  .location-media-inner-border {
+    @apply pointer-events-none absolute inset-[0.85rem] z-[1] rounded-[1.2rem];
+    border: 1px solid rgba(255, 255, 255, 0.46);
+  }
+
+  .location-media-overlay {
+    @apply pointer-events-none absolute inset-0;
+    background: linear-gradient(180deg, rgba(255, 253, 249, 0.04) 0%, rgba(255, 253, 249, 0) 34%, rgba(38, 31, 27, 0.04) 100%);
+  }
+
+  .dress-code-shell {
+    @apply flex flex-col items-center gap-8 text-center;
+  }
+
+  .dress-code-copy {
+    @apply w-full max-w-[42rem];
+  }
+
+  .dress-code-swatches {
+    @apply flex w-full flex-wrap items-center justify-center gap-[0.9rem];
+  }
+
+  .dress-code-swatch {
+    @apply inline-block h-[5.25rem] w-[5.25rem] rounded-full bg-cover bg-center bg-no-repeat;
+    border: 1px solid rgba(96, 78, 66, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  }
+
+  .timeline-shell {
+    @apply grid gap-8;
+  }
+
+  .timeline-heading {
+    @apply max-w-[37rem];
+  }
+
+  .timeline-list {
+    @apply m-0 list-none p-0;
+  }
+
+  .timeline-item {
+    @apply grid gap-2 py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6;
+    border-top: 1px solid rgba(96, 78, 66, 0.16);
+  }
+
+  .timeline-item--last {
+    border-bottom: 1px solid rgba(96, 78, 66, 0.16);
+  }
+
+  .timeline-time {
+    @apply m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em];
+    color: #8a6f62;
+  }
+
+  .timeline-title {
+    @apply mb-1 text-[1.05rem] font-bold leading-[1.45];
+    color: #261f1b;
+  }
+
+  .timeline-description {
+    @apply m-0 text-[1rem] leading-[1.8];
+    color: #3f342e;
+  }
+
+  .love-grid {
+    @apply grid gap-8 md:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.3fr)];
+  }
+
+  .love-heading {
+    @apply max-w-[37rem];
+  }
+
+  .love-copy {
+    @apply max-w-[38rem];
+  }
+
+  .love-paragraph {
+    @apply mb-4;
+  }
+
+  .calendar-shell {
+    @apply flex flex-wrap items-end justify-between gap-x-8 gap-y-6;
+  }
+
+  .calendar-copy {
+    @apply max-w-[37rem];
+  }
+
+  .calendar-actions {
+    @apply flex flex-wrap items-center gap-4;
   }
 
   @media (prefers-reduced-motion: no-preference) {
