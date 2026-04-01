@@ -15,6 +15,27 @@
   import heroPanelPhoto3 from './3.JPG?url'
   import NotWeddingHeroNamesDate from './NotWeddingHeroNamesDate.svelte'
 
+  type NavItem = {
+    href: string,
+    label: string,
+  }
+
+  type LocationSlide = {
+    src: string,
+    objectPosition: string,
+  }
+
+  type HeroPanelImage = {
+    src: string,
+    label: string,
+  }
+
+  type TimelineItem = {
+    time: string,
+    title: string,
+    description: string,
+  }
+
   const event = {
     title: 'Jaan & Jana Wedding',
     location: 'Yayaki House, Narva mnt 7, 2 этаж',
@@ -63,16 +84,13 @@
   }
 
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.googleStartUtc}/${event.googleEndUtc}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&ctz=${encodeURIComponent(event.timeZone)}`
-  const innerClass = 'mx-auto w-full max-w-[1000px] px-6'
-  const sectionClass = 'scroll-mt-24 border-t border-[rgba(96,78,66,0.16)] bg-[#fffdf9] py-[clamp(3rem,7vw,5rem)]'
-  const navLinkClass = 'text-[0.92rem] font-medium tracking-[0.02em] text-[#4d4038] transition-colors duration-150 hover:text-[#261f1b] focus-visible:text-[#261f1b]'
-  const displayH2Class = 'mb-6 font-[\'Rouge_Script\'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-[#4d4038]'
-  const bodyTextClass = ' leading-[1.8] text-[#3f342e]'
-  const buttonBaseClass = 'inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150'
-  const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
-  const secondaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-transparent text-[#261f1b] hover:-translate-y-px hover:bg-[rgba(38,31,27,0.06)] focus-visible:-translate-y-px focus-visible:bg-[rgba(38,31,27,0.06)]`
-  const locationLinkClass = 'inline-flex items-center gap-3 border-b border-[rgba(38,31,27,0.24)] pb-1 text-[1.02rem] font-semibold text-[#261f1b] transition-all duration-200 hover:border-[#8a6f62] hover:text-[#8a6f62] focus-visible:border-[#8a6f62] focus-visible:text-[#8a6f62]'
-  const locationSlides = [
+  const navItems: NavItem[] = [
+    {href: '#location', label: 'Локация'},
+    {href: '#dress-code', label: 'Дресс-код'},
+    {href: '#day', label: 'Свадебный день'},
+    {href: '#love', label: 'Пожелания'}
+  ]
+  const locationSlides: LocationSlide[] = [
     {src: locationPhoto, objectPosition: '50% 50%'},
     {src: locationPhoto2, objectPosition: '50% 50%'},
     {src: locationPhoto3, objectPosition: '50% 34%'}
@@ -85,11 +103,54 @@
     dressCodeSwatch5,
     dressCodeSwatch6
   ]
-  const heroPanelImages = [
-    {src: heroPanelPhoto1, title: '08'},
-    {src: heroPanelPhoto2, title: '08'},
-    {src: heroPanelPhoto3, title: '26'}
+  const heroPanelImages: HeroPanelImage[] = [
+    {src: heroPanelPhoto1, label: '08'},
+    {src: heroPanelPhoto2, label: '08'},
+    {src: heroPanelPhoto3, label: '26'}
   ]
+  const timelineItems: TimelineItem[] = [
+    {
+      time: '14:30',
+      title: 'Церемония в ЗАГСе Таллинна',
+      description: 'Тот самый момент, когда мы скажем друг другу «да».'
+    },
+    {
+      time: '15:00',
+      title: 'Фотографии',
+      description: 'Сохраним первые мгновения этого дня — искренние улыбки, объятия и эмоции.'
+    },
+    {
+      time: '16:00',
+      title: 'Начало праздника',
+      description: 'Соберёмся вместе, чтобы поздравить, обнять и разделить радость этого дня.'
+    },
+    {
+      time: '18:00',
+      title: 'Вечер и танцы',
+      description: 'Время наслаждаться атмосферой, музыкой и друг другом.'
+    },
+    {
+      time: '21:00',
+      title: 'Торт-сюрприз',
+      description: 'Сладкое завершение этого особенного дня.'
+    }
+  ]
+  const innerClass = 'mx-auto w-full max-w-[1000px] px-6'
+  const sectionClass = 'scroll-mt-24 border-t border-[rgba(96,78,66,0.16)] bg-[#fffdf9] py-[clamp(3rem,7vw,5rem)]'
+  const navLinkClass = 'text-[0.92rem] font-medium tracking-[0.02em] text-[#4d4038] transition-colors duration-150 hover:text-[#261f1b] focus-visible:text-[#261f1b]'
+  const displayH2Class = 'mb-6 font-[\'Rouge_Script\'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-[#4d4038]'
+  const bodyTextClass = 'leading-[1.8] text-[#3f342e]'
+  const buttonBaseClass = 'inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150'
+  const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
+  const secondaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-transparent text-[#261f1b] hover:-translate-y-px hover:bg-[rgba(38,31,27,0.06)] focus-visible:-translate-y-px focus-visible:bg-[rgba(38,31,27,0.06)]`
+  const locationLinkClass = 'inline-flex items-center gap-3 border-b border-[rgba(38,31,27,0.24)] pb-1 text-[1.02rem] font-semibold text-[#261f1b] transition-all duration-200 hover:border-[#8a6f62] hover:text-[#8a6f62] focus-visible:border-[#8a6f62] focus-visible:text-[#8a6f62]'
+  const heroPanelClass = 'flex w-full flex-1 overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat'
+  const heroPanelLabelClass = "absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1]"
+  const dressCodeSwatchClass = 'inline-block h-[5.25rem] w-[5.25rem] rounded-full border border-[rgba(96,78,66,0.14)] bg-cover bg-center bg-no-repeat shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]'
+  const timelineItemBaseClass = 'grid gap-2 py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6'
+  const timelineTimeClass = 'm-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]'
+  const timelineTitleClass = 'mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]'
+  const timelineDescriptionClass = 'm-0 text-[1rem] leading-[1.8] text-[#3f342e]'
   const locationSlideIntervalMs = 4200
 
   let currentLocationSlide = 0
@@ -117,10 +178,9 @@
 <main id="main" tabindex="-1" class="bg-[#faf7f2] font-['Inter'] text-[#261f1b]">
   <nav class="sticky top-0 z-20 border-b border-[rgba(96,78,66,0.16)] bg-[rgba(250,247,242,0.88)] backdrop-blur-[14px]">
     <div class={`${innerClass} flex flex-wrap gap-5 py-4`}>
-      <a href="#location" class={navLinkClass}>Локация</a>
-      <a href="#dress-code" class={navLinkClass}>Дресс-код</a>
-      <a href="#day" class={navLinkClass}>Свадебный день</a>
-      <a href="#love" class={navLinkClass}>Пожелания</a>
+      {#each navItems as item}
+        <a href={item.href} class={navLinkClass}>{item.label}</a>
+      {/each}
     </div>
   </nav>
 
@@ -137,11 +197,11 @@
         {#each heroPanelImages as heroPanelImage}
           <div class="flex flex-1 relative">
             <div
-              class="flex flex-1 w-full overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat"
+              class={heroPanelClass}
               style={`background-image: linear-gradient(180deg, rgba(255,253,249,0.08) 0%, rgba(255,253,249,0.02) 40%, rgba(38,31,27,0.08) 100%), url(${heroPanelImage.src});`}
             >
             </div>
-            <div class="absolute right-0 text-right -mr-1 bottom-0 font-['Bodoni_Moda'] text-[6rem] leading-[1] -mb-1">{heroPanelImage.title}</div>
+            <div class={heroPanelLabelClass}>{heroPanelImage.label}</div>
           </div>
         {/each}
       </div>
@@ -222,7 +282,7 @@
         {#each dressCodeSwatches as swatch}
           <span
             aria-hidden="true"
-            class="inline-block h-[5.25rem] w-[5.25rem] rounded-full border border-[rgba(96,78,66,0.14)] bg-cover bg-center bg-no-repeat shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]"
+            class={dressCodeSwatchClass}
             style={`background-image: url(${swatch});`}
           ></span>
         {/each}
@@ -237,45 +297,15 @@
       </div>
 
       <ol class="m-0 list-none p-0">
-        <li class="grid gap-2 border-t border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
-          <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">14:30</p>
-          <div>
-            <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Церемония в ЗАГСе Таллинна</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Тот самый момент, когда мы скажем друг другу
-              «да».</p>
-          </div>
-        </li>
-        <li class="grid gap-2 border-t border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
-          <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">15:00</p>
-          <div>
-            <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Фотографии</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Сохраним первые мгновения этого дня — искренние
-              улыбки, объятия и эмоции.</p>
-          </div>
-        </li>
-        <li class="grid gap-2 border-t border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
-          <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">16:00</p>
-          <div>
-            <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Начало праздника</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Соберёмся вместе, чтобы поздравить, обнять и
-              разделить радость этого дня.</p>
-          </div>
-        </li>
-        <li class="grid gap-2 border-t border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
-          <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">18:00</p>
-          <div>
-            <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Вечер и танцы</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Время наслаждаться атмосферой, музыкой и друг
-              другом.</p>
-          </div>
-        </li>
-        <li class="grid gap-2 border-y border-[rgba(96,78,66,0.16)] py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6">
-          <p class="m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-[#8a6f62]">21:00</p>
-          <div>
-            <h3 class="mb-1 text-[1.05rem] font-bold leading-[1.45] text-[#261f1b]">Торт-сюрприз</h3>
-            <p class="m-0 text-[1rem] leading-[1.8] text-[#3f342e]">Сладкое завершение этого особенного дня.</p>
-          </div>
-        </li>
+        {#each timelineItems as item, index}
+          <li class={`${timelineItemBaseClass} ${index === timelineItems.length - 1 ? 'border-y' : 'border-t'} border-[rgba(96,78,66,0.16)]`}>
+            <p class={timelineTimeClass}>{item.time}</p>
+            <div>
+              <h3 class={timelineTitleClass}>{item.title}</h3>
+              <p class={timelineDescriptionClass}>{item.description}</p>
+            </div>
+          </li>
+        {/each}
       </ol>
     </div>
   </section>

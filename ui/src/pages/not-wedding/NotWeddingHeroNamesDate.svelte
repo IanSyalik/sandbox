@@ -4,9 +4,9 @@
 </script>
 
 <div class={`text-center ${containerClass}`.trim()}>
-  <div class={`m-0 relative flex items-center justify-center ${contentClass}`.trim()} style="color: #000;">
+  <div class={`relative m-0 flex items-center justify-center text-black ${contentClass}`.trim()}>
     <h1>Jaan Jana</h1>
-    <h1 class="absolute left-1/2 top-1/2 !text-[8rem] ml-4 -translate-x-1/2 -translate-y-1/2  opacity-20">&</h1>
+    <h1 class="absolute left-1/2 top-1/2 ml-4 -translate-x-1/2 -translate-y-1/2 !text-[8rem] opacity-20">&</h1>
   </div>
 </div>
 
