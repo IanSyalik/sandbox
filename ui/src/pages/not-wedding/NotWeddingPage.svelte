@@ -182,7 +182,7 @@
           <div class="hero-panel-frame">
             <div
               class="hero-panel"
-              style={`background-image: linear-gradient(180deg, rgba(255,253,249,0.08) 0%, rgba(255,253,249,0.02) 40%, rgba(38,31,27,0.08) 100%), url(${heroPanelImage.src});`}
+              style={`--hero-panel-image: url(${heroPanelImage.src});`}
             >
             </div>
             <div class="hero-panel-label">{heroPanelImage.label}</div>
@@ -345,9 +345,7 @@
   }
 
   .page-main {
-    @apply font-['Inter'];
-    background: #faf7f2;
-    color: #261f1b;
+    @apply bg-nw-200 font-['Inter'] text-nw-900;
   }
 
   .page-inner {
@@ -356,8 +354,8 @@
 
   .site-nav {
     @apply sticky top-0 z-20 border-b backdrop-blur-[14px];
-    border-color: rgba(96, 78, 66, 0.16);
-    background: rgba(250, 247, 242, 0.88);
+    border-color: color-mix(in srgb, var(--color-nw-800) 16%, transparent);
+    background: color-mix(in srgb, var(--color-nw-200) 88%, transparent);
   }
 
   .site-nav-inner {
@@ -365,23 +363,27 @@
   }
 
   .nav-link {
-    @apply text-[0.92rem] font-medium tracking-[0.02em] transition-colors duration-150;
-    color: #4d4038;
+    @apply text-[0.92rem] font-medium tracking-[0.02em] text-nw-800 transition-colors duration-150;
   }
 
   .nav-link:hover,
   .nav-link:focus-visible {
-    color: #261f1b;
+    @apply text-nw-900;
   }
 
   .hero-section {
     @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center gap-14 overflow-hidden px-4 py-8;
-    background: linear-gradient(180deg, #fcfaf6 0%, #f4ece1 100%);
+    background: linear-gradient(180deg, var(--color-nw-100) 0%, var(--color-nw-400) 100%);
   }
 
   .hero-glow {
     @apply pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full blur-3xl;
-    background: radial-gradient(circle, rgba(214, 196, 180, 0.42) 0%, rgba(214, 196, 180, 0.14) 42%, transparent 72%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-nw-600) 42%, transparent) 0%,
+      color-mix(in srgb, var(--color-nw-600) 14%, transparent) 42%,
+      transparent 72%
+    );
   }
 
   .hero-shell {
@@ -403,6 +405,13 @@
 
   .hero-panel {
     @apply flex w-full flex-1 overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat;
+    background-image: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-nw-50) 8%, transparent) 0%,
+        color-mix(in srgb, var(--color-nw-50) 2%, transparent) 40%,
+        color-mix(in srgb, var(--color-nw-900) 8%, transparent) 100%
+      ),
+      var(--hero-panel-image);
   }
 
   .hero-panel-label {
@@ -414,13 +423,11 @@
   }
 
   .hero-copy-title {
-    @apply font-['Bodoni_Moda'];
-    color: #261f1b;
+    @apply font-['Bodoni_Moda'] text-nw-900;
   }
 
   .hero-copy-text {
-    @apply pb-4 text-center;
-    color: #3f342e;
+    @apply pb-4 text-center text-nw-800;
   }
 
   .hero-copy-actions {
@@ -429,22 +436,20 @@
 
   .section-shell {
     @apply scroll-mt-24 py-[clamp(3rem,7vw,5rem)];
-    border-top: 1px solid rgba(96, 78, 66, 0.16);
-    background: #fffdf9;
+    border-top: 1px solid color-mix(in srgb, var(--color-nw-800) 16%, transparent);
+    background: var(--color-nw-50);
   }
 
   .section-shell--muted {
-    background: #f8f3ec;
+    @apply bg-nw-300;
   }
 
   .section-title {
-    @apply mb-6 font-['Rouge_Script'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92];
-    color: #4d4038;
+    @apply mb-6 font-['Rouge_Script'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-nw-800;
   }
 
   .body-text {
-    @apply leading-[1.8];
-    color: #3f342e;
+    @apply leading-[1.8] text-nw-800;
   }
 
   .button {
@@ -452,28 +457,22 @@
   }
 
   .button--primary {
-    border-color: #261f1b;
-    background: #261f1b;
-    color: #fffdf9;
+    @apply border-nw-900 bg-nw-900 text-nw-50;
   }
 
   .button--primary:hover,
   .button--primary:focus-visible {
-    @apply -translate-y-px;
-    border-color: #3b302a;
-    background: #3b302a;
+    @apply -translate-y-px border-nw-800 bg-nw-800;
   }
 
   .button--secondary {
-    border-color: #261f1b;
-    background: transparent;
-    color: #261f1b;
+    @apply border-nw-900 bg-transparent text-nw-900;
   }
 
   .button--secondary:hover,
   .button--secondary:focus-visible {
     @apply -translate-y-px;
-    background: rgba(38, 31, 27, 0.06);
+    background: color-mix(in srgb, var(--color-nw-900) 6%, transparent);
   }
 
   .location-grid {
@@ -494,14 +493,13 @@
 
   .location-link {
     @apply inline-flex items-center gap-3 border-b pb-1 text-[1.02rem] font-semibold transition-all duration-200;
-    border-color: rgba(38, 31, 27, 0.24);
-    color: #261f1b;
+    border-color: color-mix(in srgb, var(--color-nw-900) 24%, transparent);
+    color: var(--color-nw-900);
   }
 
   .location-link:hover,
   .location-link:focus-visible {
-    border-color: #8a6f62;
-    color: #8a6f62;
+    @apply border-nw-700 text-nw-700;
   }
 
   .location-link:hover .location-link-arrow,
@@ -514,19 +512,24 @@
   }
 
   .location-media-frame {
-    @apply relative h-[20rem] overflow-hidden rounded-[1.85rem] bg-[#f4ece1] sm:h-[24rem] lg:h-[28rem];
-    border: 1px solid rgba(96, 78, 66, 0.14);
-    box-shadow: 0 24px 70px rgba(68, 49, 37, 0.12);
+    @apply relative h-[20rem] overflow-hidden rounded-[1.85rem] bg-nw-400 sm:h-[24rem] lg:h-[28rem];
+    border: 1px solid color-mix(in srgb, var(--color-nw-800) 14%, transparent);
+    box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-800) 12%, transparent);
   }
 
   .location-media-inner-border {
     @apply pointer-events-none absolute inset-[0.85rem] z-[1] rounded-[1.2rem];
-    border: 1px solid rgba(255, 255, 255, 0.46);
+    border: 1px solid color-mix(in srgb, var(--color-nw-50) 46%, transparent);
   }
 
   .location-media-overlay {
     @apply pointer-events-none absolute inset-0;
-    background: linear-gradient(180deg, rgba(255, 253, 249, 0.04) 0%, rgba(255, 253, 249, 0) 34%, rgba(38, 31, 27, 0.04) 100%);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-nw-50) 4%, transparent) 0%,
+      color-mix(in srgb, var(--color-nw-50) 0%, transparent) 34%,
+      color-mix(in srgb, var(--color-nw-900) 4%, transparent) 100%
+    );
   }
 
   .dress-code-shell {
@@ -543,8 +546,8 @@
 
   .dress-code-swatch {
     @apply inline-block h-[5.25rem] w-[5.25rem] rounded-full bg-cover bg-center bg-no-repeat;
-    border: 1px solid rgba(96, 78, 66, 0.14);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    border: 1px solid color-mix(in srgb, var(--color-nw-800) 14%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-nw-50) 25%, transparent);
   }
 
   .timeline-shell {
@@ -561,26 +564,23 @@
 
   .timeline-item {
     @apply grid gap-2 py-5 md:grid-cols-[minmax(5rem,6rem)_minmax(0,1fr)] md:gap-6;
-    border-top: 1px solid rgba(96, 78, 66, 0.16);
+    border-top: 1px solid color-mix(in srgb, var(--color-nw-800) 16%, transparent);
   }
 
   .timeline-item--last {
-    border-bottom: 1px solid rgba(96, 78, 66, 0.16);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-nw-800) 16%, transparent);
   }
 
   .timeline-time {
-    @apply m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em];
-    color: #8a6f62;
+    @apply m-0 text-[0.9rem] font-bold uppercase tracking-[0.12em] text-nw-700;
   }
 
   .timeline-title {
-    @apply mb-1 text-[1.05rem] font-bold leading-[1.45];
-    color: #261f1b;
+    @apply mb-1 text-[1.05rem] font-bold leading-[1.45] text-nw-900;
   }
 
   .timeline-description {
-    @apply m-0 text-[1rem] leading-[1.8];
-    color: #3f342e;
+    @apply m-0 text-[1rem] leading-[1.8] text-nw-800;
   }
 
   .love-grid {

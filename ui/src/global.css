@@ -74,6 +74,20 @@
   --color-secondary-900: #111827;
   --color-secondary-950: #030712;
   --color-secondary: #6b7280;
+
+  --color-nw-50: #fffdf9;
+  --color-nw-100: #fcfaf6;
+  --color-nw-200: #faf7f2;
+  --color-nw-300: #f8f3ec;
+  --color-nw-400: #f4ece1;
+  --color-nw-500: #d8c8bf;
+  --color-nw-600: #bba395;
+  --color-nw-700: #8a6f62;
+  --color-nw-800: #4d4038;
+  --color-nw-900: #261f1b;
+  --color-nw-950: #17110e;
+  --color-nw: #4d4038;
+
 }
 
 /*
