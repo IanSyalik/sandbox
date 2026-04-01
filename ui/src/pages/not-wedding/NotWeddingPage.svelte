@@ -13,7 +13,6 @@
   import heroPanelPhoto1 from './1.JPG?url'
   import heroPanelPhoto2 from './2.JPG?url'
   import heroPanelPhoto3 from './3.JPG?url'
-  import NotWeddingAugustCalendar from './NotWeddingAugustCalendar.svelte'
   import NotWeddingHeroNamesDate from './NotWeddingHeroNamesDate.svelte'
 
   const event = {

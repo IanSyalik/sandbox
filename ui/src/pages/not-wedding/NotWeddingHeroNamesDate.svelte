@@ -12,6 +12,6 @@
 
 <style lang="postcss">
   h1 {
-    @apply font-['Rouge_Script'] text-[clamp(4.8rem,11vw,8rem)] leading-[1] !text-[4rem];
+    @apply font-['Rouge_Script'] leading-[1] !text-[4rem];
   }
 </style>
