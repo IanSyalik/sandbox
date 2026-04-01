@@ -347,8 +347,17 @@
   }
 
   .hero-title {
-    @apply py-4 pr-6 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] whitespace-pre-line uppercase tracking-[-0.04em];
-    opacity: 0.6;
+    @apply py-4 pr-6 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] whitespace-pre-line uppercase tracking-[-0.04em] text-transparent;
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
+      var(--color-nw-600) 26%,
+      var(--color-nw-700) 62%,
+      var(--color-nw-900) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    opacity: 0.82;
   }
 
   .hero-panel-frame {
@@ -367,7 +376,16 @@
   }
 
   .hero-panel-label {
-    @apply absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1];
+    @apply absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1] text-transparent;
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-nw-400) 88%, transparent) 0%,
+      var(--color-nw-500) 35%,
+      var(--color-nw-800) 70%,
+      var(--color-nw-900) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
   }
 
   .hero-copy {
