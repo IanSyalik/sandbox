@@ -1,4 +1,11 @@
 <script lang="ts">
+  import {onMount} from 'svelte'
+
+  import locationPhoto from './wedd graphics.webp'
+  import locationPhoto2 from './wedd graphics2.webp'
+  import locationPhoto3 from './wedd graphics3.webp'
+  import NotWeddingHeroNamesDate from './NotWeddingHeroNamesDate.svelte'
+
   const event = {
     title: 'Jaan & Jana Wedding',
     location: 'Yayaki House, Narva mnt 7, 2 этаж',
@@ -55,6 +62,27 @@
   const buttonBaseClass = 'inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150'
   const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
   const secondaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-transparent text-[#261f1b] hover:-translate-y-px hover:bg-[rgba(38,31,27,0.06)] focus-visible:-translate-y-px focus-visible:bg-[rgba(38,31,27,0.06)]`
+  const locationLinkClass = 'inline-flex items-center gap-3 border-b border-[rgba(38,31,27,0.24)] pb-1 text-[1.02rem] font-semibold text-[#261f1b] transition-all duration-200 hover:border-[#8a6f62] hover:text-[#8a6f62] focus-visible:border-[#8a6f62] focus-visible:text-[#8a6f62]'
+  const locationSlides = [
+    {src: locationPhoto, objectPosition: '50% 50%'},
+    {src: locationPhoto2, objectPosition: '50% 50%'},
+    {src: locationPhoto3, objectPosition: '50% 34%'}
+  ]
+  const locationSlideIntervalMs = 4200
+
+  let currentLocationSlide = 0
+
+  onMount(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
+    const intervalId = window.setInterval(() => {
+      currentLocationSlide = (currentLocationSlide + 1) % locationSlides.length
+    }, locationSlideIntervalMs)
+
+    return () => window.clearInterval(intervalId)
+  })
 </script>
 
 <svelte:head>
@@ -78,14 +106,7 @@
     <div class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl"></div>
 
     <div class={`${innerClass} relative z-[1] flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center gap-[clamp(2rem,5vw,4rem)]`}>
-      <div class="text-center">
-        <div class="flex items-center justify-center mb-8 relative gap-8">
-          <h1 class="m-0 -mt-38">Jaan</h1>
-          <h1 class="m-0 opacity-20 !text-[20rem] absolute ml-4 left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 ">&</h1>
-          <h1 class="m-0 -mt-8">Jana</h1>
-        </div>
-        <p class="m-0 text-[0.98rem] font-semibold uppercase tracking-[0.08em] text-[#5f5149]">Saturday / 08.08.2026</p>
-      </div>
+      <NotWeddingHeroNamesDate />
 
       <div class="flex w-full flex-col gap-[clamp(2rem,5vw,4.5rem)] md:flex-row md:items-center">
         <div class="min-w-0 flex-1">
@@ -119,23 +140,49 @@
   </section>
 
   <section id="location" class={sectionClass}>
-    <div class={`${innerClass} grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(17rem,0.68fr)] md:gap-[clamp(2rem,6vw,5rem)]`}>
-      <div class="max-w-[37rem]">
-        <h2 class={displayH2Class}>Location</h2>
-        <p class={`${bodyTextClass} mb-4`}>
+    <div class={`${innerClass} grid gap-10 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.18fr)] md:items-center md:gap-[clamp(2.5rem,6vw,5.5rem)]`}>
+      <div class="max-w-[29rem]">
+        <h2 class={`${displayH2Class} mb-5`}>Location</h2>
+        <p class={`${bodyTextClass} mb-6 max-w-[24rem]`}>
           Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
         </p>
-        <p>
+        <p class="m-0">
           <a
             href="https://maps.google.com/?q=Yayaki+House,+Narva+mnt+7,+Tallinn"
             target="_blank"
             rel="noreferrer"
-            class="border-b border-[rgba(38,31,27,0.24)] text-[1.02rem] font-semibold text-[#261f1b] transition-colors duration-150 hover:border-[#8a6f62] hover:text-[#8a6f62] focus-visible:border-[#8a6f62] focus-visible:text-[#8a6f62]"
+            class={`${locationLinkClass} group`}
           >
-            Yayaki House, Narva mnt 7, 2 этаж
+            <span>Yayaki House, Narva mnt 7, 2 этаж</span>
+            <span aria-hidden="true" class="text-[1.05rem] leading-none transition-transform duration-200 group-hover:translate-x-0.5">
+              ↗
+            </span>
           </a>
         </p>
       </div>
+
+      <figure class="location-media-shell group/location-media m-0">
+        <div
+          class="relative h-[20rem] overflow-hidden rounded-[1.85rem] border border-[rgba(96,78,66,0.14)] bg-[#f4ece1] shadow-[0_24px_70px_rgba(68,49,37,0.12)] sm:h-[24rem] lg:h-[28rem]"
+        >
+          <div class="pointer-events-none absolute inset-[0.85rem] z-[1] rounded-[1.2rem] border border-[rgba(255,255,255,0.46)]"></div>
+          {#each locationSlides as photo, index (photo.src)}
+            <img
+              src={photo.src}
+              alt=""
+              aria-hidden="true"
+              class={`absolute inset-0 block h-full w-full object-cover transition-[opacity,transform] duration-[1400ms] ease-out motion-safe:group-hover/location-media:scale-[1.02] ${
+                currentLocationSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.015]'
+              }`}
+              style={`object-position: ${photo.objectPosition};`}
+              loading="eager"
+              decoding="async"
+            >
+          {/each}
+          <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,253,249,0.04)_0%,rgba(255,253,249,0)_34%,rgba(38,31,27,0.04)_100%)]"></div>
+        </div>
+        <figcaption class="sr-only">Фотографии площадки Yayaki House, где пройдет свадебный вечер.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -256,8 +303,22 @@
     }
   }
 
-  h1 {
-    @apply font-['Rouge_Script'] text-[clamp(4.8rem,11vw,8rem)] leading-[0.92] text-[#4d4038];
+  @media (prefers-reduced-motion: no-preference) {
+    .location-media-shell {
+      animation: location-media-enter 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+  }
+
+  @keyframes location-media-enter {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   :global(body) {
