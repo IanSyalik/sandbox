@@ -134,7 +134,7 @@
           </h1>
         </div>
         <div class="col-span-3 relative flex gap-6 flex-1 w-full">
-          <NotWeddingHeroNamesDate containerClass="absolute inset-x-0 top-0 translate-y-1/2 pt-5 filter invert"/>
+          <NotWeddingHeroNamesDate containerClass="absolute inset-x-0 bottom-0 translate-y-1/2 pb-5  "/>
           {#each heroPanelImages as heroPanelImage}
             <div
               class="border border-[rgba(96,78,66,0.16)] flex flex-1 w-full overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat shadow-[0_18px_45px_rgba(68,49,37,0.08)]"

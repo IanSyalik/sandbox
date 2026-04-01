@@ -21,55 +21,71 @@
   const firstDayOfMonth = new Date(displayYear, displayMonthIndex, 1)
   const firstWeekdayIndex = (firstDayOfMonth.getDay() + 6) % 7
   const daysInMonth = new Date(displayYear, displayMonthIndex + 1, 0).getDate()
-  const daysInPreviousMonth = new Date(displayYear, displayMonthIndex, 0).getDate()
   const dayCells = Array.from({length: 42}, (_, index) => {
     const dayNumber = index - firstWeekdayIndex + 1
 
-    if (dayNumber <= 0) {
-      return {
-        day: daysInPreviousMonth + dayNumber,
-        monthName: monthNames[(displayMonthIndex + 11) % 12],
-        isCurrentMonth: false,
-        isWeddingDay: false
-      }
-    }
-
-    if (dayNumber > daysInMonth) {
-      return {
-        day: dayNumber - daysInMonth,
-        monthName: monthNames[(displayMonthIndex + 1) % 12],
-        isCurrentMonth: false,
-        isWeddingDay: false
-      }
+    if (dayNumber <= 0 || dayNumber > daysInMonth) {
+      return null
     }
 
     return {
       day: dayNumber,
-      monthName: monthNames[displayMonthIndex],
-      isCurrentMonth: true,
       isWeddingDay: dayNumber === weddingDay
     }
   })
 </script>
 
-<div class="w-full max-w-[25rem] shrink-0 rounded-[2rem] border border-[rgba(96,78,66,0.16)] bg-[rgba(255,253,249,0.72)] p-5 shadow-[0_18px_45px_rgba(68,49,37,0.08)] backdrop-blur-[8px]">
+<div class="max-w-[25rem] shrink-0">
   <p class="mb-4 text-center text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-[#8a6f62]">{monthName}</p>
-
-  <div class="grid grid-cols-7 gap-1" role="grid" aria-label="August 2026 calendar">
+  <div class="grid grid-cols-7" role="grid" aria-label="August 2026 calendar">
     {#each dayCells as cell}
       <div
-        class={`flex aspect-square items-center justify-center rounded-[1rem] border text-[0.8rem] font-medium leading-none ${
-          cell.isWeddingDay
-            ? 'border-[#261f1b] bg-[#261f1b] text-[#fffdf9] shadow-[0_10px_24px_rgba(38,31,27,0.18)] text-[1rem]'
-            : cell.isCurrentMonth
-              ? 'border-[rgba(96,78,66,0.1)] bg-[rgba(255,255,255,0.68)] text-[#3f342e]'
-              : 'border-[rgba(96,78,66,0.06)] bg-[rgba(96,78,66,0.035)] text-[rgba(63,52,46,0.42)]'
-        }`}
+        class="relative flex aspect-square items-center justify-center p-3 text-[0.8rem] font-medium leading-none"
         role="gridcell"
-        aria-label={cell.isWeddingDay ? `${cell.monthName} ${cell.day}, wedding day` : `${cell.monthName} ${cell.day}`}
+        aria-label={cell ? cell.isWeddingDay ? `August ${cell.day}, wedding day` : `August ${cell.day}` : undefined}
       >
-        {cell.day}
+        {#if cell?.isWeddingDay}
+          <span aria-hidden="true" class="heart-selection"></span>
+        {/if}
+
+        <span class={`relative z-[1] ${cell?.isWeddingDay ? 'font-semibold text-[#fffdf9]' : 'text-[#3f342e]'}`}>
+          {cell?.day ?? ''}
+        </span>
       </div>
     {/each}
   </div>
 </div>
+
+<style lang="postcss">
+  .heart-selection {
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    width: 1.65rem;
+    height: 1.65rem;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-radius: 0.28rem;
+    background: #cc3344;
+    box-shadow: 0 10px 20px rgba(204, 51, 68, 0.2);
+  }
+
+  .heart-selection::before,
+  .heart-selection::after {
+    content: '';
+    position: absolute;
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 9999px;
+    background: #cc3344;
+  }
+
+  .heart-selection::before {
+    left: -0.82rem;
+    top: 0;
+  }
+
+  .heart-selection::after {
+    left: 0;
+    top: -0.82rem;
+  }
+</style>
