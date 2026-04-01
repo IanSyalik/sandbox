@@ -108,7 +108,7 @@
   <title>Jaan & Jana</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rouge+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Rouge+Script&display=swap" rel="stylesheet">
 </svelte:head>
 
 <main id="main" tabindex="-1" class="bg-[#faf7f2] font-['Inter'] text-[#261f1b]">
@@ -123,28 +123,23 @@
 
   <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)]">
     <div class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl"></div>
-    <NotWeddingHeroNamesDate/>
+    <NotWeddingHeroNamesDate containerClass="pt-6 pb-12"/>
     <div class="mx-auto w-full max-w-[1200px] px-6 relative flex min-h-[calc(100svh-9rem)] flex-col justify-center">
-      <div class="grid gap-6 grid-cols-5 w-full">
-        <div class="col-span-2">
-          <h1 class="text-[8rem] leading-[1.1] font-extrabold whitespace-pre-line uppercase">
+      <div class="flex gap-14 w-full py-12">
+          <h1 class="py-4 pr-8 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] opacity-60 whitespace-pre-line uppercase tracking-[-0.04em]">
             Save
             the
             Date
           </h1>
-        </div>
-        <div class="col-span-3 relative flex gap-6 flex-1 w-full">
           {#each heroPanelImages as heroPanelImage}
             <div
               class="border border-[rgba(96,78,66,0.16)] flex flex-1 w-full overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat shadow-[0_18px_45px_rgba(68,49,37,0.08)]"
               style={`background-image: linear-gradient(180deg, rgba(255,253,249,0.08) 0%, rgba(255,253,249,0.02) 40%, rgba(38,31,27,0.08) 100%), url(${heroPanelImage});`}
             ></div>
           {/each}
-        </div>
-
       </div>
 
-      <div class="flex items-center justify-between flex-1">
+      <div class="flex items-center justify-center flex-1">
         <div class="min-w-0 max-w-[40rem] flex-1">
           <h3 class="mb-4 text-[#261f1b]">Мы будем счастливы разделить с вами
             этот день.</h3>
@@ -158,7 +153,7 @@
             <a href="#day" class={secondaryButtonClass}>Примерная программа</a>
           </div>
         </div>
-        <NotWeddingAugustCalendar/>
+<!--        <NotWeddingAugustCalendar/>-->
       </div>
     </div>
   </section>
