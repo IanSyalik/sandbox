@@ -4,6 +4,16 @@
   import locationPhoto from './wedd graphics.webp'
   import locationPhoto2 from './wedd graphics2.webp'
   import locationPhoto3 from './wedd graphics3.webp'
+  import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
+  import dressCodeSwatch2 from './colors/IMG_6230.JPG?url'
+  import dressCodeSwatch3 from './colors/IMG_6231.JPG?url'
+  import dressCodeSwatch4 from './colors/IMG_6232.JPG?url'
+  import dressCodeSwatch5 from './colors/IMG_6233.JPG?url'
+  import dressCodeSwatch6 from './colors/IMG_6234.JPG?url'
+  import heroPanelPhoto1 from './1.JPG?url'
+  import heroPanelPhoto2 from './2.JPG?url'
+  import heroPanelPhoto3 from './3.JPG?url'
+  import NotWeddingAugustCalendar from './NotWeddingAugustCalendar.svelte'
   import NotWeddingHeroNamesDate from './NotWeddingHeroNamesDate.svelte'
 
   const event = {
@@ -54,7 +64,7 @@
   }
 
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.googleStartUtc}/${event.googleEndUtc}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&ctz=${encodeURIComponent(event.timeZone)}`
-  const innerClass = 'mx-auto w-full max-w-[1000px] px-6 sm:px-6'
+  const innerClass = 'mx-auto w-full max-w-[1000px] px-6'
   const sectionClass = 'scroll-mt-24 border-t border-[rgba(96,78,66,0.16)] bg-[#fffdf9] py-[clamp(3rem,7vw,5rem)]'
   const navLinkClass = 'text-[0.92rem] font-medium tracking-[0.02em] text-[#4d4038] transition-colors duration-150 hover:text-[#261f1b] focus-visible:text-[#261f1b]'
   const displayH2Class = 'mb-6 font-[\'Rouge_Script\'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-[#4d4038]'
@@ -68,6 +78,15 @@
     {src: locationPhoto2, objectPosition: '50% 50%'},
     {src: locationPhoto3, objectPosition: '50% 34%'}
   ]
+  const dressCodeSwatches = [
+    dressCodeSwatch1,
+    dressCodeSwatch2,
+    dressCodeSwatch3,
+    dressCodeSwatch4,
+    dressCodeSwatch5,
+    dressCodeSwatch6
+  ]
+  const heroPanelImages = [heroPanelPhoto1, heroPanelPhoto2, heroPanelPhoto3]
   const locationSlideIntervalMs = 4200
 
   let currentLocationSlide = 0
@@ -105,36 +124,42 @@
   <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
     <div class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl"></div>
 
-    <div class={`${innerClass} relative z-[1] flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center gap-[clamp(2rem,5vw,4rem)]`}>
-      <NotWeddingHeroNamesDate />
+    <div class="mx-auto w-full max-w-[1200px] px-6 relative flex min-h-[calc(100svh-9rem)] flex-col justify-center">
+      <div class="grid gap-6 grid-cols-5 w-full">
+        <div class="col-span-2">
+          <h1 class="text-[8rem] leading-[1.1] font-extrabold whitespace-pre-line uppercase">
+            Save
+            the
+            Date
+          </h1>
+        </div>
+        <div class="col-span-3 relative flex gap-6 flex-1 w-full">
+          <NotWeddingHeroNamesDate containerClass="absolute inset-x-0 top-0 translate-y-1/2 pt-5 filter invert"/>
+          {#each heroPanelImages as heroPanelImage}
+            <div
+              class="border border-[rgba(96,78,66,0.16)] flex flex-1 w-full overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat shadow-[0_18px_45px_rgba(68,49,37,0.08)]"
+              style={`background-image: linear-gradient(180deg, rgba(255,253,249,0.08) 0%, rgba(255,253,249,0.02) 40%, rgba(38,31,27,0.08) 100%), url(${heroPanelImage});`}
+            ></div>
+          {/each}
+        </div>
 
-      <div class="flex w-full flex-col gap-[clamp(2rem,5vw,4.5rem)] md:flex-row md:items-center">
-        <div class="min-w-0 flex-1">
-          <p class="mb-4 max-w-[25rem] text-[1.12rem] leading-[1.8] text-[#261f1b]">Мы будем счастливы разделить с вами
-            этот день.</p>
-          <p class="mb-6 max-w-[31rem] text-[1rem] leading-[1.8] text-[#3f342e]">
+      </div>
+
+      <div class="flex items-center justify-between flex-1">
+        <div class="min-w-0 max-w-[40rem] flex-1">
+          <h3 class="mb-4 text-[#261f1b]">Мы будем счастливы разделить с вами
+            этот день.</h3>
+          <p class="mb-6  text-[1rem] leading-[1.8] text-[#3f342e]">
             Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
             Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
           </p>
-
           <div class="flex flex-wrap items-center gap-4">
             <button type="button" class={primaryButtonClass} on:click={downloadCalendarEvent}>Добавить в календарь
             </button>
-            <a href="#day" class={secondaryButtonClass}>Смотреть тайминг</a>
+            <a href="#day" class={secondaryButtonClass}>Примерная программа</a>
           </div>
         </div>
-
-        <div class="relative aspect-square w-full max-w-[300px] shrink-0 self-center md:self-auto">
-          <div
-            class="relative flex h-full aspect-square items-end justify-between overflow-hidden rounded-[2rem] border border-[rgba(96,78,66,0.18)] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.7),transparent_34%),linear-gradient(135deg,#ede2d6_0%,#d8c6b6_45%,#b79e8e_100%)] p-6 transition-transform duration-150 will-change-transform"
-          >
-            <div class="pointer-events-none absolute inset-4 rounded-[1.4rem] border border-[rgba(255,255,255,0.38)]"></div>
-            <div class="relative z-[1] grid min-w-[6.5rem] gap-[0.15rem] rounded-[1.3rem] border border-[rgba(255,255,255,0.45)] bg-[rgba(255,253,249,0.62)] px-4 pt-[0.9rem] pb-4 text-center backdrop-blur-[6px]">
-              <span class="text-[0.75rem] font-bold uppercase tracking-[0.18em] text-[#7c6558]">AUG</span>
-              <strong class="text-[2rem] font-bold leading-none text-[#4d4038]">08</strong>
-            </div>
-          </div>
-        </div>
+        <NotWeddingAugustCalendar/>
       </div>
     </div>
   </section>
@@ -187,20 +212,22 @@
   </section>
 
   <section id="dress-code" class={sectionClass}>
-    <div class={`${innerClass} grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(17rem,0.68fr)] md:gap-[clamp(2rem,6vw,5rem)]`}>
-      <div class="max-w-[37rem]">
+    <div class={`${innerClass} flex flex-col items-center gap-8 text-center`}>
+      <div class="w-full max-w-[42rem]">
         <h2 class={displayH2Class}>Dress Code</h2>
         <p class={bodyTextClass}>
           Мы будем рады видеть девушек в нарядах в нежных пастельных оттенках, а мужчин в классике.
         </p>
       </div>
 
-      <div class="flex flex-wrap items-center gap-[0.9rem] self-center" aria-label="Палитра дресс-кода">
-        <span class="inline-block h-14 w-14 rounded-full border border-[rgba(96,78,66,0.14)] bg-[#f1e4de]"></span>
-        <span class="inline-block h-14 w-14 rounded-full border border-[rgba(96,78,66,0.14)] bg-[#e7d8cb]"></span>
-        <span class="inline-block h-14 w-14 rounded-full border border-[rgba(96,78,66,0.14)] bg-[#ddd8e2]"></span>
-        <span class="inline-block h-14 w-14 rounded-full border border-[rgba(96,78,66,0.14)] bg-[#d7e2d8]"></span>
-        <span class="inline-block h-14 w-14 rounded-full border border-[rgba(96,78,66,0.14)] bg-[#f2e9d9]"></span>
+      <div class="flex w-full flex-wrap items-center justify-center gap-[0.9rem]" aria-label="Палитра дресс-кода">
+        {#each dressCodeSwatches as swatch}
+          <span
+            aria-hidden="true"
+            class="inline-block h-[5.25rem] w-[5.25rem] rounded-full border border-[rgba(96,78,66,0.14)] bg-cover bg-center bg-no-repeat shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]"
+            style={`background-image: url(${swatch});`}
+          ></span>
+        {/each}
       </div>
     </div>
   </section>
