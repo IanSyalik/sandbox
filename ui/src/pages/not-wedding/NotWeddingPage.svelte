@@ -150,7 +150,7 @@
     <div class="min-w-0 max-w-[60rem] mx-auto  flex flex-col gap-2 justify-center items-center">
       <h3 class=" text-[#261f1b] font-['Bodoni_Moda']">Мы будем счастливы разделить с вами
         этот день.</h3>
-      <p class="text-[#3f342e] pb-4">
+      <p class="text-[#3f342e] pb-4 text-center">
         Дорогие гости, совсем скоро наступит день, который станет началом нашей новой главы — нашей семьи.
         Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
       </p>
