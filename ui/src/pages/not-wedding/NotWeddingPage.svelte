@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {onMount} from 'svelte'
-
   import locationPhoto from './wedd graphics.webp'
-  import locationPhoto2 from './wedd graphics2.webp'
-  import locationPhoto3 from './wedd graphics3.webp'
   import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
   import dressCodeSwatch2 from './colors/IMG_6230.JPG?url'
   import dressCodeSwatch3 from './colors/IMG_6231.JPG?url'
@@ -18,11 +14,6 @@
   type NavItem = {
     href: string,
     label: string,
-  }
-
-  type LocationSlide = {
-    src: string,
-    objectPosition: string,
   }
 
   type HeroPanelImage = {
@@ -90,11 +81,6 @@
     {href: '#day', label: 'Свадебный день'},
     {href: '#love', label: 'Пожелания'}
   ]
-  const locationSlides: LocationSlide[] = [
-    {src: locationPhoto, objectPosition: '50% 50%'},
-    {src: locationPhoto2, objectPosition: '50% 50%'},
-    {src: locationPhoto3, objectPosition: '50% 34%'}
-  ]
   const dressCodeSwatches = [
     dressCodeSwatch1,
     dressCodeSwatch2,
@@ -135,21 +121,6 @@
       description: 'Сладкое завершение этого особенного дня.'
     }
   ]
-  const locationSlideIntervalMs = 4200
-
-  let currentLocationSlide = 0
-
-  onMount(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return
-    }
-
-    const intervalId = window.setInterval(() => {
-      currentLocationSlide = (currentLocationSlide + 1) % locationSlides.length
-    }, locationSlideIntervalMs)
-
-    return () => window.clearInterval(intervalId)
-  })
 </script>
 
 <svelte:head>
@@ -206,7 +177,11 @@
 
   </section>
 
-  <section id="location" class="section-shell">
+  <section
+    id="location"
+    class="section-shell location-section"
+    style={`--location-photo: url(${locationPhoto});`}
+  >
     <div class="page-inner location-grid">
       <div class="location-copy">
         <h2 class="section-title location-title">Location</h2>
@@ -227,29 +202,6 @@
           </a>
         </p>
       </div>
-
-      <figure class="location-media-shell group/location-media m-0">
-        <div
-          class="location-media-frame"
-        >
-          <div class="location-media-inner-border"></div>
-          {#each locationSlides as photo, index (photo.src)}
-            <img
-              src={photo.src}
-              alt=""
-              aria-hidden="true"
-              class={`absolute inset-0 block h-full w-full object-cover transition-[opacity,transform] duration-[1400ms] ease-out motion-safe:group-hover/location-media:scale-[1.02] ${
-                currentLocationSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.015]'
-              }`}
-              style={`object-position: ${photo.objectPosition};`}
-              loading="eager"
-              decoding="async"
-            >
-          {/each}
-          <div class="location-media-overlay"></div>
-        </div>
-        <figcaption class="sr-only">Фотографии площадки Yayaki House, где пройдет свадебный вечер.</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -476,11 +428,15 @@
   }
 
   .location-grid {
-    @apply grid gap-10 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.18fr)] md:items-center md:gap-[clamp(2.5rem,6vw,5.5rem)];
+    @apply relative z-[1] flex min-h-[26rem] items-center justify-center py-[clamp(4rem,8vw,6rem)];
   }
 
   .location-copy {
-    @apply max-w-[29rem];
+    @apply w-full max-w-[36rem] rounded-[1.75rem] px-6 py-8 text-center sm:px-8 md:px-10;
+    background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
+    box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
+    backdrop-filter: blur(10px);
   }
 
   .location-title {
@@ -488,12 +444,12 @@
   }
 
   .location-description {
-    @apply mb-6 max-w-[24rem];
+    @apply mb-6;
   }
 
   .location-link {
     @apply inline-flex items-center gap-3 border-b pb-1 text-[1.02rem] font-semibold transition-all duration-200;
-    border-color: color-mix(in srgb, var(--color-nw-900) 24%, transparent);
+    border-color: color-mix(in srgb, var(--color-nw-900) 28%, transparent);
     color: var(--color-nw-900);
   }
 
@@ -511,25 +467,18 @@
     @apply text-[1.05rem] leading-none transition-transform duration-200;
   }
 
-  .location-media-frame {
-    @apply relative h-[20rem] overflow-hidden rounded-[1.85rem] bg-nw-400 sm:h-[24rem] lg:h-[28rem];
-    border: 1px solid color-mix(in srgb, var(--color-nw-800) 14%, transparent);
-    box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-800) 12%, transparent);
-  }
-
-  .location-media-inner-border {
-    @apply pointer-events-none absolute inset-[0.85rem] z-[1] rounded-[1.2rem];
-    border: 1px solid color-mix(in srgb, var(--color-nw-50) 46%, transparent);
-  }
-
-  .location-media-overlay {
-    @apply pointer-events-none absolute inset-0;
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-nw-50) 4%, transparent) 0%,
-      color-mix(in srgb, var(--color-nw-50) 0%, transparent) 34%,
-      color-mix(in srgb, var(--color-nw-900) 4%, transparent) 100%
-    );
+  .location-section {
+    @apply relative overflow-hidden;
+    background-image:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-nw-50) 22%, transparent) 0%,
+        color-mix(in srgb, var(--color-nw-50) 10%, transparent) 25%,
+        color-mix(in srgb, var(--color-nw-900) 26%, transparent) 100%
+      ),
+      var(--location-photo);
+    background-position: 50% 50%;
+    background-size: cover;
   }
 
   .dress-code-shell {
@@ -609,24 +558,6 @@
 
   .calendar-actions {
     @apply flex flex-wrap items-center gap-4;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .location-media-shell {
-      animation: location-media-enter 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-  }
-
-  @keyframes location-media-enter {
-    from {
-      opacity: 0;
-      transform: translateY(18px) scale(0.985);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
   }
 
   :global(body) {
