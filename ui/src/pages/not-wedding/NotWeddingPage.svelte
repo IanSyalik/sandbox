@@ -1,4 +1,6 @@
 <script lang="ts">
+  import {onMount} from 'svelte'
+
   import locationPhoto from './wedd graphics.webp'
   import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
   import dressCodeSwatch2 from './colors/IMG_6230.JPG?url'
@@ -121,6 +123,57 @@
       description: 'Сладкое завершение этого особенного дня.'
     }
   ]
+
+  let heroSectionElement: HTMLElement | null = null
+  let heroGlowOffset = 0
+  let heroNamesOffset = 0
+  let heroGalleryOffset = 0
+  let heroCopyOffset = 0
+
+  onMount(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
+    let frameId = 0
+
+    const updateHeroParallax = () => {
+      frameId = 0
+
+      if (!heroSectionElement) {
+        return
+      }
+
+      const {top, height} = heroSectionElement.getBoundingClientRect()
+      const travel = Math.min(Math.max(-top, 0), height)
+
+      heroGlowOffset = travel * 0.18
+      heroNamesOffset = travel * 0.08
+      heroGalleryOffset = travel * 0.14
+      heroCopyOffset = travel * 0.05
+    }
+
+    const onScroll = () => {
+      if (frameId) {
+        return
+      }
+
+      frameId = window.requestAnimationFrame(updateHeroParallax)
+    }
+
+    updateHeroParallax()
+    window.addEventListener('scroll', onScroll, {passive: true})
+    window.addEventListener('resize', onScroll)
+
+    return () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId)
+      }
+
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  })
 </script>
 
 <svelte:head>
@@ -139,10 +192,12 @@
     </div>
   </nav>
 
-  <section class="hero-section">
-    <div class="hero-glow"></div>
-    <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
-    <div class="hero-shell">
+  <section class="hero-section" bind:this={heroSectionElement}>
+    <div class="hero-glow" style={`transform: translate3d(0, ${heroGlowOffset}px, 0);`}></div>
+    <div class="hero-names-shell" style={`transform: translate3d(0, ${heroNamesOffset}px, 0);`}>
+      <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
+    </div>
+    <div class="hero-shell" style={`transform: translate3d(0, ${heroGalleryOffset}px, 0);`}>
       <div class="hero-gallery-row">
         <h1 class="hero-title">
           Save
@@ -161,7 +216,7 @@
         {/each}
       </div>
     </div>
-    <div class="hero-copy">
+    <div class="hero-copy" style={`transform: translate3d(0, ${heroCopyOffset}px, 0);`}>
       <h3 class="hero-copy-title">Мы будем счастливы разделить с вами
         этот день.</h3>
       <p class="hero-copy-text">
@@ -338,6 +393,13 @@
     );
   }
 
+  .hero-names-shell,
+  .hero-shell,
+  .hero-copy,
+  .hero-glow {
+    will-change: transform;
+  }
+
   .hero-shell {
     @apply relative mx-auto flex w-full max-w-[1200px] flex-col justify-center;
   }
@@ -379,9 +441,8 @@
     @apply absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1] text-transparent;
     background-image: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--color-nw-400) 88%, transparent) 0%,
-      var(--color-nw-500) 35%,
-      var(--color-nw-800) 70%,
+      color-mix(in srgb, var(--color-nw-600) 88%, transparent) 0%,
+      var(--color-nw-700) 35%,
       var(--color-nw-900) 100%
     );
     -webkit-background-clip: text;
