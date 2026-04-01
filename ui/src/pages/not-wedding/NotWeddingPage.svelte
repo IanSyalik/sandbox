@@ -206,12 +206,13 @@
         </h1>
         {#each heroPanelImages as heroPanelImage}
           <div class="hero-panel-frame">
+            <div class="hero-panel-label hero-panel-label--color">{heroPanelImage.label}</div>
             <div
-              class="hero-panel"
+              class="hero-panel relative"
               style={`--hero-panel-image: url(${heroPanelImage.src});`}
             >
+              <div class="hero-panel-label hero-panel-label--white">{heroPanelImage.label}</div>
             </div>
-            <div class="hero-panel-label">{heroPanelImage.label}</div>
           </div>
         {/each}
       </div>
@@ -438,7 +439,11 @@
   }
 
   .hero-panel-label {
-    @apply absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1] text-transparent;
+    @apply absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1];
+  }
+
+  .hero-panel-label--color {
+    @apply text-transparent;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-600) 88%, transparent) 0%,
@@ -447,6 +452,11 @@
     );
     -webkit-background-clip: text;
     background-clip: text;
+  }
+
+  .hero-panel-label--white {
+    @apply text-white;
+    text-shadow: 0 10px 28px color-mix(in srgb, var(--color-nw-900) 22%, transparent);
   }
 
   .hero-copy {
