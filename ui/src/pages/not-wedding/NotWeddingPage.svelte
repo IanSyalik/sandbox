@@ -68,7 +68,7 @@
   const sectionClass = 'scroll-mt-24 border-t border-[rgba(96,78,66,0.16)] bg-[#fffdf9] py-[clamp(3rem,7vw,5rem)]'
   const navLinkClass = 'text-[0.92rem] font-medium tracking-[0.02em] text-[#4d4038] transition-colors duration-150 hover:text-[#261f1b] focus-visible:text-[#261f1b]'
   const displayH2Class = 'mb-6 font-[\'Rouge_Script\'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-[#4d4038]'
-  const bodyTextClass = 'text-[1rem] leading-[1.8] text-[#3f342e]'
+  const bodyTextClass = ' leading-[1.8] text-[#3f342e]'
   const buttonBaseClass = 'inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150'
   const primaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-[#261f1b] text-[#fffdf9] hover:-translate-y-px hover:border-[#3b302a] hover:bg-[#3b302a] focus-visible:-translate-y-px focus-visible:border-[#3b302a] focus-visible:bg-[#3b302a]`
   const secondaryButtonClass = `${buttonBaseClass} border-[#261f1b] bg-transparent text-[#261f1b] hover:-translate-y-px hover:bg-[rgba(38,31,27,0.06)] focus-visible:-translate-y-px focus-visible:bg-[rgba(38,31,27,0.06)]`
@@ -121,9 +121,9 @@
     </div>
   </nav>
 
-  <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)] pt-[clamp(2rem,4vw,3rem)] pb-[clamp(3rem,7vw,5rem)]">
+  <section class="relative min-h-[calc(100svh-4.5rem)] overflow-hidden bg-[linear-gradient(180deg,#fcfaf6_0%,#f4ece1_100%)]">
     <div class="pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full bg-[radial-gradient(circle,rgba(214,196,180,0.42)_0%,rgba(214,196,180,0.14)_42%,transparent_72%)] blur-3xl"></div>
-
+    <NotWeddingHeroNamesDate/>
     <div class="mx-auto w-full max-w-[1200px] px-6 relative flex min-h-[calc(100svh-9rem)] flex-col justify-center">
       <div class="grid gap-6 grid-cols-5 w-full">
         <div class="col-span-2">
@@ -134,7 +134,6 @@
           </h1>
         </div>
         <div class="col-span-3 relative flex gap-6 flex-1 w-full">
-          <NotWeddingHeroNamesDate containerClass="absolute inset-x-0 bottom-0 translate-y-1/2 pb-5  "/>
           {#each heroPanelImages as heroPanelImage}
             <div
               class="border border-[rgba(96,78,66,0.16)] flex flex-1 w-full overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat shadow-[0_18px_45px_rgba(68,49,37,0.08)]"
