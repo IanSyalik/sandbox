@@ -198,7 +198,7 @@
       <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
     </div>
     <div class="hero-shell" style={`transform: translate3d(0, ${heroGalleryOffset}px, 0);`}>
-      <div class="hero-gallery-row">
+      <div class="hero-gallery">
         <h1 class="hero-title">
           Save
           the
@@ -380,7 +380,7 @@
   }
 
   .hero-section {
-    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center gap-14 overflow-hidden px-4 py-8;
+    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center gap-2 lg:gap-14 overflow-hidden px-4 py-8;
     background: linear-gradient(180deg, var(--color-nw-100) 0%, var(--color-nw-400) 100%);
   }
 
@@ -405,12 +405,12 @@
     @apply relative mx-auto flex w-full max-w-[1200px] flex-col justify-center;
   }
 
-  .hero-gallery-row {
-    @apply flex w-full gap-10;
+  .hero-gallery {
+    @apply flex flex-col lg:flex-row w-full gap-10;
   }
 
   .hero-title {
-    @apply py-4 pr-6 font-['Bodoni_Moda'] text-[8rem] leading-[1.1] whitespace-pre-line uppercase tracking-[-0.04em] text-transparent;
+    @apply py-4 pr-6 font-['Bodoni_Moda'] text-[4rem] lg:text-[8rem] leading-[1.1] whitespace-pre-line uppercase tracking-[-0.04em] text-transparent;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
