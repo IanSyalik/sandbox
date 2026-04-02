@@ -380,7 +380,7 @@
   }
 
   .hero-section {
-    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center gap-2 lg:gap-14 overflow-hidden px-4 py-8;
+    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col lg:justify-center gap-8 overflow-hidden px-4 py-5 sm:gap-8 sm:py-8 lg:gap-14;
     background: linear-gradient(180deg, var(--color-nw-100) 0%, var(--color-nw-400) 100%);
   }
 
@@ -406,11 +406,11 @@
   }
 
   .hero-gallery {
-    @apply flex flex-col lg:flex-row w-full gap-10;
+    @apply grid w-full grid-cols-3 items-stretch gap-2 sm:gap-4 lg:flex lg:flex-row lg:gap-10;
   }
 
   .hero-title {
-    @apply py-4 pr-6 font-['Bodoni_Moda'] text-[4rem] lg:text-[8rem] leading-[1.1] whitespace-pre-line uppercase tracking-[-0.04em] text-transparent;
+    @apply col-span-3 pb-6 lg:py-1 text-center font-['Bodoni_Moda'] text-[2.85rem] leading-[0.92] whitespace-normal uppercase tracking-[-0.05em] text-transparent sm:py-2 sm:text-[4.4rem] lg:py-4 lg:pr-6 lg:text-left lg:text-[8rem] lg:leading-[1.1] lg:whitespace-pre-line lg:tracking-[-0.04em];
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
@@ -424,11 +424,11 @@
   }
 
   .hero-panel-frame {
-    @apply relative flex flex-1;
+    @apply relative h-[16rem] min-w-0 flex-none lg:flex lg:h-auto lg:min-h-[29rem] lg:flex-1;
   }
 
   .hero-panel {
-    @apply flex w-full flex-1 overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat;
+    @apply flex h-full w-full flex-1 overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat;
     background-image: linear-gradient(
         180deg,
         color-mix(in srgb, var(--color-nw-50) 8%, transparent) 0%,
@@ -439,7 +439,7 @@
   }
 
   .hero-panel-label {
-    @apply absolute bottom-0 right-0 -mb-1 -mr-1 text-right font-['Bodoni_Moda'] text-[6rem] leading-[1];
+    @apply absolute bottom-0 right-0 -mb-0.5 -mr-0.5 text-right font-['Bodoni_Moda'] text-[3.5rem] leading-[0.9] sm:-mb-1 sm:-mr-1 sm:text-[4.75rem] lg:text-[6rem] lg:leading-[1];
   }
 
   .hero-panel-label--color {
@@ -460,23 +460,27 @@
   }
 
   .hero-copy {
-    @apply mx-auto flex min-w-0 max-w-[60rem] flex-col items-center justify-center gap-2;
+    @apply mx-auto flex min-w-0 max-w-[38rem] flex-col items-center justify-center gap-2 px-2 text-center sm:max-w-[42rem] sm:gap-3 lg:max-w-[60rem];
   }
 
   .hero-copy-title {
-    @apply font-['Bodoni_Moda'] text-nw-900;
+    @apply font-['Bodoni_Moda'] text-[1.5rem] leading-[1.12] text-nw-900 sm:text-[1.8rem] lg:text-[2.2rem];
   }
 
   .hero-copy-text {
-    @apply pb-4 text-center text-nw-800;
+    @apply max-w-[32rem] pb-1 text-center text-[0.95rem] leading-[1.65] text-nw-800 sm:pb-4 sm:text-[1rem] sm:leading-[1.75];
   }
 
   .hero-copy-actions {
-    @apply flex items-center gap-4;
+    @apply flex w-full flex-col items-stretch gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4;
+  }
+
+  .hero-copy-actions :global(.button) {
+    @apply w-full sm:w-auto;
   }
 
   .section-shell {
-    @apply scroll-mt-24 py-[clamp(3rem,7vw,5rem)];
+    @apply scroll-mt-24 py-8 sm:py-16 lg:py-20;
     border-top: 1px solid color-mix(in srgb, var(--color-nw-800) 16%, transparent);
     background: var(--color-nw-50);
   }
@@ -486,7 +490,7 @@
   }
 
   .section-title {
-    @apply mb-6 font-['Rouge_Script'] text-[clamp(3.1rem,7vw,4.8rem)] leading-[0.92] text-nw-800;
+    @apply mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-6 sm:text-[4rem] lg:text-[4.8rem];
   }
 
   .body-text {
@@ -517,11 +521,11 @@
   }
 
   .location-grid {
-    @apply relative z-[1] flex min-h-[26rem] items-center justify-center py-[clamp(4rem,8vw,6rem)];
+    @apply relative z-[1] flex min-h-[20rem] items-center justify-center py-10 sm:min-h-[26rem] sm:py-20 lg:py-24;
   }
 
   .location-copy {
-    @apply w-full max-w-[36rem] rounded-[1.75rem] px-6 py-8 text-center sm:px-8 md:px-10;
+    @apply w-full max-w-[36rem] rounded-[1.75rem] px-5 py-6 text-center sm:px-8 sm:py-8 md:px-10;
     background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
     border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
     box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
@@ -529,11 +533,11 @@
   }
 
   .location-title {
-    @apply mb-5;
+    @apply mb-4 sm:mb-5;
   }
 
   .location-description {
-    @apply mb-6;
+    @apply mb-4 sm:mb-6;
   }
 
   .location-link {
@@ -571,7 +575,7 @@
   }
 
   .dress-code-shell {
-    @apply flex flex-col items-center gap-8 text-center;
+    @apply flex flex-col items-center gap-6 text-center sm:gap-8;
   }
 
   .dress-code-copy {
@@ -589,7 +593,7 @@
   }
 
   .timeline-shell {
-    @apply grid gap-8;
+    @apply grid gap-6 sm:gap-8;
   }
 
   .timeline-heading {
@@ -622,7 +626,7 @@
   }
 
   .love-grid {
-    @apply grid gap-8 md:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.3fr)];
+    @apply grid gap-6 md:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.3fr)] md:gap-8;
   }
 
   .love-heading {
@@ -634,11 +638,11 @@
   }
 
   .love-paragraph {
-    @apply mb-4;
+    @apply mb-3 sm:mb-4;
   }
 
   .calendar-shell {
-    @apply flex flex-wrap items-end justify-between gap-x-8 gap-y-6;
+    @apply flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:gap-y-6;
   }
 
   .calendar-copy {
