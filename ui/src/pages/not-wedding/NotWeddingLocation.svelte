@@ -21,17 +21,17 @@
     <div
       class="nw-glass-card w-full max-w-none px-5 py-6 text-center lg:max-w-[36rem] lg:rounded-[1.75rem] lg:px-8 lg:py-8 md:px-10"
     >
-      <h2 class="nw-section-title lg:mb-5">
+      <h2 class="nw-section-title lg:mb-2">
         Location</h2>
-      <p class="nw-body-text mb-4 lg:mb-6">
+      <p class="nw-body-text mb-4 lg:mb-4">
         Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
       </p>
-      <p class="m-0">
+      <p class="m-0 mb-1">
         <a
           href="https://maps.google.com/?q=Yayaki+House,+Narva+mnt+7,+Tallinn"
           target="_blank"
           rel="noreferrer"
-          class="nw-font-link group inline-flex items-center gap-3 border-b border-[color-mix(in_srgb,var(--color-nw-900)_28%,transparent)] pb-1 text-nw-900 transition-all duration-200 hover:border-nw-700 hover:text-nw-700 focus-visible:border-nw-700 focus-visible:text-nw-700"
+          class="nw-font-link group inline-flex text-[1.2rem] items-center gap-3 border-b border-[color-mix(in_srgb,var(--color-nw-900)_28%,transparent)] pb-1 text-nw-900 transition-all duration-200 hover:border-nw-700 hover:text-nw-700 focus-visible:border-nw-700 focus-visible:text-nw-700"
         >
           <span>Yayaki House, Narva mnt 7, 2 этаж</span>
           <span aria-hidden="true" class="text-[1rem] leading-none transition-transform duration-200 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5">
