@@ -1,21 +1,66 @@
 <script lang="ts">
+  import {onMount} from 'svelte'
+
   import locationPhoto from './wedd graphics.webp'
+
+  let locationSectionElement: HTMLElement | null = null
+  let locationOverlayOpacity = 1
+
+  onMount(() => {
+    let frameId = 0
+
+    const updateOverlayOpacity = () => {
+      frameId = 0
+
+      if (!locationSectionElement) {
+        return
+      }
+
+      const rect = locationSectionElement.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const fadeStart = viewportHeight * 0.5
+      const fadeEnd = -rect.height * 0.0015
+      const progress = (fadeStart - rect.top) / (fadeStart - fadeEnd)
+      const clampedProgress = Math.min(Math.max(progress, 0), 1)
+
+      locationOverlayOpacity = 1 - clampedProgress
+    }
+
+    const onScroll = () => {
+      if (frameId) {
+        return
+      }
+
+      frameId = window.requestAnimationFrame(updateOverlayOpacity)
+    }
+
+    updateOverlayOpacity()
+    window.addEventListener('scroll', onScroll, {passive: true})
+    window.addEventListener('resize', onScroll)
+
+    return () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId)
+      }
+
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  })
 </script>
 
 <section
   id="location"
   class="nw-section relative overflow-hidden lg:py-20 p-0"
-  style={`background-image:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-nw-50) 22%, transparent) 0%,
-      color-mix(in srgb, var(--color-nw-50) 10%, transparent) 25%,
-      color-mix(in srgb, var(--color-nw-900) 26%, transparent) 100%
-    ),
-    url(${locationPhoto});
-    background-position: 50% 50%;
-    background-size: cover;`}
+  bind:this={locationSectionElement}
+  style={`background-image: url(${locationPhoto}); background-position: 50% 50%; background-size: cover;`}
 >
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 z-0 bg-nw-900"
+    style={`opacity: ${locationOverlayOpacity};`}
+  ></div>
+
   <div class="lg:nw-page-inner relative flex min-h-[50rem] items-end justify-center lg:items-center">
 
     <div
