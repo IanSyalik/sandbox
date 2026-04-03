@@ -92,6 +92,8 @@
 
   let isMobileNavOpen = false
   let isNavButtonVisible = false
+  let dressCodeSectionElement: HTMLElement | null = null
+  let isDressCodeVisible = false
 
   function toggleMobileNav() {
     isMobileNavOpen = !isMobileNavOpen
@@ -104,14 +106,39 @@
   onMount(() => {
     const targetSection = document.getElementById('location')
     const navElement = document.querySelector('.site-nav')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     if (!targetSection || !navElement) {
       return
     }
 
+    let dressCodeObserver: IntersectionObserver | null = null
+
     const updateNavButtonVisibility = () => {
       const navHeight = navElement.getBoundingClientRect().height
       isNavButtonVisible = targetSection.getBoundingClientRect().top <= navHeight
+    }
+
+    if (dressCodeSectionElement) {
+      if (reduceMotion) {
+        isDressCodeVisible = true
+      } else {
+        dressCodeObserver = new IntersectionObserver(
+          (entries) => {
+            const [entry] = entries
+
+            if (entry?.isIntersecting) {
+              isDressCodeVisible = true
+              dressCodeObserver?.disconnect()
+            }
+          },
+          {
+            threshold: 0.22
+          }
+        )
+
+        dressCodeObserver.observe(dressCodeSectionElement)
+      }
     }
 
     updateNavButtonVisibility()
@@ -119,6 +146,7 @@
     window.addEventListener('resize', updateNavButtonVisibility)
 
     return () => {
+      dressCodeObserver?.disconnect()
       window.removeEventListener('scroll', updateNavButtonVisibility)
       window.removeEventListener('resize', updateNavButtonVisibility)
     }
@@ -215,7 +243,7 @@
 
   <NotWeddingLocation/>
 
-  <section id="dress-code" class="nw-section">
+  <section id="dress-code" class="nw-section" bind:this={dressCodeSectionElement}>
     <div class="nw-page-inner dress-code-shell">
       <div class="dress-code-copy">
         <h2 class="nw-section-title">Dress Code</h2>
@@ -224,12 +252,16 @@
         </p>
       </div>
 
-      <div class="dress-code-swatches" aria-label="Палитра дресс-кода">
-        {#each dressCodeSwatches as swatch}
+      <div
+        class="dress-code-swatches"
+        class:dress-code-swatches--visible={isDressCodeVisible}
+        aria-label="Палитра дресс-кода"
+      >
+        {#each dressCodeSwatches as swatch, index}
           <span
             aria-hidden="true"
             class="dress-code-swatch"
-            style={`background-image: url(${swatch});`}
+            style={`background-image: url(${swatch}); --dress-code-delay: ${index * 140}ms;`}
           ></span>
         {/each}
       </div>
@@ -535,10 +567,27 @@
     @apply flex w-full flex-wrap items-center justify-center gap-[0.9rem];
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .dress-code-swatches--visible .dress-code-swatch {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
   .dress-code-swatch {
     @apply inline-block h-[5.25rem] w-[5.25rem] rounded-full bg-cover bg-center bg-no-repeat;
     border: 1px solid color-mix(in srgb, var(--color-nw-800) 14%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-nw-50) 25%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dress-code-swatch {
+      opacity: 0;
+      transform: translateY(1rem) scale(0.94);
+      transition:
+        opacity 720ms ease-out var(--dress-code-delay),
+        transform 720ms ease-out var(--dress-code-delay);
+    }
   }
 
   .love-section {
