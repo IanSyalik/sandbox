@@ -22,7 +22,7 @@
       class="w-full max-w-none sm:rounded-[1.75rem] border px-5 py-6 sm:px-8 sm:py-8 md:px-10 text-center backdrop-blur-[10px] sm:max-w-[36rem]"
       style="background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);"
     >
-      <h2 class="mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-5 sm:text-[4rem] sm:text-[4.8rem]">
+      <h2 class="mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-5 sm:text-[4.8rem]">
         Location</h2>
       <p class="mb-4 text-[1rem] leading-[1.8] text-nw-800 sm:mb-6">
         Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
