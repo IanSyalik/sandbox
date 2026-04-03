@@ -2,6 +2,7 @@
   import {onMount} from 'svelte'
 
   import locationPhoto from './wedd graphics.webp'
+  import withLovePhoto from './with love.JPG?url'
   import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
   import dressCodeSwatch2 from './colors/IMG_6230.JPG?url'
   import dressCodeSwatch3 from './colors/IMG_6231.JPG?url'
@@ -119,8 +120,8 @@
     },
     {
       time: '21:00',
-      title: 'Торт-сюрприз',
-      description: 'Сладкое завершение этого особенного дня.'
+      title: 'Торт',
+      description: 'Сладкий момент нашего вечера.'
     }
   ]
 
@@ -302,7 +303,11 @@
     </div>
   </section>
 
-  <section id="love" class="section-shell">
+  <section
+    id="love"
+    class="section-shell love-section"
+    style={`--love-photo: url(${withLovePhoto});`}
+  >
     <div class="page-inner love-grid">
       <div class="love-heading">
         <h2 class="section-title">With Love</h2>
@@ -626,7 +631,7 @@
   }
 
   .love-grid {
-    @apply grid gap-6 md:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.3fr)] md:gap-8;
+    @apply relative z-[1] grid gap-5 md:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.3fr)] md:gap-8;
   }
 
   .love-heading {
@@ -634,11 +639,29 @@
   }
 
   .love-copy {
-    @apply max-w-[38rem];
+    @apply max-w-[38rem] rounded-[1.75rem] px-5 py-6 sm:px-8 sm:py-8;
+    background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
+    box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
+    backdrop-filter: blur(10px);
   }
 
   .love-paragraph {
     @apply mb-3 sm:mb-4;
+  }
+
+  .love-section {
+    @apply relative overflow-hidden;
+    background-image:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-nw-50) 18%, transparent) 0%,
+        color-mix(in srgb, var(--color-nw-50) 10%, transparent) 30%,
+        color-mix(in srgb, var(--color-nw-900) 28%, transparent) 100%
+      ),
+      var(--love-photo);
+    background-position: 50% 50%;
+    background-size: cover;
   }
 
   .calendar-shell {
