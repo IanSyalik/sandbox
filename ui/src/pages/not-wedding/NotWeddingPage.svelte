@@ -87,6 +87,16 @@
     {src: heroPanelPhoto2, label: '08'},
     {src: heroPanelPhoto3, label: '26'}
   ]
+
+  let isMobileNavOpen = false
+
+  function toggleMobileNav() {
+    isMobileNavOpen = !isMobileNavOpen
+  }
+
+  function closeMobileNav() {
+    isMobileNavOpen = false
+  }
 </script>
 
 <svelte:head>
@@ -99,16 +109,42 @@
 <main id="main" tabindex="-1" class="page-main">
   <nav class="site-nav">
     <div class="nw-page-inner site-nav-inner">
-      <div class="site-nav-links">
+      <div class="site-nav-start">
+        <button
+          type="button"
+          class="site-nav-toggle"
+          aria-expanded={isMobileNavOpen}
+          aria-controls="mobile-nav-menu"
+          aria-label={isMobileNavOpen ? 'Закрыть меню' : 'Открыть меню'}
+          on:click={toggleMobileNav}
+        >
+          <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--top-open' : ''}`}></span>
+          <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--middle-open' : ''}`}></span>
+          <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--bottom-open' : ''}`}></span>
+        </button>
+
+        <div class="site-nav-links">
         {#each navItems as item}
           <a href={item.href} class="nav-link">{item.label}</a>
         {/each}
+        </div>
       </div>
 
-      <button type="button" class="nw-button nw-button-small nw-button-primary site-nav-button" on:click={downloadCalendarEvent}>
+      <button type="button" class="nw-button nw-button-small nw-button-primary site-nav-button" on:click={() => {
+        closeMobileNav()
+        downloadCalendarEvent()
+      }}>
         Добавить в календарь
       </button>
     </div>
+
+    {#if isMobileNavOpen}
+      <div id="mobile-nav-menu" class="nw-page-inner site-nav-mobile-menu">
+        {#each navItems as item}
+          <a href={item.href} class="site-nav-mobile-link" on:click={closeMobileNav}>{item.label}</a>
+        {/each}
+      </div>
+    {/if}
   </nav>
 
   <section class="hero-section">
@@ -232,12 +268,52 @@
     @apply flex items-center justify-between gap-4 py-4;
   }
 
+  .site-nav-start {
+    @apply flex min-w-0 flex-1 items-center gap-4;
+  }
+
   .site-nav-links {
-    @apply flex min-w-0 flex-1 flex-wrap items-center gap-x-5 gap-y-2;
+    @apply hidden min-w-0 flex-1 flex-wrap items-center gap-x-5 gap-y-2 lg:flex;
   }
 
   .site-nav-button {
     @apply shrink-0;
+  }
+
+  .site-nav-toggle {
+    @apply relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-nw-700/20 bg-nw-50/70 text-nw-900 backdrop-blur-sm transition-colors duration-200 lg:hidden;
+  }
+
+  .site-nav-toggle-line {
+    @apply absolute h-px w-5 bg-current transition-all duration-200;
+  }
+
+  .site-nav-toggle-line:nth-child(1) {
+    transform: translateY(-0.35rem);
+  }
+
+  .site-nav-toggle-line:nth-child(3) {
+    transform: translateY(0.35rem);
+  }
+
+  .site-nav-toggle-line--top-open {
+    transform: rotate(45deg) !important;
+  }
+
+  .site-nav-toggle-line--middle-open {
+    opacity: 0;
+  }
+
+  .site-nav-toggle-line--bottom-open {
+    transform: rotate(-45deg) !important;
+  }
+
+  .site-nav-mobile-menu {
+    @apply flex flex-col gap-2 pb-4 lg:hidden;
+  }
+
+  .site-nav-mobile-link {
+    @apply nw-font-nav rounded-[1.1rem] border border-nw-700/12 bg-nw-50/72 px-4 py-3 text-nw-900 backdrop-blur-sm transition-colors duration-150;
   }
 
   .nav-link {
