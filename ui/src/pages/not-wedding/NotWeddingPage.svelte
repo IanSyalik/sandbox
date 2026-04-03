@@ -185,8 +185,8 @@
           the
           Date
         </h1>
-        {#each heroPanelImages as heroPanelImage}
-          <div class="hero-panel-frame">
+        {#each heroPanelImages as heroPanelImage, index}
+          <div class="hero-panel-frame" style={`--hero-panel-delay: ${(1120 + index * 180)}ms;`}>
             <div class="hero-panel-label hero-panel-label--color">{heroPanelImage.label}</div>
             <div
               class="hero-panel relative"
@@ -289,20 +289,31 @@
       transform: translateY(1.5rem);
       animation:
         nw-fade-rise
-        calc(720ms * var(--nw-hero-motion-scale))
+        calc(420ms * var(--nw-hero-motion-scale))
         ease-out
         calc(120ms * var(--nw-hero-motion-scale))
         forwards;
     }
 
-    .hero-shell {
+    .hero-title {
       opacity: 0;
       transform: translateY(1.5rem);
       animation:
         nw-fade-rise
-        calc(820ms * var(--nw-hero-motion-scale))
+        calc(620ms * var(--nw-hero-motion-scale))
         ease-out
         calc(240ms * var(--nw-hero-motion-scale))
+        forwards;
+    }
+
+    .hero-panel-frame {
+      opacity: 0;
+      transform: translateY(1.5rem) scale(0.96);
+      animation:
+        nw-pill-rise
+        calc(520ms * var(--nw-hero-motion-scale))
+        ease-out
+        var(--hero-panel-delay)
         forwards;
     }
 
@@ -313,7 +324,7 @@
         nw-fade-rise
         calc(720ms * var(--nw-hero-motion-scale))
         ease-out
-        calc(420ms * var(--nw-hero-motion-scale))
+        calc(480ms + (468ms * var(--nw-hero-motion-scale)))
         forwards;
     }
   }
@@ -336,6 +347,18 @@
     100% {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes nw-pill-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(1.5rem) scale(0.96);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 
