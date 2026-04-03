@@ -47,11 +47,10 @@
 </script>
 
 <section id="day" class="scroll-mt-24 py-8 sm:py-16 lg:py-20 border-t">
-  <div class="mx-auto w-full max-w-[1000px] px-6 grid gap-6 sm:gap-8">
-    <div class="max-w-[37rem]">
-      <h2 class="mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-6 sm:text-[4rem] lg:text-[4.8rem]">
-        Wedding Day</h2>
-    </div>
+  <div class=" mx-auto w-full max-w-[1000px] px-6 gap-6 sm:gap-10 flex flex-col lg:flex-row justify-center">
+    <h2 class="text-center text-nowrap mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-6 sm:text-[4rem] lg:text-[4.8rem]">
+      Wedding Day
+    </h2>
 
     <div class="flex flex-col timeline">
       {#each timelineItems as item, index}
@@ -72,7 +71,7 @@
 
             <div class="pt-0.5 pb-5">
               <div class="font-['Bodoni_Moda'] text-nw-700 text-[1.2rem]">{item.time}</div>
-              <h4 class="mb-0.5">{item.title}</h4>
+              <div class="mb-0.5 font-medium text-[1.25rem]">{item.title}</div>
               <div class="">{item.description}</div>
             </div>
 
