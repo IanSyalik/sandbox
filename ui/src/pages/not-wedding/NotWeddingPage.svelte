@@ -346,14 +346,13 @@
     @apply nw-font-hero-title col-span-3 pb-6 text-center text-transparent lg:pt-5 lg:pb-4 lg:pr-6 lg:text-left;
     background-image: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
-      var(--color-nw-600) 26%,
-      var(--color-nw-700) 62%,
-      var(--color-nw-900) 100%
+      color-mix(in srgb, var(--color-nw-600) 92%, transparent) 0%,
+      var(--color-nw-500) 26%,
+      var(--color-nw-600) 62%,
+      var(--color-nw-700) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
-    opacity: 0.82;
   }
 
   .hero-panel-frame {
@@ -379,9 +378,10 @@
     @apply text-transparent;
     background-image: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--color-nw-600) 88%, transparent) 0%,
-      var(--color-nw-700) 35%,
-      var(--color-nw-900) 100%
+      color-mix(in srgb, var(--color-nw-600) 92%, transparent) 0%,
+      var(--color-nw-500) 26%,
+      var(--color-nw-600) 62%,
+      var(--color-nw-700) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;

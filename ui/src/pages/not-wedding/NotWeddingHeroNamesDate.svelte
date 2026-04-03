@@ -6,6 +6,7 @@
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-700) 92%, transparent) 0%,
+      var(--color-nw-500) 26%,
       var(--color-nw-600) 62%,
       var(--color-nw-700) 100%
     );
