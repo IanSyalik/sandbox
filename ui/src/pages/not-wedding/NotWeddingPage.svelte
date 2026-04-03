@@ -111,9 +111,9 @@
     <div class="nw-page-inner site-nav-inner">
       <div class="site-nav-start">
         <div class="site-nav-links">
-        {#each navItems as item}
-          <a href={item.href} class="nav-link">{item.label}</a>
-        {/each}
+          {#each navItems as item}
+            <a href={item.href} class="nav-link">{item.label}</a>
+          {/each}
         </div>
       </div>
 
@@ -326,18 +326,12 @@
   }
 
   .hero-section {
-    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col gap-8 overflow-hidden px-4 py-5 justify-center lg:gap-6;
-    background: linear-gradient(180deg, var(--color-nw-100) 0%, var(--color-nw-400) 100%);
+    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col gap-8 overflow-hidden px-4 py-5 justify-center lg:gap-6 bg-gradient-to-b from-nw-300 to-nw-100;
   }
 
   .hero-glow {
-    @apply pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full blur-3xl;
-    background: radial-gradient(
-      circle,
-      color-mix(in srgb, var(--color-nw-600) 42%, transparent) 0%,
-      color-mix(in srgb, var(--color-nw-600) 14%, transparent) 42%,
-      transparent 72%
-    );
+    @apply pointer-events-none absolute inset-x-0 top-[-18%] mx-auto h-[36rem] w-[min(92vw,68rem)] rounded-full blur-3xl
+    bg-radial from-white via-white to-transparent opacity-60;
   }
 
   .hero-shell {
