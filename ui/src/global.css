@@ -236,7 +236,7 @@
 }
 
 @utility nw-font-timeline-title {
-  @apply text-[1.25rem] font-medium leading-[1.35];
+  @apply text-[1.25rem] font-medium leading-[1.35] font-['Bodoni_Moda'];
 }
 
 @utility nw-font-love-lead {
