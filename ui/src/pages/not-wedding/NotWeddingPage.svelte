@@ -1,6 +1,4 @@
 <script lang="ts">
-  import {onMount} from 'svelte'
-
   import withLovePhoto from './with love.JPG?url'
   import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
   import dressCodeSwatch2 from './colors/IMG_6230.JPG?url'
@@ -89,57 +87,6 @@
     {src: heroPanelPhoto2, label: '08'},
     {src: heroPanelPhoto3, label: '26'}
   ]
-
-  let heroSectionElement: HTMLElement | null = null
-  let heroGlowOffset = 0
-  let heroNamesOffset = 0
-  let heroGalleryOffset = 0
-  let heroCopyOffset = 0
-
-  onMount(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return
-    }
-
-    let frameId = 0
-
-    const updateHeroParallax = () => {
-      frameId = 0
-
-      if (!heroSectionElement) {
-        return
-      }
-
-      const {top, height} = heroSectionElement.getBoundingClientRect()
-      const travel = Math.min(Math.max(-top, 0), height)
-
-      heroGlowOffset = travel * 0.18
-      heroNamesOffset = travel * 0.08
-      heroGalleryOffset = travel * 0.14
-      heroCopyOffset = travel * 0.05
-    }
-
-    const onScroll = () => {
-      if (frameId) {
-        return
-      }
-
-      frameId = window.requestAnimationFrame(updateHeroParallax)
-    }
-
-    updateHeroParallax()
-    window.addEventListener('scroll', onScroll, {passive: true})
-    window.addEventListener('resize', onScroll)
-
-    return () => {
-      if (frameId) {
-        window.cancelAnimationFrame(frameId)
-      }
-
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  })
 </script>
 
 <svelte:head>
@@ -164,12 +111,12 @@
     </div>
   </nav>
 
-  <section class="hero-section" bind:this={heroSectionElement}>
-    <div class="hero-glow" style={`transform: translate3d(0, ${heroGlowOffset}px, 0);`}></div>
-    <div class="hero-names-shell" style={`transform: translate3d(0, ${heroNamesOffset}px, 0);`}>
+  <section class="hero-section">
+    <div class="hero-glow"></div>
+    <div class="hero-names-shell">
       <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
     </div>
-    <div class="hero-shell" style={`transform: translate3d(0, ${heroGalleryOffset}px, 0);`}>
+    <div class="hero-shell">
       <div class="hero-gallery">
         <h1 class="hero-title">
           Save
@@ -189,7 +136,7 @@
         {/each}
       </div>
     </div>
-    <div class="hero-copy" style={`transform: translate3d(0, ${heroCopyOffset}px, 0);`}>
+    <div class="hero-copy">
       <h3 class="hero-copy-title">Мы будем счастливы разделить с вами
         этот день.</h3>
       <p class="hero-copy-text">
@@ -318,13 +265,6 @@
       color-mix(in srgb, var(--color-nw-600) 14%, transparent) 42%,
       transparent 72%
     );
-  }
-
-  .hero-names-shell,
-  .hero-shell,
-  .hero-copy,
-  .hero-glow {
-    will-change: transform;
   }
 
   .hero-shell {
