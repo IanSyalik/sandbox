@@ -31,9 +31,7 @@
     description: 'Свадебный день Jaan & Jana.',
     localStart: '20260808T140000',
     localEnd: '20260808T235900',
-    googleStartUtc: '20260808T110000Z',
-    googleEndUtc: '20260808T205900Z',
-    timeZone: 'Europe/Tallinn'
+    googleStartUtc: '20260808T110000Z'
   }
 
   function escapeIcs(value: string) {
@@ -72,7 +70,6 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000)
   }
 
-  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.googleStartUtc}/${event.googleEndUtc}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&ctz=${encodeURIComponent(event.timeZone)}`
   const navItems: NavItem[] = [
     {href: '#location', label: 'Локация'},
     {href: '#dress-code', label: 'Дресс-код'},
@@ -301,7 +298,7 @@
   }
 
   .site-nav-button--compact {
-    @apply px-4 py-2.5;
+    @apply px-4 py-1;
   }
 
   .nav-link {
@@ -314,7 +311,7 @@
   }
 
   .hero-section {
-    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col sm:justify-center gap-8 overflow-hidden px-4 py-5 sm:gap-8 sm:py-8 sm:gap-14;
+    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col gap-8 overflow-hidden px-4 py-5 lg:justify-center lg:gap-14 lg:py-8;
     background: linear-gradient(180deg, var(--color-nw-100) 0%, var(--color-nw-400) 100%);
   }
 
@@ -340,11 +337,11 @@
   }
 
   .hero-gallery {
-    @apply grid w-full grid-cols-3 items-stretch gap-2 sm:gap-4 sm:flex sm:flex-row sm:gap-10;
+    @apply grid w-full grid-cols-3 items-stretch gap-2 lg:flex lg:flex-row lg:gap-10;
   }
 
   .hero-title {
-    @apply nw-font-hero-title col-span-3 pb-6 text-center text-transparent sm:py-4 sm:pr-6 sm:text-left;
+    @apply nw-font-hero-title col-span-3 pb-6 text-center text-transparent lg:py-4 lg:pr-6 lg:text-left;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
@@ -358,7 +355,7 @@
   }
 
   .hero-panel-frame {
-    @apply relative h-[16rem] min-w-0 flex-none sm:flex sm:h-auto sm:min-h-[29rem] sm:flex-1;
+    @apply relative h-[16rem] min-w-0 flex-none lg:flex lg:h-auto lg:min-h-[29rem] lg:flex-1;
   }
 
   .hero-panel {
@@ -373,7 +370,7 @@
   }
 
   .hero-panel-label {
-    @apply nw-font-hero-panel-label absolute bottom-0 right-0 -mb-0.5 -mr-0.5 text-right sm:-mb-1 sm:-mr-1;
+    @apply nw-font-hero-panel-label absolute bottom-0 right-0 -mb-0.5 -mr-0.5 text-right lg:-mb-1 lg:-mr-1;
   }
 
   .hero-panel-label--color {
@@ -394,7 +391,7 @@
   }
 
   .hero-copy {
-    @apply mx-auto flex min-w-0 max-w-[38rem] flex-col items-center justify-center gap-2 px-2 text-center sm:max-w-[42rem] sm:gap-3 sm:max-w-[60rem];
+    @apply mx-auto flex min-w-0 max-w-[38rem] flex-col items-center justify-center gap-2 px-2 text-center lg:max-w-[60rem] lg:gap-3;
   }
 
   .hero-copy-title {
@@ -402,19 +399,19 @@
   }
 
   .hero-copy-text {
-    @apply max-w-[32rem] pb-1 text-center text-nw-800 sm:pb-4;
+    @apply max-w-[32rem] pb-1 text-center text-nw-800 lg:pb-4;
   }
 
   .hero-copy-actions {
-    @apply flex w-full flex-col items-stretch gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4;
+    @apply flex w-full flex-col items-stretch gap-2 lg:w-auto lg:flex-row lg:items-center lg:gap-4;
   }
 
   .hero-copy-actions :global(.nw-button) {
-    @apply w-full sm:w-auto;
+    @apply w-full lg:w-auto;
   }
 
   .dress-code-shell {
-    @apply flex flex-col items-center gap-6 text-center sm:gap-8;
+    @apply flex flex-col items-center gap-6 text-center lg:gap-8;
   }
 
   .dress-code-copy {
@@ -440,7 +437,7 @@
   }
 
   .love-copy {
-    @apply nw-glass-card max-w-[40rem] rounded-[1.75rem] px-5 py-6 sm:px-8 sm:py-8;
+    @apply nw-glass-card max-w-[40rem] rounded-[1.75rem] px-5 py-6 lg:px-8 lg:py-8;
   }
 
   .love-copy .nw-body-text {
@@ -452,7 +449,7 @@
   }
 
   .love-paragraph {
-    @apply mb-3 sm:mb-4;
+    @apply mb-3 lg:mb-4;
   }
 
   .love-copy .m-0 {
@@ -473,11 +470,11 @@
   }
 
   .nw-footer {
-    @apply bg-nw-900 py-3 sm:py-4;
+    @apply bg-nw-900 py-3 lg:py-4;
   }
 
   .nw-footer-label {
-    @apply m-0 text-center font-['Bodoni_Moda'] text-[0.82rem] uppercase tracking-[0.18em] text-nw-300 sm:text-[0.9rem];
+    @apply m-0 text-center font-['Bodoni_Moda'] text-[0.82rem] uppercase tracking-[0.18em] text-nw-300 lg:text-[0.9rem];
   }
 
   :global(body) {

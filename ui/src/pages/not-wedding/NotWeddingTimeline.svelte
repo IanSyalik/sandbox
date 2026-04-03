@@ -47,7 +47,7 @@
 </script>
 
 <section id="day" class="nw-section">
-  <div class="nw-page-inner flex flex-col justify-center gap-6 sm:gap-10 lg:flex-row">
+  <div class="nw-page-inner flex flex-col justify-center gap-6 lg:gap-10 lg:flex-row">
     <h2 class="nw-section-title mb-0 text-center text-nowrap">
       Wedding Day
     </h2>
@@ -72,7 +72,7 @@
             <div class="pt-0.5 pb-5">
               <div class="nw-font-timeline-time text-nw-700">{item.time}</div>
               <div class="nw-font-timeline-title mb-0.5">{item.title}</div>
-              <div class="">{item.description}</div>
+              <div>{item.description}</div>
             </div>
 
           </div>

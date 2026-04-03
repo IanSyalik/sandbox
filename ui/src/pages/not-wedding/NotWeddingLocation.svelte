@@ -4,7 +4,7 @@
 
 <section
   id="location"
-  class="nw-section relative overflow-hidden sm:py-20 p-0"
+  class="nw-section relative overflow-hidden lg:py-20 p-0"
   style={`background-image:
     linear-gradient(
       180deg,
@@ -16,14 +16,14 @@
     background-position: 50% 50%;
     background-size: cover;`}
 >
-  <div class="sm:nw-page-inner relative flex min-h-[50rem] items-end justify-center sm:items-center">
+  <div class="lg:nw-page-inner relative flex min-h-[50rem] items-end justify-center lg:items-center">
 
     <div
-      class="nw-glass-card w-full max-w-none px-5 py-6 text-center sm:max-w-[36rem] sm:rounded-[1.75rem] sm:px-8 sm:py-8 md:px-10"
+      class="nw-glass-card w-full max-w-none px-5 py-6 text-center lg:max-w-[36rem] lg:rounded-[1.75rem] lg:px-8 lg:py-8 md:px-10"
     >
-      <h2 class="nw-section-title sm:mb-5 sm:text-[4.8rem]">
+      <h2 class="nw-section-title lg:mb-5 lg:text-[4.8rem]">
         Location</h2>
-      <p class="nw-body-text mb-4 sm:mb-6">
+      <p class="nw-body-text mb-4 lg:mb-6">
         Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
       </p>
       <p class="m-0">
