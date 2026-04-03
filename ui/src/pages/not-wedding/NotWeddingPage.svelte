@@ -110,19 +110,6 @@
   <nav class="site-nav">
     <div class="nw-page-inner site-nav-inner">
       <div class="site-nav-start">
-        <button
-          type="button"
-          class="site-nav-toggle"
-          aria-expanded={isMobileNavOpen}
-          aria-controls="mobile-nav-menu"
-          aria-label={isMobileNavOpen ? 'Закрыть меню' : 'Открыть меню'}
-          on:click={toggleMobileNav}
-        >
-          <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--top-open' : ''}`}></span>
-          <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--middle-open' : ''}`}></span>
-          <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--bottom-open' : ''}`}></span>
-        </button>
-
         <div class="site-nav-links">
         {#each navItems as item}
           <a href={item.href} class="nav-link">{item.label}</a>
@@ -135,6 +122,19 @@
         downloadCalendarEvent()
       }}>
         Добавить в календарь
+      </button>
+
+      <button
+        type="button"
+        class="site-nav-toggle"
+        aria-expanded={isMobileNavOpen}
+        aria-controls="mobile-nav-menu"
+        aria-label={isMobileNavOpen ? 'Закрыть меню' : 'Открыть меню'}
+        on:click={toggleMobileNav}
+      >
+        <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--top-open' : ''}`}></span>
+        <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--middle-open' : ''}`}></span>
+        <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--bottom-open' : ''}`}></span>
       </button>
     </div>
 
