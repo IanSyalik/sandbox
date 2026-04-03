@@ -1,4 +1,6 @@
 <script lang="ts">
+  import {onMount} from 'svelte'
+
   import withLovePhoto from './with love.JPG?url'
   import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
   import dressCodeSwatch2 from './colors/IMG_6230.JPG?url'
@@ -89,6 +91,7 @@
   ]
 
   let isMobileNavOpen = false
+  let isNavButtonVisible = false
 
   function toggleMobileNav() {
     isMobileNavOpen = !isMobileNavOpen
@@ -97,6 +100,29 @@
   function closeMobileNav() {
     isMobileNavOpen = false
   }
+
+  onMount(() => {
+    const targetSection = document.getElementById('location')
+    const navElement = document.querySelector('.site-nav')
+
+    if (!targetSection || !navElement) {
+      return
+    }
+
+    const updateNavButtonVisibility = () => {
+      const navHeight = navElement.getBoundingClientRect().height
+      isNavButtonVisible = targetSection.getBoundingClientRect().top <= navHeight
+    }
+
+    updateNavButtonVisibility()
+    window.addEventListener('scroll', updateNavButtonVisibility, {passive: true})
+    window.addEventListener('resize', updateNavButtonVisibility)
+
+    return () => {
+      window.removeEventListener('scroll', updateNavButtonVisibility)
+      window.removeEventListener('resize', updateNavButtonVisibility)
+    }
+  })
 </script>
 
 <svelte:head>
@@ -117,7 +143,7 @@
         </div>
       </div>
 
-      <button type="button" class="nw-button nw-button-small nw-button-primary site-nav-button" on:click={() => {
+      <button type="button" class={`nw-button nw-button-small nw-button-primary site-nav-button ${isNavButtonVisible ? 'site-nav-button--visible' : ''}`.trim()} on:click={() => {
         closeMobileNav()
         downloadCalendarEvent()
       }}>
@@ -277,7 +303,11 @@
   }
 
   .site-nav-button {
-    @apply shrink-0;
+    @apply shrink-0 opacity-0 transition-opacity duration-300 pointer-events-none;
+  }
+
+  .site-nav-button--visible {
+    @apply opacity-100 pointer-events-auto;
   }
 
   .site-nav-toggle {
