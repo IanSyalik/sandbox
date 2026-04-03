@@ -1,7 +1,6 @@
 <script lang="ts">
   import {onMount} from 'svelte'
 
-  import locationPhoto from './wedd graphics.webp'
   import withLovePhoto from './with love.JPG?url'
   import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
   import dressCodeSwatch2 from './colors/IMG_6230.JPG?url'
@@ -13,6 +12,7 @@
   import heroPanelPhoto2 from './2.JPG?url'
   import heroPanelPhoto3 from './3.JPG?url'
   import NotWeddingHeroNamesDate from './NotWeddingHeroNamesDate.svelte'
+  import NotWeddingLocation from './NotWeddingLocation.svelte'
   import NotWeddingTimeline from './NotWeddingTimeline.svelte'
 
   type NavItem = {
@@ -196,39 +196,13 @@
       <div class="hero-copy-actions">
         <button type="button" class="button button--primary" on:click={downloadCalendarEvent}>Добавить в календарь
         </button>
-        <a href="#day" class="button button--secondary">Примерная программа</a>
+        <a href="#day" class="button button--secondary">Программа</a>
       </div>
     </div>
 
   </section>
 
-  <section
-    id="location"
-    class="section-shell location-section"
-    style={`--location-photo: url(${locationPhoto});`}
-  >
-    <div class="page-inner location-grid">
-      <div class="location-copy">
-        <h2 class="section-title location-title">Location</h2>
-        <p class="body-text location-description">
-          Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
-        </p>
-        <p class="m-0">
-          <a
-            href="https://maps.google.com/?q=Yayaki+House,+Narva+mnt+7,+Tallinn"
-            target="_blank"
-            rel="noreferrer"
-            class="location-link"
-          >
-            <span>Yayaki House, Narva mnt 7, 2 этаж</span>
-            <span aria-hidden="true" class="location-link-arrow">
-              ↗
-            </span>
-          </a>
-        </p>
-      </div>
-    </div>
-  </section>
+  <NotWeddingLocation />
 
   <section id="dress-code" class="section-shell">
     <div class="page-inner dress-code-shell">
@@ -473,60 +447,6 @@
   .button--secondary:focus-visible {
     @apply -translate-y-px;
     background: color-mix(in srgb, var(--color-nw-900) 6%, transparent);
-  }
-
-  .location-grid {
-    @apply relative z-[1] flex min-h-[20rem] items-center justify-center py-10 sm:min-h-[26rem] sm:py-20 lg:py-24;
-  }
-
-  .location-copy {
-    @apply w-full max-w-[36rem] rounded-[1.75rem] px-5 py-6 text-center sm:px-8 sm:py-8 md:px-10;
-    background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
-    box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
-    backdrop-filter: blur(10px);
-  }
-
-  .location-title {
-    @apply mb-4 sm:mb-5;
-  }
-
-  .location-description {
-    @apply mb-4 sm:mb-6;
-  }
-
-  .location-link {
-    @apply inline-flex items-center gap-3 border-b pb-1 text-[1.02rem] font-semibold transition-all duration-200;
-    border-color: color-mix(in srgb, var(--color-nw-900) 28%, transparent);
-    color: var(--color-nw-900);
-  }
-
-  .location-link:hover,
-  .location-link:focus-visible {
-    @apply border-nw-700 text-nw-700;
-  }
-
-  .location-link:hover .location-link-arrow,
-  .location-link:focus-visible .location-link-arrow {
-    transform: translateX(0.125rem);
-  }
-
-  .location-link-arrow {
-    @apply text-[1.05rem] leading-none transition-transform duration-200;
-  }
-
-  .location-section {
-    @apply relative overflow-hidden;
-    background-image:
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--color-nw-50) 22%, transparent) 0%,
-        color-mix(in srgb, var(--color-nw-50) 10%, transparent) 25%,
-        color-mix(in srgb, var(--color-nw-900) 26%, transparent) 100%
-      ),
-      var(--location-photo);
-    background-position: 50% 50%;
-    background-size: cover;
   }
 
   .dress-code-shell {
