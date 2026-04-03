@@ -409,7 +409,7 @@
   }
 
   .nw-footer-label {
-    @apply m-0 text-center font-['Bodoni_Moda'] text-[0.82rem] uppercase tracking-[0.18em] text-nw-300 lg:text-[0.9rem];
+    @apply m-0 text-center font-['Bodoni_Moda'] text-[1rem] uppercase tracking-[0.18em] text-nw-300;
   }
 
   :global(body) {
