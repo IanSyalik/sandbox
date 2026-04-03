@@ -147,7 +147,7 @@
     {/if}
   </nav>
 
-  <section class="hero-section">
+  <section class="hero-section !pb-8 sm:pb-5">
     <div class="hero-glow"></div>
     <div class="hero-names-shell">
       <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
@@ -399,7 +399,7 @@
   }
 
   .hero-copy {
-    @apply mx-auto flex min-w-0 max-w-[38rem] flex-col items-center justify-center gap-2 px-2 text-center lg:max-w-[60rem] lg:gap-3;
+    @apply mx-auto flex min-w-0 max-w-[38rem] flex-col items-center justify-center gap-4 text-center lg:max-w-[60rem] lg:gap-3;
   }
 
   .hero-copy-title {
