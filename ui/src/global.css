@@ -148,6 +148,48 @@
   @apply max-w-5xl mx-auto w-full px-4;
 }
 
+@utility nw-page-inner {
+  @apply mx-auto w-full max-w-[1000px] px-6;
+}
+
+@utility nw-section {
+  @apply scroll-mt-24 py-8 sm:py-16 lg:py-20;
+  border-top: 1px solid color-mix(in srgb, var(--color-nw-800) 16%, transparent);
+  background: var(--color-nw-50);
+}
+
+@utility nw-section-muted {
+  @apply bg-nw-300;
+}
+
+@utility nw-section-title {
+  @apply mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-6 sm:text-[4rem] lg:text-[4.8rem];
+}
+
+@utility nw-body-text {
+  @apply leading-[1.8] text-nw-800;
+}
+
+@utility nw-button {
+  @apply inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150;
+}
+
+@utility nw-button-primary {
+  @apply border-nw-900 bg-nw-900 text-nw-50 hover:-translate-y-px hover:border-nw-800 hover:bg-nw-800 focus-visible:-translate-y-px focus-visible:border-nw-800 focus-visible:bg-nw-800;
+}
+
+@utility nw-button-secondary {
+  @apply border-nw-900 bg-transparent text-nw-900 hover:-translate-y-px hover:bg-nw-900/5 focus-visible:-translate-y-px focus-visible:bg-nw-900/5;
+  background: transparent;
+}
+
+@utility nw-glass-card {
+  background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
+  box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
+  backdrop-filter: blur(10px);
+}
+
 @layer base {
   h1, h2, h3, h4, h5 {
     outline: none;

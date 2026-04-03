@@ -154,7 +154,7 @@
 
 <main id="main" tabindex="-1" class="page-main">
   <nav class="site-nav">
-    <div class="page-inner site-nav-inner">
+    <div class="nw-page-inner site-nav-inner">
       {#each navItems as item}
         <a href={item.href} class="nav-link">{item.label}</a>
       {/each}
@@ -194,9 +194,9 @@
         Мы будем счастливы видеть вас рядом, разделить эмоции, смех и любовь этого особенного дня.
       </p>
       <div class="hero-copy-actions">
-        <button type="button" class="button button--primary" on:click={downloadCalendarEvent}>Добавить в календарь
+        <button type="button" class="nw-button nw-button-primary" on:click={downloadCalendarEvent}>Добавить в календарь
         </button>
-        <a href="#day" class="button button--secondary">Программа</a>
+        <a href="#day" class="nw-button nw-button-secondary">Программа</a>
       </div>
     </div>
 
@@ -204,11 +204,11 @@
 
   <NotWeddingLocation />
 
-  <section id="dress-code" class="section-shell">
-    <div class="page-inner dress-code-shell">
+  <section id="dress-code" class="nw-section">
+    <div class="nw-page-inner dress-code-shell">
       <div class="dress-code-copy">
-        <h2 class="section-title">Dress Code</h2>
-        <p class="body-text">
+        <h2 class="nw-section-title">Dress Code</h2>
+        <p class="nw-body-text">
           Мы будем рады видеть девушек в нарядах в нежных пастельных оттенках, а мужчин в классике.
         </p>
       </div>
@@ -229,42 +229,42 @@
 
   <section
     id="love"
-    class="section-shell love-section"
+    class="nw-section love-section"
     style={`--love-photo: url(${withLovePhoto});`}
   >
-    <div class="page-inner love-grid">
+    <div class="nw-page-inner love-grid">
       <div class="love-heading">
-        <h2 class="section-title">With Love</h2>
+        <h2 class="nw-section-title">With Love</h2>
       </div>
 
       <div class="love-copy">
-        <p class="body-text love-paragraph">Мы очень ценим ваше внимание и заботу.</p>
-        <p class="body-text love-paragraph">
+        <p class="nw-body-text love-paragraph">Мы очень ценим ваше внимание и заботу.</p>
+        <p class="nw-body-text love-paragraph">
           И будем очень благодарны, если вы обойдетесь без подарков в виде картин и предметов декора.
           Если вы хотите порадовать нас, приятным и удобным вариантом станет конверт.
         </p>
-        <p class="body-text love-paragraph">
+        <p class="nw-body-text love-paragraph">
           Ваши тёплые слова и поздравления мы с радостью примем, когда соберёмся вместе после ЗАГСа.
         </p>
-        <p class="body-text love-paragraph">
+        <p class="nw-body-text love-paragraph">
           Если захотите присоединиться к нам в ЗАГСе, пожалуйста, приходите не менее чем за 15 минут до начала церемонии.
         </p>
-        <p class="body-text m-0">Самое главное для нас — это ваше присутствие и разделённая с нами радость
+        <p class="nw-body-text m-0">Самое главное для нас — это ваше присутствие и разделённая с нами радость
           этого дня.</p>
       </div>
     </div>
   </section>
 
-  <section id="calendar" class="section-shell section-shell--muted">
-    <div class="page-inner calendar-shell">
+  <section id="calendar" class="nw-section nw-section-muted">
+    <div class="nw-page-inner calendar-shell">
       <div class="calendar-copy">
-        <h2 class="section-title">Calendar</h2>
-        <p class="body-text m-0">Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
+        <h2 class="nw-section-title">Calendar</h2>
+        <p class="nw-body-text m-0">Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
       </div>
 
       <div class="calendar-actions">
-        <button type="button" class="button button--primary" on:click={downloadCalendarEvent}>Добавить в календарь</button>
-        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="button button--secondary">Открыть Google
+        <button type="button" class="nw-button nw-button-primary" on:click={downloadCalendarEvent}>Добавить в календарь</button>
+        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="nw-button nw-button-secondary">Открыть Google
           Календарь
         </a>
       </div>
@@ -283,10 +283,6 @@
 
   .page-main {
     @apply bg-nw-200 font-['Inter'] text-nw-900;
-  }
-
-  .page-inner {
-    @apply mx-auto w-full max-w-[1000px] px-6;
   }
 
   .site-nav {
@@ -404,49 +400,8 @@
     @apply flex w-full flex-col items-stretch gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4;
   }
 
-  .hero-copy-actions :global(.button) {
+  .hero-copy-actions :global(.nw-button) {
     @apply w-full sm:w-auto;
-  }
-
-  .section-shell {
-    @apply scroll-mt-24 py-8 sm:py-16 lg:py-20;
-    border-top: 1px solid color-mix(in srgb, var(--color-nw-800) 16%, transparent);
-    background: var(--color-nw-50);
-  }
-
-  .section-shell--muted {
-    @apply bg-nw-300;
-  }
-
-  .section-title {
-    @apply mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-6 sm:text-[4rem] lg:text-[4.8rem];
-  }
-
-  .body-text {
-    @apply leading-[1.8] text-nw-800;
-  }
-
-  .button {
-    @apply inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150;
-  }
-
-  .button--primary {
-    @apply border-nw-900 bg-nw-900 text-nw-50;
-  }
-
-  .button--primary:hover,
-  .button--primary:focus-visible {
-    @apply -translate-y-px border-nw-800 bg-nw-800;
-  }
-
-  .button--secondary {
-    @apply border-nw-900 bg-transparent text-nw-900;
-  }
-
-  .button--secondary:hover,
-  .button--secondary:focus-visible {
-    @apply -translate-y-px;
-    background: color-mix(in srgb, var(--color-nw-900) 6%, transparent);
   }
 
   .dress-code-shell {
@@ -476,14 +431,10 @@
   }
 
   .love-copy {
-    @apply max-w-[40rem] rounded-[1.75rem] px-5 py-6 sm:px-8 sm:py-8;
-    background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
-    box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
-    backdrop-filter: blur(10px);
+    @apply nw-glass-card max-w-[40rem] rounded-[1.75rem] px-5 py-6 sm:px-8 sm:py-8;
   }
 
-  .love-copy .body-text {
+  .love-copy .nw-body-text {
     @apply text-[0.98rem] leading-[1.9] text-nw-800 sm:text-[1.03rem];
   }
 

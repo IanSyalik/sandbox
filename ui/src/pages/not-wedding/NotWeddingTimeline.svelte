@@ -46,9 +46,9 @@
   ]
 </script>
 
-<section id="day" class="scroll-mt-24 py-8 sm:py-16 lg:py-20 border-t">
-  <div class=" mx-auto w-full max-w-[1000px] px-6 gap-6 sm:gap-10 flex flex-col lg:flex-row justify-center">
-    <h2 class="text-center text-nowrap mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-6 sm:text-[4rem] lg:text-[4.8rem]">
+<section id="day" class="nw-section">
+  <div class="nw-page-inner flex flex-col justify-center gap-6 sm:gap-10 lg:flex-row">
+    <h2 class="nw-section-title mb-0 text-center text-nowrap">
       Wedding Day
     </h2>
 

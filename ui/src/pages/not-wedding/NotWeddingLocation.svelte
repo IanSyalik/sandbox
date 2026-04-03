@@ -4,7 +4,7 @@
 
 <section
   id="location"
-  class="relative overflow-hidden scroll-mt-24 border-t border-[color-mix(in_srgb,var(--color-nw-800)_16%,transparent)] sm:py-20"
+  class="nw-section relative overflow-hidden sm:py-20 p-0"
   style={`background-image:
     linear-gradient(
       180deg,
@@ -16,15 +16,14 @@
     background-position: 50% 50%;
     background-size: cover;`}
 >
-  <div class="relative mx-auto flex min-h-[50rem] w-full max-w-[1000px] items-end sm:items-center justify-center">
+  <div class="sm:nw-page-inner relative flex min-h-[50rem] items-end justify-center sm:items-center">
 
     <div
-      class="w-full max-w-none sm:rounded-[1.75rem] border px-5 py-6 sm:px-8 sm:py-8 md:px-10 text-center backdrop-blur-[10px] sm:max-w-[36rem]"
-      style="background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);"
+      class="nw-glass-card w-full max-w-none px-5 py-6 text-center sm:max-w-[36rem] sm:rounded-[1.75rem] sm:px-8 sm:py-8 md:px-10"
     >
-      <h2 class="mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-5 sm:text-[4.8rem]">
+      <h2 class="nw-section-title sm:mb-5 sm:text-[4.8rem]">
         Location</h2>
-      <p class="mb-4 text-[1rem] leading-[1.8] text-nw-800 sm:mb-6">
+      <p class="nw-body-text mb-4 text-[1rem] sm:mb-6">
         Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
       </p>
       <p class="m-0">
