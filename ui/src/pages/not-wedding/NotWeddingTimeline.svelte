@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {onMount} from 'svelte'
   import timelineIcon1 from './1day.svg?raw'
   import timelineIcon2 from './2day.svg?raw'
   import timelineIcon3 from './3day.svg?raw'
@@ -44,9 +45,43 @@
       description: 'Сладкий момент нашего вечера.'
     }
   ]
+
+  let timelineSectionElement: HTMLElement | null = null
+  let isTimelineVisible = false
+
+  onMount(() => {
+    if (!timelineSectionElement) {
+      return
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      isTimelineVisible = true
+      return
+    }
+
+    const timelineObserver = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+
+        if (entry?.isIntersecting) {
+          isTimelineVisible = true
+          timelineObserver.disconnect()
+        }
+      },
+      {
+        threshold: 0.2
+      }
+    )
+
+    timelineObserver.observe(timelineSectionElement)
+
+    return () => {
+      timelineObserver.disconnect()
+    }
+  })
 </script>
 
-<section id="day" class="nw-section">
+<section id="day" class="nw-section" bind:this={timelineSectionElement}>
   <div class="nw-page-inner flex flex-col justify-center gap-6 lg:gap-10 lg:flex-row">
     <h2 class="nw-section-title mb-0 text-center text-nowrap">
       Wedding Day
@@ -54,7 +89,11 @@
 
     <div class="flex flex-col timeline">
       {#each timelineItems as item, index}
-        <div class="flex gap-4">
+        <div
+          class="timeline-item flex gap-4"
+          class:timeline-item--visible={isTimelineVisible}
+          style={`--timeline-delay: ${index * 160}ms;`}
+        >
 
           <div class="pt-2">
             <div class="flex h-16 w-16 text-nw-600 icon-wrapper">
@@ -89,5 +128,20 @@
   .icon-wrapper :global(svg) {
     @apply h-full w-full;
     display: block;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .timeline-item {
+      opacity: 0;
+      transform: translateY(1.1rem);
+      transition:
+        opacity 760ms ease-out var(--timeline-delay),
+        transform 760ms ease-out var(--timeline-delay);
+    }
+
+    .timeline-item--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
