@@ -202,7 +202,7 @@
 
   </section>
 
-  <NotWeddingLocation />
+  <NotWeddingLocation/>
 
   <section id="dress-code" class="nw-section">
     <div class="nw-page-inner dress-code-shell">
@@ -225,7 +225,7 @@
     </div>
   </section>
 
-  <NotWeddingTimeline />
+  <NotWeddingTimeline/>
 
   <section
     id="love"
@@ -247,7 +247,8 @@
           Ваши тёплые слова и поздравления мы с радостью примем, когда соберёмся вместе после ЗАГСа.
         </p>
         <p class="nw-body-text love-paragraph">
-          Если захотите присоединиться к нам в ЗАГСе, пожалуйста, приходите не менее чем за 15 минут до начала церемонии.
+          Если захотите присоединиться к нам в ЗАГСе, пожалуйста, приходите не менее чем за 15 минут до начала
+          церемонии.
         </p>
         <p class="nw-body-text m-0">Самое главное для нас — это ваше присутствие и разделённая с нами радость
           этого дня.</p>
@@ -263,8 +264,11 @@
       </div>
 
       <div class="calendar-actions">
-        <button type="button" class="nw-button nw-button-primary" on:click={downloadCalendarEvent}>Добавить в календарь</button>
-        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="nw-button nw-button-secondary">Открыть Google
+        <button type="button" class="nw-button nw-button-primary" on:click={downloadCalendarEvent}>Добавить в
+          календарь
+        </button>
+        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="nw-button nw-button-secondary">Открыть
+          Google
           Календарь
         </a>
       </div>
@@ -305,7 +309,7 @@
   }
 
   .hero-section {
-    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col lg:justify-center gap-8 overflow-hidden px-4 py-5 sm:gap-8 sm:py-8 lg:gap-14;
+    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col sm:justify-center gap-8 overflow-hidden px-4 py-5 sm:gap-8 sm:py-8 sm:gap-14;
     background: linear-gradient(180deg, var(--color-nw-100) 0%, var(--color-nw-400) 100%);
   }
 
@@ -331,11 +335,11 @@
   }
 
   .hero-gallery {
-    @apply grid w-full grid-cols-3 items-stretch gap-2 sm:gap-4 lg:flex lg:flex-row lg:gap-10;
+    @apply grid w-full grid-cols-3 items-stretch gap-2 sm:gap-4 sm:flex sm:flex-row sm:gap-10;
   }
 
   .hero-title {
-    @apply col-span-3 pb-6 lg:py-1 text-center font-['Bodoni_Moda'] text-[2.85rem] leading-[0.92] whitespace-normal uppercase tracking-[-0.05em] text-transparent sm:py-2 sm:text-[4.4rem] lg:py-4 lg:pr-6 lg:text-left lg:text-[8rem] lg:leading-[1.1] lg:whitespace-pre-line lg:tracking-[-0.04em];
+    @apply col-span-3 pb-6 sm:py-1 text-center font-['Bodoni_Moda'] text-[2.85rem] leading-[0.92] whitespace-normal uppercase tracking-[-0.05em] text-transparent sm:py-2 sm:text-[4.4rem] sm:py-4 sm:pr-6 sm:text-left sm:text-[8rem] sm:leading-[1.1] sm:whitespace-pre-line sm:tracking-[-0.04em];
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
@@ -349,22 +353,22 @@
   }
 
   .hero-panel-frame {
-    @apply relative h-[16rem] min-w-0 flex-none lg:flex lg:h-auto lg:min-h-[29rem] lg:flex-1;
+    @apply relative h-[16rem] min-w-0 flex-none sm:flex sm:h-auto sm:min-h-[29rem] sm:flex-1;
   }
 
   .hero-panel {
     @apply flex h-full w-full flex-1 overflow-hidden rounded-t-full rounded-b-full bg-cover bg-center bg-no-repeat;
     background-image: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--color-nw-50) 8%, transparent) 0%,
-        color-mix(in srgb, var(--color-nw-50) 2%, transparent) 40%,
-        color-mix(in srgb, var(--color-nw-900) 8%, transparent) 100%
-      ),
-      var(--hero-panel-image);
+      180deg,
+      color-mix(in srgb, var(--color-nw-50) 8%, transparent) 0%,
+      color-mix(in srgb, var(--color-nw-50) 2%, transparent) 40%,
+      color-mix(in srgb, var(--color-nw-900) 8%, transparent) 100%
+    ),
+    var(--hero-panel-image);
   }
 
   .hero-panel-label {
-    @apply absolute bottom-0 right-0 -mb-0.5 -mr-0.5 text-right font-['Bodoni_Moda'] text-[3.5rem] leading-[0.9] sm:-mb-1 sm:-mr-1 sm:text-[4.75rem] lg:text-[6rem] lg:leading-[1];
+    @apply absolute bottom-0 right-0 -mb-0.5 -mr-0.5 text-right font-['Bodoni_Moda'] text-[3.5rem] leading-[0.9] sm:-mb-1 sm:-mr-1 sm:text-[6rem] sm:leading-[1];
   }
 
   .hero-panel-label--color {
@@ -385,11 +389,11 @@
   }
 
   .hero-copy {
-    @apply mx-auto flex min-w-0 max-w-[38rem] flex-col items-center justify-center gap-2 px-2 text-center sm:max-w-[42rem] sm:gap-3 lg:max-w-[60rem];
+    @apply mx-auto flex min-w-0 max-w-[38rem] flex-col items-center justify-center gap-2 px-2 text-center sm:max-w-[42rem] sm:gap-3 sm:max-w-[60rem];
   }
 
   .hero-copy-title {
-    @apply font-['Bodoni_Moda'] text-[1.5rem] leading-[1.12] text-nw-900 sm:text-[1.8rem] lg:text-[2.2rem];
+    @apply font-['Bodoni_Moda'] text-[1.5rem] leading-[1.12] text-nw-900 sm:text-[2.2rem];
   }
 
   .hero-copy-text {
@@ -452,14 +456,13 @@
 
   .love-section {
     @apply relative overflow-hidden;
-    background-image:
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--color-nw-50) 18%, transparent) 0%,
-        color-mix(in srgb, var(--color-nw-50) 10%, transparent) 30%,
-        color-mix(in srgb, var(--color-nw-900) 28%, transparent) 100%
-      ),
-      var(--love-photo);
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-nw-50) 18%, transparent) 0%,
+      color-mix(in srgb, var(--color-nw-50) 10%, transparent) 30%,
+      color-mix(in srgb, var(--color-nw-900) 28%, transparent) 100%
+    ),
+    var(--love-photo);
     background-position: 50% 50%;
     background-size: cover;
   }
