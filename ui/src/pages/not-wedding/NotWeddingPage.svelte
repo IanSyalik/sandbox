@@ -275,8 +275,8 @@
     class="nw-section love-section relative overflow-hidden lg:py-20 p-0"
     style={`--love-photo: url(${withLovePhoto});`}
   >
-    <div class="lg:nw-page-inner relative flex min-h-[50rem] items-end justify-center lg:items-center">
-      <div class="nw-glass-card w-full max-w-none text-center lg:max-w-[36rem] lg:rounded-[1.75rem] flex flex-col gap-3">
+    <div class="nw-page-inner relative flex min-h-[50rem] items-center justify-center">
+      <div class="nw-glass-card flex w-full max-w-[36rem] flex-col gap-3 rounded-[1.75rem] text-center">
         <h2 class="nw-section-title mb-0">With Love</h2>
         <p class="text-xl font-['Bodoni_Moda']">Мы очень ценим ваше внимание и заботу.</p>
         <p>
