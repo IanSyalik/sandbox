@@ -343,7 +343,7 @@
   }
 
   .hero-title {
-    @apply nw-font-hero-title col-span-3 pb-6 text-center text-transparent lg:py-4 lg:pr-6 lg:text-left;
+    @apply nw-font-hero-title col-span-3 pb-6 text-center text-transparent lg:pt-5 lg:pb-4 lg:pr-6 lg:text-left;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
