@@ -23,7 +23,7 @@
     >
       <h2 class="nw-section-title sm:mb-5 sm:text-[4.8rem]">
         Location</h2>
-      <p class="nw-body-text mb-4 text-[1rem] sm:mb-6">
+      <p class="nw-body-text mb-4 sm:mb-6">
         Мы выбрали уютное и атмосферное место, где сможем провести этот день в тёплой и близкой компании.
       </p>
       <p class="m-0">
@@ -31,7 +31,7 @@
           href="https://maps.google.com/?q=Yayaki+House,+Narva+mnt+7,+Tallinn"
           target="_blank"
           rel="noreferrer"
-          class="group inline-flex items-center gap-3 border-b border-[color-mix(in_srgb,var(--color-nw-900)_28%,transparent)] pb-1 text-[1.02rem] font-semibold text-nw-900 transition-all duration-200 hover:border-nw-700 hover:text-nw-700 focus-visible:border-nw-700 focus-visible:text-nw-700"
+          class="nw-font-link group inline-flex items-center gap-3 border-b border-[color-mix(in_srgb,var(--color-nw-900)_28%,transparent)] pb-1 text-nw-900 transition-all duration-200 hover:border-nw-700 hover:text-nw-700 focus-visible:border-nw-700 focus-visible:text-nw-700"
         >
           <span>Yayaki House, Narva mnt 7, 2 этаж</span>
           <span aria-hidden="true" class="text-[1.05rem] leading-none transition-transform duration-200 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5">

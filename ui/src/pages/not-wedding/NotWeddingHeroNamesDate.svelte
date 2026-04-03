@@ -1,8 +1,8 @@
 <style lang="postcss">
   @reference "./../../global.css";
 
-  h1 {
-    @apply font-['Rouge_Script'] leading-[1] text-[3rem] sm:text-[3.5rem] lg:!text-[5rem] text-transparent px-1 py-0.5;
+  .nw-hero-name {
+    @apply nw-font-hero-name text-transparent;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-700) 92%, transparent) 0%,
@@ -21,7 +21,7 @@
 
 <div class={` text-center ${containerClass}`.trim()}>
   <div class={`relative m-0 flex items-center justify-center text-nw-900 ${contentClass}`.trim()}>
-    <h1>Jaan Jana</h1>
-    <h1 class="absolute left-1/2 top-1/2 ml-3 -translate-x-1/2 -translate-y-1/2 !text-[6rem] sm:ml-4 sm:!text-[7rem] lg:!text-[10rem] opacity-40">&</h1>
+    <h1 class="nw-hero-name">Jaan Jana</h1>
+    <h1 class="nw-hero-name nw-font-hero-ampersand absolute left-1/2 top-1/2 ml-3 -translate-x-1/2 -translate-y-1/2 opacity-40 sm:ml-4">&</h1>
   </div>
 </div>

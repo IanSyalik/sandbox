@@ -63,7 +63,7 @@
   }
 
   .calendar-label {
-    @apply mb-4 text-center text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-nw-700;
+    @apply nw-font-kicker mb-4 text-nw-700;
   }
 
   .calendar-grid {
@@ -71,7 +71,7 @@
   }
 
   .calendar-cell {
-    @apply relative flex aspect-square items-center justify-center p-3 text-[0.8rem] font-medium leading-none;
+    @apply nw-font-calendar-cell relative flex aspect-square items-center justify-center p-3;
   }
 
   .calendar-heart {
@@ -84,6 +84,6 @@
   }
 
   .calendar-day--selected {
-    @apply font-semibold text-red-500;
+    @apply nw-font-calendar-selected text-red-500;
   }
 </style>

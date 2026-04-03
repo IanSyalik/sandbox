@@ -70,8 +70,8 @@
             </div>
 
             <div class="pt-0.5 pb-5">
-              <div class="font-['Bodoni_Moda'] text-nw-700 text-[1.2rem]">{item.time}</div>
-              <div class="mb-0.5 font-medium text-[1.25rem]">{item.title}</div>
+              <div class="nw-font-timeline-time text-nw-700">{item.time}</div>
+              <div class="nw-font-timeline-title mb-0.5">{item.title}</div>
               <div class="">{item.description}</div>
             </div>
 

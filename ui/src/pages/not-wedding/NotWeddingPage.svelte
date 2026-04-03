@@ -286,7 +286,7 @@
   }
 
   .page-main {
-    @apply bg-nw-200 font-['Inter'] text-nw-900;
+    @apply nw-font-page bg-nw-200 text-nw-900;
   }
 
   .site-nav {
@@ -300,7 +300,7 @@
   }
 
   .nav-link {
-    @apply text-[0.92rem] font-medium tracking-[0.02em] text-nw-800 transition-colors duration-150;
+    @apply nw-font-nav text-nw-800 transition-colors duration-150;
   }
 
   .nav-link:hover,
@@ -339,7 +339,7 @@
   }
 
   .hero-title {
-    @apply col-span-3 pb-6 sm:py-1 text-center font-['Bodoni_Moda'] text-[2.85rem] leading-[0.92] whitespace-normal uppercase tracking-[-0.05em] text-transparent sm:py-2 sm:text-[4.4rem] sm:py-4 sm:pr-6 sm:text-left sm:text-[8rem] sm:leading-[1.1] sm:whitespace-pre-line sm:tracking-[-0.04em];
+    @apply nw-font-hero-title col-span-3 pb-6 text-transparent sm:py-4 sm:pr-6;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
@@ -368,7 +368,7 @@
   }
 
   .hero-panel-label {
-    @apply absolute bottom-0 right-0 -mb-0.5 -mr-0.5 text-right font-['Bodoni_Moda'] text-[3.5rem] leading-[0.9] sm:-mb-1 sm:-mr-1 sm:text-[6rem] sm:leading-[1];
+    @apply nw-font-hero-panel-label absolute bottom-0 right-0 -mb-0.5 -mr-0.5 sm:-mb-1 sm:-mr-1;
   }
 
   .hero-panel-label--color {
@@ -393,11 +393,11 @@
   }
 
   .hero-copy-title {
-    @apply font-['Bodoni_Moda'] text-[1.5rem] leading-[1.12] text-nw-900 sm:text-[2.2rem];
+    @apply nw-font-hero-copy-title text-nw-900;
   }
 
   .hero-copy-text {
-    @apply max-w-[32rem] pb-1 text-center text-[0.95rem] leading-[1.65] text-nw-800 sm:pb-4 sm:text-[1rem] sm:leading-[1.75];
+    @apply nw-font-hero-copy-text max-w-[32rem] pb-1 text-center text-nw-800 sm:pb-4;
   }
 
   .hero-copy-actions {
@@ -439,11 +439,11 @@
   }
 
   .love-copy .nw-body-text {
-    @apply text-[0.98rem] leading-[1.9] text-nw-800 sm:text-[1.03rem];
+    @apply nw-font-love-body text-nw-800;
   }
 
   .love-copy .love-paragraph:first-child {
-    @apply font-['Bodoni_Moda'] text-[1.22rem] leading-[1.35] tracking-[0.01em] text-nw-900 sm:text-[1.35rem];
+    @apply nw-font-love-lead text-nw-900;
   }
 
   .love-paragraph {
@@ -451,7 +451,7 @@
   }
 
   .love-copy .m-0 {
-    @apply font-['Bodoni_Moda'] text-[1.08rem] leading-[1.55] tracking-[0.01em] text-nw-900 sm:text-[1.18rem];
+    @apply nw-font-love-close text-nw-900;
   }
 
   .love-section {

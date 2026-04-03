@@ -152,6 +152,10 @@
   @apply mx-auto w-full max-w-[1000px] px-6;
 }
 
+@utility nw-font-page {
+  @apply font-['Inter'];
+}
+
 @utility nw-section {
   @apply scroll-mt-24 py-8 sm:py-16 lg:py-20;
   border-top: 1px solid color-mix(in srgb, var(--color-nw-800) 16%, transparent);
@@ -163,15 +167,15 @@
 }
 
 @utility nw-section-title {
-  @apply mb-4 font-['Rouge_Script'] text-[3.1rem] leading-[0.92] text-nw-800 sm:mb-6 sm:text-[4rem] lg:text-[4.8rem];
+  @apply nw-font-script-title mb-4 text-nw-800 sm:mb-6;
 }
 
 @utility nw-body-text {
-  @apply leading-[1.8] text-nw-800;
+  @apply nw-font-body text-nw-800;
 }
 
 @utility nw-button {
-  @apply inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-150;
+  @apply nw-font-button inline-flex min-h-[2.9rem] items-center justify-center rounded-full border px-5 py-3 transition-all duration-150;
 }
 
 @utility nw-button-primary {
@@ -188,6 +192,82 @@
   border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
   box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
   backdrop-filter: blur(10px);
+}
+
+@utility nw-font-nav {
+  @apply  font-medium font-['Bodoni_Moda'];
+}
+
+@utility nw-font-button {
+  @apply text-[0.95rem] font-medium leading-none;
+}
+
+@utility nw-font-script-title {
+  @apply font-['Rouge_Script'] text-[3.1rem] leading-[0.92] sm:text-[4rem] lg:text-[4.8rem];
+}
+
+@utility nw-font-body {
+  @apply text-[1rem] leading-[1.8];
+}
+
+@utility nw-font-link {
+  @apply text-[1.02rem] font-medium leading-[1.4];
+}
+
+@utility nw-font-kicker {
+  @apply text-center text-[0.82rem] font-medium uppercase tracking-[0.18em];
+}
+
+@utility nw-font-hero-name {
+  @apply px-1 py-0.5 font-['Rouge_Script'] text-[3rem] leading-[1] sm:text-[3.5rem] lg:text-[5rem];
+}
+
+@utility nw-font-hero-ampersand {
+  @apply text-[6rem] sm:text-[7rem] lg:text-[10rem];
+}
+
+@utility nw-font-hero-title {
+  @apply text-center font-['Bodoni_Moda'] text-[2.85rem] leading-[0.92] uppercase tracking-[-0.05em] whitespace-normal sm:text-[4.4rem] sm:py-2 sm:text-left sm:whitespace-pre-line sm:tracking-[-0.04em] sm:text-[8rem] sm:leading-[1.1];
+}
+
+@utility nw-font-hero-panel-label {
+  @apply text-right font-['Bodoni_Moda'] text-[3.5rem] leading-[0.9] sm:text-[6rem] sm:leading-[1];
+}
+
+@utility nw-font-hero-copy-title {
+  @apply font-['Bodoni_Moda'] text-[1.5rem] leading-[1.12] sm:text-[2.2rem];
+}
+
+@utility nw-font-hero-copy-text {
+  @apply text-[0.95rem] leading-[1.65] sm:text-[1rem] sm:leading-[1.75];
+}
+
+@utility nw-font-timeline-time {
+  @apply font-['Bodoni_Moda'] text-[1.2rem];
+}
+
+@utility nw-font-timeline-title {
+  @apply text-[1.25rem] font-medium leading-[1.35];
+}
+
+@utility nw-font-love-lead {
+  @apply font-['Bodoni_Moda'] text-[1.22rem] leading-[1.35] tracking-[0.01em] sm:text-[1.35rem];
+}
+
+@utility nw-font-love-close {
+  @apply font-['Bodoni_Moda'] text-[1.08rem] leading-[1.55] tracking-[0.01em] sm:text-[1.18rem];
+}
+
+@utility nw-font-love-body {
+  @apply text-[0.98rem] leading-[1.9] sm:text-[1.03rem];
+}
+
+@utility nw-font-calendar-cell {
+  @apply text-[0.8rem] font-medium leading-none;
+}
+
+@utility nw-font-calendar-selected {
+  @apply font-medium;
 }
 
 @layer base {
