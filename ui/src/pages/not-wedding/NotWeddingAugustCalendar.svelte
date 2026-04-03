@@ -63,7 +63,7 @@
   }
 
   .calendar-label {
-    @apply nw-font-kicker mb-4 text-nw-700;
+    @apply nw-font-kicker mb-4 text-center text-nw-700;
   }
 
   .calendar-grid {

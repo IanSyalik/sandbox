@@ -155,9 +155,15 @@
 <main id="main" tabindex="-1" class="page-main">
   <nav class="site-nav">
     <div class="nw-page-inner site-nav-inner">
-      {#each navItems as item}
-        <a href={item.href} class="nav-link">{item.label}</a>
-      {/each}
+      <div class="site-nav-links">
+        {#each navItems as item}
+          <a href={item.href} class="nav-link">{item.label}</a>
+        {/each}
+      </div>
+
+      <button type="button" class="nw-button nw-button-primary site-nav-button site-nav-button--compact" on:click={downloadCalendarEvent}>
+        Добавить в календарь
+      </button>
     </div>
   </nav>
 
@@ -256,24 +262,12 @@
     </div>
   </section>
 
-  <section id="calendar" class="nw-section nw-section-muted">
-    <div class="nw-page-inner calendar-shell">
-      <div class="calendar-copy">
-        <h2 class="nw-section-title">Calendar</h2>
-        <p class="nw-body-text m-0">Добавьте этот день в календарь, чтобы сохранить дату нашего праздника.</p>
-      </div>
-
-      <div class="calendar-actions">
-        <button type="button" class="nw-button nw-button-primary" on:click={downloadCalendarEvent}>Добавить в
-          календарь
-        </button>
-        <a href={googleCalendarUrl} target="_blank" rel="noreferrer" class="nw-button nw-button-secondary">Открыть
-          Google
-          Календарь
-        </a>
-      </div>
+  <footer class="nw-section nw-footer">
+    <div class="nw-page-inner">
+      <p class="nw-footer-label">Tallinn 2026</p>
     </div>
-  </section>
+  </footer>
+
 </main>
 
 <style lang="postcss">
@@ -286,17 +280,28 @@
   }
 
   .page-main {
-    @apply nw-font-page bg-nw-200 text-nw-900;
+    @apply bg-nw-200 text-nw-900 font-['Inter'];
   }
 
   .site-nav {
-    @apply sticky top-0 z-20 border-b backdrop-blur-[14px];
-    border-color: color-mix(in srgb, var(--color-nw-800) 16%, transparent);
+    @apply sticky top-0 z-20 backdrop-blur-[14px];
     background: color-mix(in srgb, var(--color-nw-200) 88%, transparent);
   }
 
   .site-nav-inner {
-    @apply flex flex-wrap gap-5 py-4;
+    @apply flex items-center justify-between gap-4 py-4;
+  }
+
+  .site-nav-links {
+    @apply flex min-w-0 flex-1 flex-wrap items-center gap-x-5 gap-y-2;
+  }
+
+  .site-nav-button {
+    @apply shrink-0;
+  }
+
+  .site-nav-button--compact {
+    @apply px-4 py-2.5;
   }
 
   .nav-link {
@@ -339,7 +344,7 @@
   }
 
   .hero-title {
-    @apply nw-font-hero-title col-span-3 pb-6 text-transparent sm:py-4 sm:pr-6;
+    @apply nw-font-hero-title col-span-3 pb-6 text-center text-transparent sm:py-4 sm:pr-6 sm:text-left;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-800) 92%, transparent) 0%,
@@ -368,7 +373,7 @@
   }
 
   .hero-panel-label {
-    @apply nw-font-hero-panel-label absolute bottom-0 right-0 -mb-0.5 -mr-0.5 sm:-mb-1 sm:-mr-1;
+    @apply nw-font-hero-panel-label absolute bottom-0 right-0 -mb-0.5 -mr-0.5 text-right sm:-mb-1 sm:-mr-1;
   }
 
   .hero-panel-label--color {
@@ -384,7 +389,7 @@
   }
 
   .hero-panel-label--white {
-    @apply text-white;
+    @apply text-nw-50;
     text-shadow: 0 10px 28px color-mix(in srgb, var(--color-nw-900) 22%, transparent);
   }
 
@@ -397,7 +402,7 @@
   }
 
   .hero-copy-text {
-    @apply nw-font-hero-copy-text max-w-[32rem] pb-1 text-center text-nw-800 sm:pb-4;
+    @apply max-w-[32rem] pb-1 text-center text-nw-800 sm:pb-4;
   }
 
   .hero-copy-actions {
@@ -467,16 +472,12 @@
     background-size: cover;
   }
 
-  .calendar-shell {
-    @apply flex flex-wrap items-end justify-between gap-x-8 gap-y-4 sm:gap-y-6;
+  .nw-footer {
+    @apply bg-nw-900 py-3 sm:py-4;
   }
 
-  .calendar-copy {
-    @apply max-w-[37rem];
-  }
-
-  .calendar-actions {
-    @apply flex flex-wrap items-center gap-4;
+  .nw-footer-label {
+    @apply m-0 text-center font-['Bodoni_Moda'] text-[0.82rem] uppercase tracking-[0.18em] text-nw-300 sm:text-[0.9rem];
   }
 
   :global(body) {
