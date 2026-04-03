@@ -202,7 +202,6 @@
         <a href="#day" class="nw-button nw-button-secondary">Программа</a>
       </div>
     </div>
-
   </section>
 
   <NotWeddingLocation/>
@@ -307,7 +306,7 @@
   }
 
   .hero-section {
-    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col gap-8 overflow-hidden px-4 py-5 lg:justify-center lg:gap-14 lg:py-8;
+    @apply relative flex min-h-[calc(100svh-4.5rem)] flex-col gap-8 overflow-hidden px-4 py-5 justify-center lg:gap-6;
     background: linear-gradient(180deg, var(--color-nw-100) 0%, var(--color-nw-400) 100%);
   }
 
@@ -351,7 +350,7 @@
   }
 
   .hero-panel-frame {
-    @apply relative h-[16rem] min-w-0 flex-none lg:flex lg:h-auto lg:min-h-[29rem] lg:flex-1;
+    @apply relative h-[20rem] min-w-0 flex-none lg:flex lg:h-auto lg:min-h-[29rem] lg:flex-1;
   }
 
   .hero-panel {
