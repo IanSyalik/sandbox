@@ -556,15 +556,27 @@
   }
 
   .love-copy {
-    @apply max-w-[38rem] rounded-[1.75rem] px-5 py-6 sm:px-8 sm:py-8;
+    @apply max-w-[40rem] rounded-[1.75rem] px-5 py-6 sm:px-8 sm:py-8;
     background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
     border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
     box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
     backdrop-filter: blur(10px);
   }
 
+  .love-copy .body-text {
+    @apply text-[0.98rem] leading-[1.9] text-nw-800 sm:text-[1.03rem];
+  }
+
+  .love-copy .love-paragraph:first-child {
+    @apply font-['Bodoni_Moda'] text-[1.22rem] leading-[1.35] tracking-[0.01em] text-nw-900 sm:text-[1.35rem];
+  }
+
   .love-paragraph {
     @apply mb-3 sm:mb-4;
+  }
+
+  .love-copy .m-0 {
+    @apply font-['Bodoni_Moda'] text-[1.08rem] leading-[1.55] tracking-[0.01em] text-nw-900 sm:text-[1.18rem];
   }
 
   .love-section {
