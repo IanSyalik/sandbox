@@ -10,7 +10,7 @@
   import dressCodeSwatch6 from './colors/IMG_6234.JPG?url'
   import heroPanelPhoto1 from './1.JPG?url'
   import heroPanelPhoto2 from './2.JPG?url'
-  import heroPanelPhoto3 from './3.JPG?url'
+  import heroPanelPhoto3 from './3.jpg?url'
   import NotWeddingHeroNamesDate from './NotWeddingHeroNamesDate.svelte'
   import NotWeddingLocation from './NotWeddingLocation.svelte'
   import NotWeddingTimeline from './NotWeddingTimeline.svelte'
@@ -158,7 +158,7 @@
         {/each}
       </div>
 
-      <button type="button" class="nw-button nw-button-primary site-nav-button site-nav-button--compact" on:click={downloadCalendarEvent}>
+      <button type="button" class="nw-button nw-button-small nw-button-primary site-nav-button" on:click={downloadCalendarEvent}>
         Добавить в календарь
       </button>
     </div>
@@ -295,10 +295,6 @@
 
   .site-nav-button {
     @apply shrink-0;
-  }
-
-  .site-nav-button--compact {
-    @apply px-4 py-1;
   }
 
   .nav-link {

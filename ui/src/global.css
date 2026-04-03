@@ -167,7 +167,11 @@
 }
 
 @utility nw-button {
-  @apply nw-font-button inline-flex min-h-[2.9rem] cursor-pointer items-center justify-center rounded-full border px-5 py-3 transition-all duration-150;
+  @apply font-medium leading-none font-['Bodoni_Moda'] inline-flex cursor-pointer items-center justify-center rounded-full border px-5 py-3 transition-all duration-150;
+}
+
+@utility nw-button-small {
+  @apply px-4 py-2.5;
 }
 
 @utility nw-button-primary {
@@ -187,10 +191,6 @@
 }
 
 @utility nw-font-nav {
-  @apply font-medium leading-none font-['Bodoni_Moda'];
-}
-
-@utility nw-font-button {
   @apply font-medium leading-none font-['Bodoni_Moda'];
 }
 
