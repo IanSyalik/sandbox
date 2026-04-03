@@ -183,11 +183,12 @@
   background: transparent;
 }
 
-@utility nw-glass-card {
+.nw-glass-card {
   background: color-mix(in srgb, var(--color-nw-50) 74%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-nw-50) 38%, transparent);
   box-shadow: 0 24px 70px color-mix(in srgb, var(--color-nw-900) 14%, transparent);
   backdrop-filter: blur(10px);
+  @apply px-6 py-5
 }
 
 @utility nw-font-nav {

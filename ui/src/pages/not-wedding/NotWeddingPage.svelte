@@ -178,28 +178,25 @@
 
   <section
     id="love"
-    class="nw-section love-section"
+    class="nw-section love-section relative overflow-hidden lg:py-20 p-0"
     style={`--love-photo: url(${withLovePhoto});`}
   >
-    <div class="nw-page-inner love-grid">
-      <div class="love-heading">
-        <h2 class="nw-section-title">With Love</h2>
-      </div>
-
-      <div class="love-copy">
-        <p class="nw-body-text love-paragraph">Мы очень ценим ваше внимание и заботу.</p>
-        <p class="nw-body-text love-paragraph">
+    <div class="lg:nw-page-inner relative flex min-h-[50rem] items-end justify-center lg:items-center">
+      <div class="nw-glass-card w-full max-w-none text-center lg:max-w-[36rem] lg:rounded-[1.75rem] flex flex-col gap-3">
+        <h2 class="nw-section-title mb-0">With Love</h2>
+        <p class="text-xl font-['Bodoni_Moda']">Мы очень ценим ваше внимание и заботу.</p>
+        <p>
           И будем очень благодарны, если вы обойдетесь без подарков в виде картин и предметов декора.
           Если вы хотите порадовать нас, приятным и удобным вариантом станет конверт.
         </p>
-        <p class="nw-body-text love-paragraph">
+        <p>
           Ваши тёплые слова и поздравления мы с радостью примем, когда соберёмся вместе после ЗАГСа.
         </p>
-        <p class="nw-body-text love-paragraph">
+        <p>
           Если захотите присоединиться к нам в ЗАГСе, пожалуйста, приходите не менее чем за 15 минут до начала
           церемонии.
         </p>
-        <p class="nw-body-text m-0">Самое главное для нас — это ваше присутствие и разделённая с нами радость
+        <p>Самое главное для нас — это ваше присутствие и разделённая с нами радость
           этого дня.</p>
       </div>
     </div>
@@ -363,36 +360,7 @@
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-nw-50) 25%, transparent);
   }
 
-  .love-grid {
-    @apply relative z-[1] grid gap-5 md:grid-cols-[minmax(15rem,0.7fr)_minmax(0,1.3fr)] md:gap-8;
-  }
-
-  .love-heading {
-    @apply max-w-[37rem];
-  }
-
-  .love-copy {
-    @apply nw-glass-card max-w-[40rem] rounded-[1.75rem] px-5 py-6 lg:px-8 lg:py-8;
-  }
-
-  .love-copy .nw-body-text {
-    @apply nw-font-love-body text-nw-800;
-  }
-
-  .love-copy .love-paragraph:first-child {
-    @apply nw-font-love-lead text-nw-900;
-  }
-
-  .love-paragraph {
-    @apply mb-3 lg:mb-4;
-  }
-
-  .love-copy .m-0 {
-    @apply nw-font-love-close text-nw-900;
-  }
-
   .love-section {
-    @apply relative overflow-hidden;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-50) 18%, transparent) 0%,
