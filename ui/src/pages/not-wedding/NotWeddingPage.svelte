@@ -275,9 +275,67 @@
 <style lang="postcss">
   @reference "./../../global.css";
 
+  :global(:root) {
+    --nw-hero-motion-scale: 2.5;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     :global(html) {
       scroll-behavior: smooth;
+    }
+
+    .hero-names-shell {
+      opacity: 0;
+      transform: translateY(1.5rem);
+      animation:
+        nw-fade-rise
+        calc(720ms * var(--nw-hero-motion-scale))
+        ease-out
+        calc(120ms * var(--nw-hero-motion-scale))
+        forwards;
+    }
+
+    .hero-shell {
+      opacity: 0;
+      transform: translateY(1.5rem);
+      animation:
+        nw-fade-rise
+        calc(820ms * var(--nw-hero-motion-scale))
+        ease-out
+        calc(240ms * var(--nw-hero-motion-scale))
+        forwards;
+    }
+
+    .hero-copy {
+      opacity: 0;
+      transform: translateY(1.5rem);
+      animation:
+        nw-fade-rise
+        calc(720ms * var(--nw-hero-motion-scale))
+        ease-out
+        calc(420ms * var(--nw-hero-motion-scale))
+        forwards;
+    }
+  }
+
+  @keyframes nw-fade-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+
+    20% {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+
+    70% {
+      transform: translateY(0);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
