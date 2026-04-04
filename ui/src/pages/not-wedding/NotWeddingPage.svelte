@@ -211,7 +211,7 @@
         <h1 class="hero-title">
           <span>Save</span>
           <span>the</span>
-          <span>Dates</span>
+          <span>Date</span>
         </h1>
         {#each heroPanelImages as heroPanelImage, index}
           <div class="hero-panel-frame" style={`--hero-panel-delay: ${(1120 + index * 180)}ms;`}>
