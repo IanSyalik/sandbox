@@ -204,14 +204,14 @@
   <section class="hero-section !pb-8 sm:pb-5">
     <div class="hero-glow"></div>
     <div class="hero-names-shell">
-      <NotWeddingHeroNamesDate containerClass="pb-1.5"/>
+      <NotWeddingHeroNamesDate containerClass="pb-1.5 -mt-8 lg:mt-0"/>
     </div>
     <div class="hero-shell">
       <div class="hero-gallery">
         <h1 class="hero-title">
-          Save
-          the
-          Date
+          <span>Save</span>
+          <span>the</span>
+          <span>Date</span>
         </h1>
         {#each heroPanelImages as heroPanelImage, index}
           <div class="hero-panel-frame" style={`--hero-panel-delay: ${(1120 + index * 180)}ms;`}>
@@ -486,7 +486,7 @@
   }
 
   .hero-title {
-    @apply col-span-3 pb-6 text-center text-transparent lg:pt-5 lg:pb-4 lg:pr-6 lg:text-left;
+    @apply flex lg:flex-col justify-center lg:justify-start gap-x-3 col-span-3 pb-6 text-center text-transparent lg:pt-5 lg:pb-4 lg:pr-6 lg:text-left;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-600) 92%, transparent) 0%,
