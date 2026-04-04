@@ -181,10 +181,15 @@
         </div>
       </div>
 
-      <button type="button" class={`nw-button nw-button-small nw-button-primary site-nav-button ${isNavButtonVisible ? 'site-nav-button--visible' : ''}`.trim()} on:click={() => {
+      <button
+        type="button"
+        class="nw-button nw-button-small nw-button-primary site-nav-button"
+        class:site-nav-button--visible={isNavButtonVisible}
+        on:click={() => {
         closeMobileNav()
         downloadCalendarEvent()
-      }}>
+        }}
+      >
         Добавить в календарь
       </button>
 
@@ -196,9 +201,18 @@
         aria-label={isMobileNavOpen ? 'Закрыть меню' : 'Открыть меню'}
         on:click={toggleMobileNav}
       >
-        <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--top-open' : ''}`}></span>
-        <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--middle-open' : ''}`}></span>
-        <span class={`site-nav-toggle-line ${isMobileNavOpen ? 'site-nav-toggle-line--bottom-open' : ''}`}></span>
+        <span
+          class="site-nav-toggle-line site-nav-toggle-line--top"
+          class:site-nav-toggle-line--top-open={isMobileNavOpen}
+        ></span>
+        <span
+          class="site-nav-toggle-line"
+          class:site-nav-toggle-line--middle-open={isMobileNavOpen}
+        ></span>
+        <span
+          class="site-nav-toggle-line site-nav-toggle-line--bottom"
+          class:site-nav-toggle-line--bottom-open={isMobileNavOpen}
+        ></span>
       </button>
     </div>
 
@@ -450,11 +464,11 @@
     @apply absolute h-px w-5 bg-current transition-all duration-200;
   }
 
-  .site-nav-toggle-line:nth-child(1) {
+  .site-nav-toggle-line--top {
     transform: translateY(-0.35rem);
   }
 
-  .site-nav-toggle-line:nth-child(3) {
+  .site-nav-toggle-line--bottom {
     transform: translateY(0.35rem);
   }
 
