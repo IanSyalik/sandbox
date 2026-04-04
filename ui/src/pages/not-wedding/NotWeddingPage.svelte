@@ -204,14 +204,14 @@
   <section class="hero-section !pb-8 sm:pb-5">
     <div class="hero-glow"></div>
     <div class="hero-names-shell">
-      <NotWeddingHeroNamesDate containerClass="pb-1.5 -mt-8 lg:mt-0"/>
+      <NotWeddingHeroNamesDate containerClass="pb-1.5 -mt-6 lg:mt-0"/>
     </div>
     <div class="hero-shell">
       <div class="hero-gallery">
         <h1 class="hero-title">
           <span>Save</span>
           <span>the</span>
-          <span>Date</span>
+          <span>Dates</span>
         </h1>
         {#each heroPanelImages as heroPanelImage, index}
           <div class="hero-panel-frame" style={`--hero-panel-delay: ${(1120 + index * 180)}ms;`}>
