@@ -219,6 +219,19 @@
   @apply text-[6rem] lg:text-[10rem];
 }
 
+@utility nw-wordmark-text {
+  @apply text-transparent;
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-nw-600) 92%, transparent) 0%,
+    var(--color-nw-500) 26%,
+    var(--color-nw-600) 62%,
+    var(--color-nw-700) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 @utility nw-font-hero-panel-label {
   @apply font-['Bodoni_Moda'] text-[4rem] leading-[0.9] lg:text-[6rem] lg:leading-[1];
 }

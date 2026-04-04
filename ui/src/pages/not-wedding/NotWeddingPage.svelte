@@ -12,6 +12,7 @@
   import heroPanelPhoto2 from './2.JPG?url'
   import heroPanelPhoto3 from './3.jpg?url'
   import NotWeddingHeroNamesDate from './NotWeddingHeroNamesDate.svelte'
+  import NotWeddingNavLogo from './NotWeddingNavLogo.svelte'
   import NotWeddingLocation from './NotWeddingLocation.svelte'
   import NotWeddingTimeline from './NotWeddingTimeline.svelte'
 
@@ -164,6 +165,15 @@
   <nav class="site-nav">
     <div class="nw-page-inner site-nav-inner">
       <div class="site-nav-start">
+        <a
+          href="#hero"
+          class="site-nav-logo-link"
+          aria-label="Jaan and Jana — back to top"
+          on:click={closeMobileNav}
+        >
+          <NotWeddingNavLogo/>
+        </a>
+
         <div class="site-nav-links">
           {#each navItems as item}
             <a href={item.href} class="nav-link">{item.label}</a>
@@ -201,7 +211,7 @@
     {/if}
   </nav>
 
-  <section class="hero-section !pb-8 sm:pb-5">
+  <section id="hero" class="hero-section !pb-8 sm:pb-5">
     <div class="hero-glow"></div>
     <div class="hero-names-shell">
       <NotWeddingHeroNamesDate containerClass="pb-1.5 -mt-6 lg:mt-0"/>
@@ -409,6 +419,15 @@
 
   .site-nav-start {
     @apply flex min-w-0 flex-1 items-center gap-4;
+  }
+
+  .site-nav-logo-link {
+    @apply shrink-0 no-underline text-nw-900 transition-opacity duration-150;
+  }
+
+  .site-nav-logo-link:hover,
+  .site-nav-logo-link:focus-visible {
+    @apply opacity-85;
   }
 
   .site-nav-links {
