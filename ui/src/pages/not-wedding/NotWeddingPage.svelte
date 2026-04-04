@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {onMount} from 'svelte'
+  import {onMount, tick} from 'svelte'
 
   import withLovePhoto from './with love.JPG?url'
   import dressCodeSwatch1 from './colors/IMG_6229.JPG?url'
@@ -104,8 +104,11 @@
     isMobileNavOpen = false
   }
 
-  function scrollToSection(sectionId: string) {
+  async function scrollToSection(sectionId: string) {
     closeMobileNav()
+
+    await tick()
+    await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)))
 
     const sectionElement = document.getElementById(sectionId)
 
@@ -114,10 +117,13 @@
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const navElement = document.querySelector('.site-nav')
+    const navHeight = navElement instanceof HTMLElement ? navElement.getBoundingClientRect().height : 0
+    const top = window.scrollY + sectionElement.getBoundingClientRect().top - navHeight - 12
 
-    sectionElement.scrollIntoView({
+    window.scrollTo({
+      top: Math.max(0, top),
       behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      block: 'start'
     })
 
     window.history.replaceState(window.history.state, '', `#${sectionId}`)
