@@ -499,7 +499,7 @@
   }
 
   h1.hero-title {
-    @apply font-['Bodoni_Moda'] text-[2.8rem] leading-[0.92] uppercase lg:tracking-[-0.05em] whitespace-normal lg:py-2 lg:whitespace-pre-line lg:tracking-[-0.04em] lg:text-[8rem] lg:leading-[1.1];
+    @apply font-['Bodoni_Moda'] text-[2.8rem] leading-[0.92] uppercase whitespace-normal lg:py-2 lg:whitespace-pre-line lg:tracking-[-0.04em] lg:text-[8rem] lg:leading-[1.1];
   }
 
   .hero-panel-frame {
