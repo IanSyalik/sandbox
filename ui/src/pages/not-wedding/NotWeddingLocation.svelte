@@ -78,7 +78,7 @@
           rel="noreferrer"
           class="nw-font-link group inline-flex text-[1.2rem] items-center gap-3 border-b border-[color-mix(in_srgb,var(--color-nw-900)_28%,transparent)] pb-1 text-nw-900 transition-all duration-200 hover:border-nw-700 hover:text-nw-700"
         >
-          <span>Yayaki House, Narva mnt 7, 2 этаж</span>
+          <span>Yayaki House, Narva mnt 7B, 2 этаж</span>
           <span aria-hidden="true" class="text-[1rem] leading-none transition-transform duration-200 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5">
             ↗
           </span>
