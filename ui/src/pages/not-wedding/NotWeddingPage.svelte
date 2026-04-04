@@ -486,7 +486,7 @@
   }
 
   .hero-title {
-    @apply nw-font-hero-title col-span-3 pb-6 text-center text-transparent lg:pt-5 lg:pb-4 lg:pr-6 lg:text-left;
+    @apply col-span-3 pb-6 text-center text-transparent lg:pt-5 lg:pb-4 lg:pr-6 lg:text-left;
     background-image: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-nw-600) 92%, transparent) 0%,
@@ -496,6 +496,10 @@
     );
     -webkit-background-clip: text;
     background-clip: text;
+  }
+
+  h1.hero-title {
+    @apply font-['Bodoni_Moda'] text-[2.8rem] leading-[0.92] uppercase lg:tracking-[-0.05em] whitespace-normal lg:py-2 lg:whitespace-pre-line lg:tracking-[-0.04em] lg:text-[8rem] lg:leading-[1.1];
   }
 
   .hero-panel-frame {

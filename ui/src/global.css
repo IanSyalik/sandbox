@@ -219,10 +219,6 @@
   @apply text-[6rem] lg:text-[10rem];
 }
 
-@utility nw-font-hero-title {
-  @apply font-['Bodoni_Moda'] text-[3rem] leading-[0.92] uppercase tracking-[-0.05em] whitespace-normal lg:py-2 lg:whitespace-pre-line lg:tracking-[-0.04em] lg:text-[8rem] lg:leading-[1.1];
-}
-
 @utility nw-font-hero-panel-label {
   @apply font-['Bodoni_Moda'] text-[4rem] leading-[0.9] lg:text-[6rem] lg:leading-[1];
 }
