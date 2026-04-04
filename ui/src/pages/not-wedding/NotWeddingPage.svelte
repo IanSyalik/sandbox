@@ -104,6 +104,25 @@
     isMobileNavOpen = false
   }
 
+  function scrollToSection(sectionId: string) {
+    closeMobileNav()
+
+    const sectionElement = document.getElementById(sectionId)
+
+    if (!sectionElement) {
+      return
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    sectionElement.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start'
+    })
+
+    window.history.replaceState(window.history.state, '', `#${sectionId}`)
+  }
+
   onMount(() => {
     const targetSection = document.getElementById('location')
     const navElement = document.querySelector('.site-nav')
@@ -169,14 +188,20 @@
           href="#hero"
           class="site-nav-logo-link"
           aria-label="Jaan and Jana — back to top"
-          on:click={closeMobileNav}
+          on:click|preventDefault={() => scrollToSection('hero')}
         >
           <NotWeddingNavLogo/>
         </a>
 
         <div class="site-nav-links">
           {#each navItems as item}
-            <a href={item.href} class="nav-link">{item.label}</a>
+            <a
+              href={item.href}
+              class="nav-link"
+              on:click|preventDefault={() => scrollToSection(item.href.slice(1))}
+            >
+              {item.label}
+            </a>
           {/each}
         </div>
       </div>
@@ -219,7 +244,13 @@
     {#if isMobileNavOpen}
       <div id="mobile-nav-menu" class="nw-page-inner site-nav-mobile-menu">
         {#each navItems as item}
-          <a href={item.href} class="site-nav-mobile-link" on:click={closeMobileNav}>{item.label}</a>
+          <a
+            href={item.href}
+            class="site-nav-mobile-link"
+            on:click|preventDefault={() => scrollToSection(item.href.slice(1))}
+          >
+            {item.label}
+          </a>
         {/each}
       </div>
     {/if}
@@ -260,7 +291,13 @@
       <div class="hero-copy-actions">
         <button type="button" class="nw-button nw-button-primary" on:click={downloadCalendarEvent}>Добавить в календарь
         </button>
-        <a href="#day" class="nw-button nw-button-secondary">Программа</a>
+        <a
+          href="#day"
+          class="nw-button nw-button-secondary"
+          on:click|preventDefault={() => scrollToSection('day')}
+        >
+          Программа
+        </a>
       </div>
     </div>
   </section>
