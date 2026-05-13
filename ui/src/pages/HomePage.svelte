@@ -1,9 +1,14 @@
 <script lang="ts">
   import {navigate, t} from 'src/i18n'
-  import MainPageLayout from 'src/layout/MainPageLayout.svelte'
-  import Link from 'src/components/Link.svelte'
+  import Button from 'src/components/Button.svelte'
 </script>
 
-<MainPageLayout title={t.title}>
-  Browse the <Link to="samples">samples</Link>.
-</MainPageLayout>
+<svelte:head>
+  <title>{t.title}</title>
+</svelte:head>
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <Button color="primary" size="lg" onclick={() => navigate('not-wedding')}>
+    Not Wedding
+  </Button>
+</div>
