@@ -4,6 +4,7 @@
   import NotFoundPage from './layout/NotFoundPage.svelte'
   import HomePage from 'src/pages/HomePage.svelte'
   import NotWeddingPage from 'src/pages/not-wedding/NotWeddingPage.svelte'
+  import RabbitPage from 'src/pages/rabbit/RabbitPage.svelte'
   import Spinner from 'src/components/Spinner.svelte'
   import {Route, Router} from 'svelte-routing'
 
@@ -20,6 +21,7 @@
   <div class="App min-h-screen flex flex-col">
     <Route path="/" component={HomePage}/>
     <Route path="/not-wedding" component={NotWeddingPage}/>
+    <Route path="/rabbit" component={RabbitPage}/>
     <Route path="/samples/*path" let:params>
       {#await import('src/samples/SamplesPage.svelte')}
         <Spinner/>

@@ -8,7 +8,12 @@
 </svelte:head>
 
 <div class="min-h-screen flex items-center justify-center bg-gray-50">
-  <Button color="primary" size="lg" onclick={() => navigate('not-wedding')}>
-    Not Wedding
-  </Button>
+  <div class="flex flex-col sm:flex-row gap-4">
+    <Button color="primary" size="lg" onclick={() => navigate('not-wedding')}>
+      Not Wedding
+    </Button>
+    <Button color="primary" size="lg" onclick={() => navigate('rabbit')}>
+      Rabbit
+    </Button>
+  </div>
 </div>
