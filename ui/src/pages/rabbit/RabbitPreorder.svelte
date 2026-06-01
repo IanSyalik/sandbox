@@ -93,7 +93,7 @@
 
   .rabbit-preorder-image {
     width: 100%;
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 4 / 5;
     background-color: #161616;
     background-size: cover;
     background-position: center;
@@ -105,7 +105,7 @@
     flex-direction: column;
     gap: 1.4rem;
     text-align: left;
-    padding: clamp(3rem, 10vh, 6rem) 1.25rem 0;
+    padding: clamp(2.5rem, 8dvh, 5rem) 1.25rem clamp(2.5rem, 6dvh, 4rem);
   }
 
   .rabbit-preorder-kicker {
@@ -298,7 +298,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.25rem;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
     color: #6f6f6f;
   }
 
@@ -310,6 +311,14 @@
     font-size: 0.75rem;
     letter-spacing: 0.04em;
     line-height: 1.4;
+  }
+
+  @media (max-width: 600px) {
+    .rabbit-preorder-button {
+      align-self: stretch;
+      justify-content: center;
+      padding: 1.05rem 1.25rem;
+    }
   }
 
   @media (min-width: 900px) {

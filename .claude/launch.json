@@ -4,8 +4,8 @@
     {
       "name": "sandbox-ui",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["start", "--prefix", "ui"],
-      "port": 8000
+      "runtimeArgs": ["start", "--prefix", "ui", "--", "--port", "8001", "--strictPort"],
+      "port": 8001
     }
   ]
 }

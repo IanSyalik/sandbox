@@ -28,7 +28,7 @@
     flex-direction: column;
     justify-content: flex-end;
     gap: 0.6rem;
-    padding: 0 1.5rem 2rem;
+    padding: 0 1.25rem max(2rem, env(safe-area-inset-bottom, 2rem));
     pointer-events: none;
     transition: opacity 90ms linear, transform 180ms ease-out;
     will-change: opacity, transform;
@@ -36,7 +36,20 @@
 
   .rabbit-section--center {
     justify-content: center;
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .rabbit-section,
+    .rabbit-section--center {
+      background: linear-gradient(
+        to top,
+        rgba(255, 255, 255, 0.94) 0%,
+        rgba(255, 255, 255, 0.78) 25%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 78%
+      );
+    }
   }
 
   @media (min-width: 1024px) {
@@ -67,7 +80,7 @@
   .rabbit-section-title {
     margin: 0;
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: clamp(2.25rem, 5vw, 4rem);
+    font-size: clamp(1.75rem, 5vw, 4rem);
     font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1;

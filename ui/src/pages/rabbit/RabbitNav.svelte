@@ -119,6 +119,12 @@
     padding: 0.875rem 1.25rem;
   }
 
+  @media (max-width: 600px) {
+    .rabbit-nav-inner {
+      padding: 0.75rem 1rem;
+    }
+  }
+
   .rabbit-nav-logo {
     appearance: none;
     background: transparent;

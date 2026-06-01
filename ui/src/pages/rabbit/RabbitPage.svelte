@@ -101,6 +101,14 @@
     return 0
   }
 
+  function isMobileLayout(): boolean {
+    return window.matchMedia('(max-width: 768px)').matches
+  }
+
+  function isTouchDevice(): boolean {
+    return window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  }
+
   const lowRaw = import.meta.glob('./frames/fly_*.jpg', {
     eager: true,
     query: '?url',
@@ -239,18 +247,29 @@
 
     const imgAspect = img.naturalWidth / img.naturalHeight
     const canvasAspect = canvas.width / canvas.height
+    const mobile = isMobileLayout()
     let dw: number
     let dh: number
-    if (imgAspect > canvasAspect) {
-      dw = canvas.width
-      dh = dw / imgAspect
+    if (mobile) {
+      if (imgAspect > canvasAspect) {
+        dh = canvas.height
+        dw = dh * imgAspect
+      } else {
+        dw = canvas.width
+        dh = dw / imgAspect
+      }
     } else {
-      dh = canvas.height
-      dw = dh * imgAspect
+      if (imgAspect > canvasAspect) {
+        dw = canvas.width
+        dh = dw / imgAspect
+      } else {
+        dh = canvas.height
+        dw = dh * imgAspect
+      }
     }
     const centeredDx = (canvas.width - dw) / 2
     const rightDx = canvas.width - dw
-    const liveRightness = computeRightness(frameIdx + 1)
+    const liveRightness = mobile ? 0 : computeRightness(frameIdx + 1)
     const dx = centeredDx + (rightDx - centeredDx) * liveRightness
     const dy = (canvas.height - dh) / 2
     ctx.drawImage(img, dx, dy, dw, dh)
@@ -358,6 +377,7 @@
 
   function checkAutoSnap(frame: number) {
     if (isAutoScrolling) return
+    if (isTouchDevice()) return
     const goingForward = frame > prevSnapFrame
     const goingBackward = frame < prevSnapFrame
     prevSnapFrame = frame
@@ -458,7 +478,7 @@
         <div
           class="rabbit-text-stack"
           class:rabbit-text-stack--revealed={isRevealed}
-          style={`--y-shift: ${progress * -28}vh;`}
+          style={`--y-progress: ${progress};`}
         >
           {#each STOPS as stop}
             <RabbitSection
@@ -504,10 +524,16 @@
     height: 700vh;
   }
 
+  @media (max-width: 768px) {
+    .scroll-story {
+      height: 400dvh;
+    }
+  }
+
   .scroll-pinned {
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     background: #ffffff;
   }
@@ -544,9 +570,10 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 40vh;
+    height: 40dvh;
     pointer-events: none;
-    transform: translateY(var(--y-shift, 0));
+    --shift-max: -28dvh;
+    transform: translateY(calc(var(--y-progress, 0) * var(--shift-max)));
     opacity: 0;
     transition: opacity 1200ms ease;
   }
@@ -555,12 +582,18 @@
     opacity: 1;
   }
 
+  @media (max-width: 768px) {
+    .rabbit-text-stack {
+      --shift-max: -12dvh;
+    }
+  }
+
   @media (min-width: 1024px) {
     .rabbit-text-stack {
       right: auto;
       width: 44rem;
       max-width: 55%;
-      height: 55vh;
+      height: 55dvh;
     }
   }
 
