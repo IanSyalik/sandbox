@@ -142,8 +142,18 @@
   let progress = 0
   let isReady = false
   let isRevealed = false
+  let showSwipeHint = false
+  let hintTimer: ReturnType<typeof setTimeout> | null = null
   let loadedFraction = 0
   let lastRenderKey = -1
+
+  function dismissSwipeHint() {
+    if (hintTimer) {
+      clearTimeout(hintTimer)
+      hintTimer = null
+    }
+    showSwipeHint = false
+  }
 
   async function loadImage(url: string): Promise<FrameImage | null> {
     if (typeof createImageBitmap !== 'undefined') {
@@ -234,16 +244,11 @@
     if (!ctx || !canvas) return
     const maxIdx = TOTAL_FRAMES - 1
     const exactFrame = Math.min(maxIdx, Math.max(0, progress * maxIdx))
-    const renderKey = Math.round(exactFrame * 100)
-    if (!force && renderKey === lastRenderKey) return
+    const frameIdx = Math.round(exactFrame)
+    if (!force && frameIdx === lastRenderKey) return
 
-    const floorFrame = Math.floor(exactFrame)
-    const ceilFrame = Math.min(maxIdx, floorFrame + 1)
-    const blend = exactFrame - floorFrame
-
-    const imgA = pickImage(floorFrame)
-    if (!imgA) return
-    const imgB = blend > 0 && ceilFrame !== floorFrame ? pickImage(ceilFrame) : null
+    const img = pickImage(frameIdx)
+    if (!img) return
 
     const rect = canvas.getBoundingClientRect()
     const dpr = window.devicePixelRatio || 1
@@ -256,7 +261,7 @@
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    const imgAspect = imgA.width / imgA.height
+    const imgAspect = img.width / img.height
     const canvasAspect = canvas.width / canvas.height
     const mobile = isMobileLayout()
     let dw: number
@@ -280,18 +285,12 @@
     }
     const centeredDx = (canvas.width - dw) / 2
     const rightDx = canvas.width - dw
-    const liveRightness = mobile ? 0 : computeRightness(exactFrame + 1)
+    const liveRightness = mobile ? 0 : computeRightness(frameIdx + 1)
     const dx = centeredDx + (rightDx - centeredDx) * liveRightness
     const dy = (canvas.height - dh) / 2
 
-    ctx.globalAlpha = 1
-    ctx.drawImage(imgA, dx, dy, dw, dh)
-    if (imgB) {
-      ctx.globalAlpha = blend
-      ctx.drawImage(imgB, dx, dy, dw, dh)
-      ctx.globalAlpha = 1
-    }
-    lastRenderKey = renderKey
+    ctx.drawImage(img, dx, dy, dw, dh)
+    lastRenderKey = frameIdx
   }
 
   let isOverPreorder = false
@@ -315,10 +314,6 @@
     const el = document.getElementById('preorder')
     if (!el) return
     el.scrollIntoView({behavior: 'smooth', block: 'start'})
-  }
-
-  function easeInOutCubic(t: number): number {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
   }
 
   const ANIM_DURATION_MS = 800
@@ -347,8 +342,7 @@
     const step = () => {
       const elapsed = performance.now() - startTime
       const t = Math.min(1, elapsed / ANIM_DURATION_MS)
-      const eased = easeInOutCubic(t)
-      progress = startProgress + distance * eased
+      progress = startProgress + distance * t
       lastRenderKey = -1
       render()
       if (t < 1) {
@@ -366,6 +360,7 @@
   }
 
   function handleWheel(e: WheelEvent) {
+    dismissSwipeHint()
     const goingDown = e.deltaY > 0
     const maxIdx = KEYFRAMES.length - 1
 
@@ -386,6 +381,7 @@
   let touchActive = false
 
   function handleTouchStart(e: TouchEvent) {
+    dismissSwipeHint()
     touchStartY = e.touches[0].clientY
     touchActive = true
   }
@@ -449,12 +445,18 @@
     scrollContainer.addEventListener('touchstart', handleTouchStart, {passive: true})
     scrollContainer.addEventListener('touchmove', handleTouchMove, {passive: false})
     scrollContainer.addEventListener('touchend', handleTouchEnd, {passive: true})
+
+    hintTimer = setTimeout(() => {
+      showSwipeHint = true
+      hintTimer = null
+    }, 2500)
   })
 
   onDestroy(() => {
     if (scrollRafId) cancelAnimationFrame(scrollRafId)
     if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
     if (animRafId !== null) cancelAnimationFrame(animRafId)
+    if (hintTimer) clearTimeout(hintTimer)
     if (onScroll) window.removeEventListener('scroll', onScroll)
     if (onResize) window.removeEventListener('resize', onResize)
     if (scrollContainer) {
@@ -536,14 +538,13 @@
 
   .scroll-story {
     position: relative;
-    height: 100dvh;
+    height: calc(100dvh - 4rem);
     overscroll-behavior: contain;
   }
 
   .scroll-pinned {
-    position: sticky;
-    top: 0;
-    height: 100dvh;
+    position: relative;
+    height: 100%;
     overflow: hidden;
     background: #ffffff;
   }
@@ -595,7 +596,7 @@
 
   @media (max-width: 768px) {
     .rabbit-text-stack {
-      --shift-max: -12dvh;
+      --shift-max: 0dvh;
     }
   }
 

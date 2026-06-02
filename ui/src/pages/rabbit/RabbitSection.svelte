@@ -15,9 +15,11 @@
   aria-hidden={hidden ? 'true' : 'false'}
   style={`opacity: ${opacity}; transform: translateY(${(1 - opacity) * 18}px);`}
 >
-  <div class="rabbit-section-kicker">{kicker}</div>
-  <h2 class="rabbit-section-title">{title}</h2>
-  <p class="rabbit-section-body">{body}</p>
+  <div class="rabbit-section-card">
+    <div class="rabbit-section-kicker">{kicker}</div>
+    <h2 class="rabbit-section-title">{title}</h2>
+    <p class="rabbit-section-body">{body}</p>
+  </div>
 </div>
 
 <style>
@@ -27,7 +29,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    gap: 0.6rem;
     padding: 0 1.25rem max(2rem, env(safe-area-inset-bottom, 2rem));
     pointer-events: none;
     transition: opacity 90ms linear, transform 180ms ease-out;
@@ -39,16 +40,27 @@
     padding: 1.5rem 1.25rem;
   }
 
+  .rabbit-section-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
   @media (max-width: 768px) {
     .rabbit-section,
     .rabbit-section--center {
-      background: linear-gradient(
-        to top,
-        rgba(255, 255, 255, 0.94) 0%,
-        rgba(255, 255, 255, 0.78) 25%,
-        rgba(255, 255, 255, 0.4) 50%,
-        transparent 78%
-      );
+      justify-content: flex-end;
+      padding: 0 1rem max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+    }
+
+    .rabbit-section-card {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(60px) saturate(1.8);
+      -webkit-backdrop-filter: blur(60px) saturate(1.8);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 1.25rem;
+      padding: 1.1rem 1.15rem 1.25rem;
+      box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.25);
     }
   }
 
@@ -59,6 +71,16 @@
 
     .rabbit-section--center {
       padding: 4rem;
+    }
+
+    .rabbit-section-card {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 1rem;
+      padding: 1.5rem 1.75rem 1.75rem;
+      box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.12);
     }
   }
 
@@ -92,7 +114,7 @@
     margin: 0;
     max-width: 36rem;
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+    font-size: clamp(1rem, 1.3vw, 1.05rem);
     font-weight: 400;
     line-height: 1.65;
     color: #4a4a4a;
