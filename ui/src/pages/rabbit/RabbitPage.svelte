@@ -12,8 +12,8 @@
     align?: 'end' | 'center'
   }
 
-  const TOTAL_FRAMES = 360
-  const KEYFRAMES = [1, 72, 144, 216, 288, 360]
+  const TOTAL_FRAMES = 180
+  const KEYFRAMES = [1, 36, 72, 108, 144, 180]
 
   const STOPS: Stop[] = [
     {
@@ -26,7 +26,7 @@
       align: 'center'
     },
     {
-      frame: 72,
+      frame: 36,
       kicker: '02 — Meet Rabbit',
       title: 'Hi. I\'m Rabbit.',
       body:
@@ -35,7 +35,7 @@
         'We know where 8 of them are.'
     },
     {
-      frame: 144,
+      frame: 72,
       kicker: '03 — In the details',
       title: 'Stitched, not printed.',
       body:
@@ -45,7 +45,7 @@
       align: 'center'
     },
     {
-      frame: 216,
+      frame: 108,
       kicker: '04 — The mark',
       title: 'Carrot tail.',
       body:
@@ -55,7 +55,7 @@
       align: 'center'
     },
     {
-      frame: 288,
+      frame: 144,
       kicker: '05 — Built to wear',
       title: 'Sneakers that scuff.',
       body:
@@ -64,7 +64,7 @@
         'If yours hasn\'t, you aren\'t taking it down often enough.'
     },
     {
-      frame: 360,
+      frame: 180,
       kicker: '06 — Encore',
       title: 'Suit down. See you at the next drop.',
       body:
@@ -78,11 +78,11 @@
 
   const SIDE_KEYFRAMES: SideKeyframe[] = [
     {frame: 1, side: 0},
-    {frame: 72, side: 0},
-    {frame: 120, side: 1},
-    {frame: 158, side: 1},
-    {frame: 216, side: 0},
-    {frame: 360, side: 0}
+    {frame: 36, side: 0},
+    {frame: 60, side: 1},
+    {frame: 79, side: 1},
+    {frame: 108, side: 0},
+    {frame: 180, side: 0}
   ]
 
   function computeRightness(frame: number): number {
@@ -109,25 +109,32 @@
     return window.matchMedia('(hover: none) and (pointer: coarse)').matches
   }
 
-  const lowRaw = import.meta.glob('./frames/fly_*.jpg', {
+  const hdRaw = import.meta.glob('./frames-hd/fly_*.webp', {
     eager: true,
     query: '?url',
     import: 'default'
   }) as Record<string, string>
 
-  const lowResUrls: string[] = new Array(TOTAL_FRAMES)
-  const hiResUrls: Record<number, string> = {}
+  const mobileRaw = import.meta.glob('./frames-mobile/fly_*.webp', {
+    eager: true,
+    query: '?url',
+    import: 'default'
+  }) as Record<string, string>
 
-  for (const [path, url] of Object.entries(lowRaw)) {
-    const match = path.match(/fly_(\d{3})(@hi)?\.jpg$/)
+  const useMobileFrames = isMobileLayout()
+  const sourceRaw = useMobileFrames ? mobileRaw : hdRaw
+
+  const frameUrls: string[] = new Array(TOTAL_FRAMES)
+  for (const [path, url] of Object.entries(sourceRaw)) {
+    const match = path.match(/fly_(\d{3})\.webp$/)
     if (!match) continue
     const num = parseInt(match[1], 10)
-    if (match[2]) hiResUrls[num] = url
-    else lowResUrls[num - 1] = url
+    frameUrls[num - 1] = url
   }
 
-  const lowImages: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null)
-  const hiImages: Record<number, HTMLImageElement> = {}
+  type FrameImage = HTMLImageElement | ImageBitmap
+
+  const frameImages: (FrameImage | null)[] = new Array(TOTAL_FRAMES).fill(null)
 
   let canvas: HTMLCanvasElement
   let ctx: CanvasRenderingContext2D | null = null
@@ -136,8 +143,20 @@
   let isReady = false
   let isRevealed = false
   let loadedFraction = 0
+  let lastRenderKey = -1
 
-  function loadImage(url: string): Promise<HTMLImageElement | null> {
+  async function loadImage(url: string): Promise<FrameImage | null> {
+    if (typeof createImageBitmap !== 'undefined') {
+      try {
+        const resp = await fetch(url)
+        if (resp.ok) {
+          const blob = await resp.blob()
+          return await createImageBitmap(blob)
+        }
+      } catch {
+        // fall through to HTMLImageElement fallback
+      }
+    }
     return new Promise((resolve) => {
       const img = new Image()
       img.decoding = 'async'
@@ -149,90 +168,66 @@
 
   async function preload() {
     let done = 0
-    const total = TOTAL_FRAMES + KEYFRAMES.length
+    const total = TOTAL_FRAMES
 
     function tick() {
       done++
       loadedFraction = done / total
     }
 
-    // Critical: frame 1 low-res + all 6 hi-res. Show the page as soon as these resolve.
-    const criticalTasks: Promise<unknown>[] = []
-    if (lowResUrls[0]) {
-      criticalTasks.push(
-        loadImage(lowResUrls[0]).then((img) => {
-          lowImages[0] = img
-          tick()
-        })
-      )
+    // Critical: frame 1. Show the page as soon as it resolves.
+    if (frameUrls[0]) {
+      const img = await loadImage(frameUrls[0])
+      frameImages[0] = img
+      tick()
     }
-    for (const kf of KEYFRAMES) {
-      const url = hiResUrls[kf]
-      if (url) {
-        criticalTasks.push(
-          loadImage(url).then((img) => {
-            if (img) hiImages[kf] = img
-            tick()
-          })
-        )
-      }
-    }
-    await Promise.all(criticalTasks)
     isReady = true
     render()
     setTimeout(() => {
       isRevealed = true
     }, 1000)
 
-    // Background: rest of the low-res frames. Render as they arrive.
+    // Background: rest of the frames. Render as they arrive.
     for (let i = 1; i < TOTAL_FRAMES; i++) {
-      const url = lowResUrls[i]
+      const url = frameUrls[i]
       if (!url) {
         tick()
         continue
       }
       loadImage(url).then((img) => {
-        lowImages[i] = img
+        frameImages[i] = img
         tick()
         render()
       })
     }
   }
 
-  function pickImage(frameIdx: number): HTMLImageElement | null {
-    const frameNum = frameIdx + 1
-
-    if (hiImages[frameNum]) return hiImages[frameNum]
-
-    let nearestKeyframe: number | null = null
-    let nearestDist = Infinity
-    for (const kf of KEYFRAMES) {
-      const d = Math.abs(frameNum - kf)
-      if (d < nearestDist) {
-        nearestDist = d
-        nearestKeyframe = kf
-      }
-    }
-    if (nearestKeyframe !== null && nearestDist <= 1 && hiImages[nearestKeyframe]) {
-      return hiImages[nearestKeyframe]
-    }
-
-    if (lowImages[frameIdx]) return lowImages[frameIdx]
+  function pickImage(frameIdx: number): FrameImage | null {
+    if (frameImages[frameIdx]) return frameImages[frameIdx]
 
     for (let off = 1; off < TOTAL_FRAMES; off++) {
       const a = frameIdx - off
       const b = frameIdx + off
-      if (a >= 0 && lowImages[a]) return lowImages[a]
-      if (b < TOTAL_FRAMES && lowImages[b]) return lowImages[b]
+      if (a >= 0 && frameImages[a]) return frameImages[a]
+      if (b < TOTAL_FRAMES && frameImages[b]) return frameImages[b]
     }
     return null
   }
 
-  function render() {
+  function render(force = false) {
     if (!ctx || !canvas) return
-    const frameIdx = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(progress * (TOTAL_FRAMES - 1))))
-    const img = pickImage(frameIdx)
-    if (!img) return
+    const maxIdx = TOTAL_FRAMES - 1
+    const exactFrame = Math.min(maxIdx, Math.max(0, progress * maxIdx))
+    const renderKey = Math.round(exactFrame * 100)
+    if (!force && renderKey === lastRenderKey) return
+
+    const floorFrame = Math.floor(exactFrame)
+    const ceilFrame = Math.min(maxIdx, floorFrame + 1)
+    const blend = exactFrame - floorFrame
+
+    const imgA = pickImage(floorFrame)
+    if (!imgA) return
+    const imgB = blend > 0 && ceilFrame !== floorFrame ? pickImage(ceilFrame) : null
 
     const rect = canvas.getBoundingClientRect()
     const dpr = window.devicePixelRatio || 1
@@ -245,7 +240,7 @@
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    const imgAspect = img.naturalWidth / img.naturalHeight
+    const imgAspect = imgA.width / imgA.height
     const canvasAspect = canvas.width / canvas.height
     const mobile = isMobileLayout()
     let dw: number
@@ -269,10 +264,18 @@
     }
     const centeredDx = (canvas.width - dw) / 2
     const rightDx = canvas.width - dw
-    const liveRightness = mobile ? 0 : computeRightness(frameIdx + 1)
+    const liveRightness = mobile ? 0 : computeRightness(exactFrame + 1)
     const dx = centeredDx + (rightDx - centeredDx) * liveRightness
     const dy = (canvas.height - dh) / 2
-    ctx.drawImage(img, dx, dy, dw, dh)
+
+    ctx.globalAlpha = 1
+    ctx.drawImage(imgA, dx, dy, dw, dh)
+    if (imgB) {
+      ctx.globalAlpha = blend
+      ctx.drawImage(imgB, dx, dy, dw, dh)
+      ctx.globalAlpha = 1
+    }
+    lastRenderKey = renderKey
   }
 
   function computeProgress() {
@@ -407,6 +410,7 @@
   }
 
   let rafId = 0
+  let resizeRaf: number | null = null
   let onScroll: (() => void) | null = null
   let onResize: (() => void) | null = null
 
@@ -431,12 +435,16 @@
       rafId = requestAnimationFrame(update)
     }
     onResize = () => {
-      computeProgress()
-      render()
+      if (resizeRaf !== null) return
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = null
+        computeProgress()
+        render(true)
+      })
     }
 
     computeProgress()
-    render()
+    render(true)
 
     window.addEventListener('scroll', onScroll, {passive: true})
     window.addEventListener('resize', onResize)
@@ -444,6 +452,7 @@
 
   onDestroy(() => {
     if (rafId) cancelAnimationFrame(rafId)
+    if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
     if (snapRafId !== null) cancelAnimationFrame(snapRafId)
     if (autoScrollTimer) clearTimeout(autoScrollTimer)
     if (onScroll) window.removeEventListener('scroll', onScroll)
@@ -558,6 +567,7 @@
     height: 100%;
     display: block;
     opacity: 0;
+    transform: translateZ(0);
     transition: opacity 1800ms cubic-bezier(0.22, 0.61, 0.36, 1) 500ms;
   }
 
