@@ -294,18 +294,6 @@
     lastRenderKey = renderKey
   }
 
-  function computeProgress() {
-    if (!scrollContainer) return
-    const rect = scrollContainer.getBoundingClientRect()
-    const total = scrollContainer.offsetHeight - window.innerHeight
-    if (total <= 0) {
-      progress = rect.top <= 0 ? 1 : 0
-      return
-    }
-    const scrolled = -rect.top
-    progress = Math.min(1, Math.max(0, scrolled / total))
-  }
-
   let isOverPreorder = false
 
   function updateOverPreorder() {
@@ -329,119 +317,106 @@
     el.scrollIntoView({behavior: 'smooth', block: 'start'})
   }
 
-  const SNAP_THRESHOLD = 5
-  const SNAP_DURATION_MS = 700
-  const SNAP_DEBOUNCE_MS = 140
-  let isAutoScrolling = false
-  let snapRafId: number | null = null
-  let autoScrollTimer: ReturnType<typeof setTimeout> | null = null
-  let snapDebounceTimer: ReturnType<typeof setTimeout> | null = null
-  let prevSnapFrame = 1
-
   function easeInOutCubic(t: number): number {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
   }
 
-  function smoothScrollTo(targetY: number, duration: number) {
-    if (snapRafId !== null) cancelAnimationFrame(snapRafId)
-    const startY = window.scrollY
-    const distance = targetY - startY
+  const ANIM_DURATION_MS = 800
+  const TRIGGER_COOLDOWN_MS = 600
+  const SWIPE_THRESHOLD_PX = 50
+  let currentKeyframeIdx = 0
+  let isAnimating = false
+  let lastTriggerTime = 0
+  let animRafId: number | null = null
+
+  function animateToKeyframe(targetIdx: number) {
+    if (isAnimating) return
+    if (targetIdx < 0 || targetIdx >= KEYFRAMES.length) return
+
+    const startProgress = progress
+    const targetProgress = (KEYFRAMES[targetIdx] - 1) / (TOTAL_FRAMES - 1)
+    const distance = targetProgress - startProgress
+    if (Math.abs(distance) < 0.001) {
+      currentKeyframeIdx = targetIdx
+      return
+    }
+
+    isAnimating = true
     const startTime = performance.now()
-    let lastExpectedY = startY
 
     const step = () => {
-      // Cancel if user input nudged the scroll position off our expected path
-      if (Math.abs(window.scrollY - lastExpectedY) > 2) {
-        snapRafId = null
-        isAutoScrolling = false
-        if (autoScrollTimer) {
-          clearTimeout(autoScrollTimer)
-          autoScrollTimer = null
-        }
-        return
-      }
       const elapsed = performance.now() - startTime
-      const t = Math.min(1, elapsed / duration)
+      const t = Math.min(1, elapsed / ANIM_DURATION_MS)
       const eased = easeInOutCubic(t)
-      const newY = startY + distance * eased
-      window.scrollTo({top: newY, behavior: 'instant'})
-      lastExpectedY = newY
+      progress = startProgress + distance * eased
+      lastRenderKey = -1
+      render()
       if (t < 1) {
-        snapRafId = requestAnimationFrame(step)
+        animRafId = requestAnimationFrame(step)
       } else {
-        snapRafId = null
+        progress = targetProgress
+        currentKeyframeIdx = targetIdx
+        isAnimating = false
+        animRafId = null
+        lastRenderKey = -1
+        render(true)
       }
     }
-    snapRafId = requestAnimationFrame(step)
+    animRafId = requestAnimationFrame(step)
   }
 
-  function snapToFrame(targetFrame: number) {
-    if (!scrollContainer) return
-    isAutoScrolling = true
-    prevSnapFrame = targetFrame
-    const targetProgress = (targetFrame - 1) / (TOTAL_FRAMES - 1)
-    const total = scrollContainer.offsetHeight - window.innerHeight
-    const rect = scrollContainer.getBoundingClientRect()
-    const containerAbsoluteTop = window.scrollY + rect.top
-    const targetScrollY = containerAbsoluteTop + targetProgress * total
-    smoothScrollTo(targetScrollY, SNAP_DURATION_MS)
-    if (autoScrollTimer) clearTimeout(autoScrollTimer)
-    autoScrollTimer = setTimeout(() => {
-      isAutoScrolling = false
-      autoScrollTimer = null
-    }, SNAP_DURATION_MS + 100)
+  function handleWheel(e: WheelEvent) {
+    const goingDown = e.deltaY > 0
+    const maxIdx = KEYFRAMES.length - 1
+
+    // At boundary — allow native scroll to exit the flythrough section
+    if (goingDown && currentKeyframeIdx === maxIdx) return
+    if (!goingDown && currentKeyframeIdx === 0) return
+
+    e.preventDefault()
+
+    const now = performance.now()
+    if (isAnimating || now - lastTriggerTime < TRIGGER_COOLDOWN_MS) return
+    lastTriggerTime = now
+
+    animateToKeyframe(currentKeyframeIdx + (goingDown ? 1 : -1))
   }
 
-  function snapToPreorder() {
-    const el = document.getElementById('preorder')
-    if (!el) return
-    isAutoScrolling = true
-    prevSnapFrame = TOTAL_FRAMES
-    const rect = el.getBoundingClientRect()
-    const targetY = window.scrollY + rect.top
-    smoothScrollTo(targetY, SNAP_DURATION_MS)
-    if (autoScrollTimer) clearTimeout(autoScrollTimer)
-    autoScrollTimer = setTimeout(() => {
-      isAutoScrolling = false
-      autoScrollTimer = null
-    }, SNAP_DURATION_MS + 100)
+  let touchStartY = 0
+  let touchActive = false
+
+  function handleTouchStart(e: TouchEvent) {
+    touchStartY = e.touches[0].clientY
+    touchActive = true
   }
 
-  let lastScrollY = 0
+  function handleTouchMove(e: TouchEvent) {
+    if (!touchActive) return
+    const dy = touchStartY - e.touches[0].clientY
+    const goingDown = dy > 0
+    const maxIdx = KEYFRAMES.length - 1
 
-  function checkAutoSnap(frame: number) {
-    if (isAutoScrolling) return
-    if (isTouchDevice()) return
-    const goingForward = frame > prevSnapFrame
-    const goingBackward = frame < prevSnapFrame
-    prevSnapFrame = frame
+    if (goingDown && currentKeyframeIdx === maxIdx) return
+    if (!goingDown && currentKeyframeIdx === 0) return
 
-    const goingDown = window.scrollY > lastScrollY + 1
-    lastScrollY = window.scrollY
+    e.preventDefault()
 
-    for (let i = 0; i < KEYFRAMES.length - 1; i++) {
-      const kf = KEYFRAMES[i]
-      const next = KEYFRAMES[i + 1]
-      if (goingForward && frame >= kf + SNAP_THRESHOLD && frame < next) {
-        snapToFrame(next)
-        return
-      }
-      if (goingBackward && frame <= next - SNAP_THRESHOLD && frame > kf) {
-        snapToFrame(kf)
-        return
-      }
-    }
+    if (Math.abs(dy) < SWIPE_THRESHOLD_PX) return
 
-    if (goingDown && !isOverPreorder && scrollContainer) {
-      const storyEnd = scrollContainer.offsetTop + scrollContainer.offsetHeight - window.innerHeight
-      if (window.scrollY >= storyEnd - 4) {
-        snapToPreorder()
-      }
-    }
+    const now = performance.now()
+    if (isAnimating || now - lastTriggerTime < TRIGGER_COOLDOWN_MS) return
+    lastTriggerTime = now
+
+    animateToKeyframe(currentKeyframeIdx + (goingDown ? 1 : -1))
+    touchActive = false
   }
 
-  let rafId = 0
+  function handleTouchEnd() {
+    touchActive = false
+  }
+
   let resizeRaf: number | null = null
+  let scrollRafId = 0
   let onScroll: (() => void) | null = null
   let onResize: (() => void) | null = null
 
@@ -450,49 +425,44 @@
 
     void preload()
 
-    const update = () => {
-      rafId = 0
-      computeProgress()
-      render()
-      updateOverPreorder()
-    }
     onScroll = () => {
-      if (!rafId) rafId = requestAnimationFrame(update)
-      if (isAutoScrolling) return
-      if (snapDebounceTimer) clearTimeout(snapDebounceTimer)
-      snapDebounceTimer = setTimeout(() => {
-        snapDebounceTimer = null
-        const frameIdx = Math.min(
-          TOTAL_FRAMES - 1,
-          Math.max(0, Math.round(progress * (TOTAL_FRAMES - 1)))
-        )
-        checkAutoSnap(frameIdx + 1)
-      }, SNAP_DEBOUNCE_MS)
+      if (scrollRafId) return
+      scrollRafId = requestAnimationFrame(() => {
+        scrollRafId = 0
+        updateOverPreorder()
+      })
     }
     onResize = () => {
       if (resizeRaf !== null) return
       resizeRaf = requestAnimationFrame(() => {
         resizeRaf = null
-        computeProgress()
         render(true)
       })
     }
 
-    computeProgress()
     render(true)
 
     window.addEventListener('scroll', onScroll, {passive: true})
     window.addEventListener('resize', onResize)
+
+    scrollContainer.addEventListener('wheel', handleWheel, {passive: false})
+    scrollContainer.addEventListener('touchstart', handleTouchStart, {passive: true})
+    scrollContainer.addEventListener('touchmove', handleTouchMove, {passive: false})
+    scrollContainer.addEventListener('touchend', handleTouchEnd, {passive: true})
   })
 
   onDestroy(() => {
-    if (rafId) cancelAnimationFrame(rafId)
+    if (scrollRafId) cancelAnimationFrame(scrollRafId)
     if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
-    if (snapRafId !== null) cancelAnimationFrame(snapRafId)
-    if (autoScrollTimer) clearTimeout(autoScrollTimer)
-    if (snapDebounceTimer) clearTimeout(snapDebounceTimer)
+    if (animRafId !== null) cancelAnimationFrame(animRafId)
     if (onScroll) window.removeEventListener('scroll', onScroll)
     if (onResize) window.removeEventListener('resize', onResize)
+    if (scrollContainer) {
+      scrollContainer.removeEventListener('wheel', handleWheel)
+      scrollContainer.removeEventListener('touchstart', handleTouchStart)
+      scrollContainer.removeEventListener('touchmove', handleTouchMove)
+      scrollContainer.removeEventListener('touchend', handleTouchEnd)
+    }
   })
 </script>
 
@@ -566,13 +536,8 @@
 
   .scroll-story {
     position: relative;
-    height: 700vh;
-  }
-
-  @media (max-width: 768px) {
-    .scroll-story {
-      height: 400dvh;
-    }
+    height: 100dvh;
+    overscroll-behavior: contain;
   }
 
   .scroll-pinned {
