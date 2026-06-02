@@ -22,8 +22,7 @@
       title: 'Not for everyone.\nOn purpose.',
       body:
         'Rabbit is a designer figure cast in matte resin, hand-finished one at a time. ' +
-        'Ten pieces in the first drop. Then the molds retire.',
-      align: 'center'
+        'Ten pieces in the first drop. Then the molds retire.'
     },
     {
       frame: 36,
@@ -41,8 +40,7 @@
       body:
         'Every seam was cut into the master sculpt by hand before molding — eight hours of work ' +
         'for a detail most people will never see straight on. ' +
-        'The studio suggested skipping it. The artist did not.',
-      align: 'center'
+        'The studio suggested skipping it. The artist did not.'
     },
     {
       frame: 108,
@@ -70,7 +68,8 @@
       body:
         'One run. Ten pieces. Numbered underneath, signed inside the box you\'ll throw away anyway. ' +
         'When the last one ships the molds get destroyed on camera. ' +
-        'No second drop — only a next character. You\'ll know when you know.'
+        'No second drop — only a next character. You\'ll know when you know.',
+      align: 'center'
     }
   ]
 
@@ -495,7 +494,6 @@
         <div
           class="rabbit-text-stack"
           class:rabbit-text-stack--revealed={isRevealed}
-          style={`--y-progress: ${progress};`}
         >
           {#each STOPS as stop}
             <RabbitSection
@@ -507,6 +505,13 @@
             />
           {/each}
         </div>
+
+        {#if showSwipeHint && isReady}
+          <div class="rabbit-swipe-hint" aria-hidden="true">
+            <span>Swipe</span>
+            <span class="rabbit-swipe-hint-arrow">↓</span>
+          </div>
+        {/if}
       </div>
 
       {#if !isReady}
@@ -584,8 +589,6 @@
     bottom: 0;
     height: 40dvh;
     pointer-events: none;
-    --shift-max: -28dvh;
-    transform: translateY(calc(var(--y-progress, 0) * var(--shift-max)));
     opacity: 0;
     transition: opacity 1200ms ease;
   }
@@ -594,18 +597,61 @@
     opacity: 1;
   }
 
-  @media (max-width: 768px) {
-    .rabbit-text-stack {
-      --shift-max: 0dvh;
-    }
-  }
-
   @media (min-width: 1024px) {
     .rabbit-text-stack {
       right: auto;
       width: 44rem;
       max-width: 55%;
       height: 55dvh;
+    }
+  }
+
+  .rabbit-swipe-hint {
+    position: absolute;
+    bottom: calc(40dvh + 0.75rem);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem 0.55rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.18);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    pointer-events: none;
+    z-index: 25;
+    animation: rabbit-swipe-bob 1.8s ease-in-out infinite,
+               rabbit-swipe-fade-in 320ms ease-out both;
+  }
+
+  .rabbit-swipe-hint-arrow {
+    display: inline-block;
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  @keyframes rabbit-swipe-bob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 4px); }
+  }
+
+  @keyframes rabbit-swipe-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (min-width: 1024px) {
+    .rabbit-swipe-hint {
+      display: none;
     }
   }
 

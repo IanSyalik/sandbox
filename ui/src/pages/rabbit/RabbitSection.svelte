@@ -13,7 +13,7 @@
   class:rabbit-section--center={align === 'center'}
   class:rabbit-section--hidden={hidden}
   aria-hidden={hidden ? 'true' : 'false'}
-  style={`opacity: ${opacity}; transform: translateY(${(1 - opacity) * 18}px);`}
+  style={`opacity: ${opacity};`}
 >
   <div class="rabbit-section-card">
     <div class="rabbit-section-kicker">{kicker}</div>
@@ -31,8 +31,8 @@
     justify-content: flex-end;
     padding: 0 1.25rem max(2rem, env(safe-area-inset-bottom, 2rem));
     pointer-events: none;
-    transition: opacity 90ms linear, transform 180ms ease-out;
-    will-change: opacity, transform;
+    transition: opacity 90ms linear;
+    will-change: opacity;
   }
 
   .rabbit-section--center {
@@ -47,10 +47,12 @@
   }
 
   @media (max-width: 768px) {
-    .rabbit-section,
-    .rabbit-section--center {
-      justify-content: flex-end;
+    .rabbit-section {
       padding: 0 1rem max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+    }
+
+    .rabbit-section--center {
+      padding: 0 1rem;
     }
 
     .rabbit-section-card {
@@ -80,7 +82,6 @@
       border: 1px solid rgba(255, 255, 255, 0.6);
       border-radius: 1rem;
       padding: 1.5rem 1.75rem 1.75rem;
-      box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.12);
     }
   }
 
