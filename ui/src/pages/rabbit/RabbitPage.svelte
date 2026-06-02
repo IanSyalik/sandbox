@@ -166,6 +166,20 @@
     })
   }
 
+  function priorityOrder(total: number): number[] {
+    const loaded = new Set<number>([0])
+    const order: number[] = []
+    for (const stride of [90, 45, 22, 11, 5, 2, 1]) {
+      for (let i = stride; i < total; i += stride) {
+        if (!loaded.has(i)) {
+          loaded.add(i)
+          order.push(i)
+        }
+      }
+    }
+    return order
+  }
+
   async function preload() {
     let done = 0
     const total = TOTAL_FRAMES
@@ -182,13 +196,14 @@
       tick()
     }
     isReady = true
-    render()
+    render(true)
     setTimeout(() => {
       isRevealed = true
     }, 1000)
 
-    // Background: rest of the frames. Render as they arrive.
-    for (let i = 1; i < TOTAL_FRAMES; i++) {
+    // Background: load by priority — coarse strides first so the whole
+    // flythrough is scrubbable as soon as ~12 frames have arrived.
+    for (const i of priorityOrder(TOTAL_FRAMES)) {
       const url = frameUrls[i]
       if (!url) {
         tick()
@@ -197,6 +212,7 @@
       loadImage(url).then((img) => {
         frameImages[i] = img
         tick()
+        lastRenderKey = -1
         render()
       })
     }
@@ -314,10 +330,12 @@
   }
 
   const SNAP_THRESHOLD = 5
-  const SNAP_DURATION_MS = 1400
+  const SNAP_DURATION_MS = 700
+  const SNAP_DEBOUNCE_MS = 140
   let isAutoScrolling = false
   let snapRafId: number | null = null
   let autoScrollTimer: ReturnType<typeof setTimeout> | null = null
+  let snapDebounceTimer: ReturnType<typeof setTimeout> | null = null
   let prevSnapFrame = 1
 
   function easeInOutCubic(t: number): number {
@@ -329,12 +347,25 @@
     const startY = window.scrollY
     const distance = targetY - startY
     const startTime = performance.now()
+    let lastExpectedY = startY
 
     const step = () => {
+      // Cancel if user input nudged the scroll position off our expected path
+      if (Math.abs(window.scrollY - lastExpectedY) > 2) {
+        snapRafId = null
+        isAutoScrolling = false
+        if (autoScrollTimer) {
+          clearTimeout(autoScrollTimer)
+          autoScrollTimer = null
+        }
+        return
+      }
       const elapsed = performance.now() - startTime
       const t = Math.min(1, elapsed / duration)
       const eased = easeInOutCubic(t)
-      window.scrollTo({top: startY + distance * eased, behavior: 'instant'})
+      const newY = startY + distance * eased
+      window.scrollTo({top: newY, behavior: 'instant'})
+      lastExpectedY = newY
       if (t < 1) {
         snapRafId = requestAnimationFrame(step)
       } else {
@@ -424,15 +455,19 @@
       computeProgress()
       render()
       updateOverPreorder()
-      const frameIdx = Math.min(
-        TOTAL_FRAMES - 1,
-        Math.max(0, Math.round(progress * (TOTAL_FRAMES - 1)))
-      )
-      checkAutoSnap(frameIdx + 1)
     }
     onScroll = () => {
-      if (rafId) return
-      rafId = requestAnimationFrame(update)
+      if (!rafId) rafId = requestAnimationFrame(update)
+      if (isAutoScrolling) return
+      if (snapDebounceTimer) clearTimeout(snapDebounceTimer)
+      snapDebounceTimer = setTimeout(() => {
+        snapDebounceTimer = null
+        const frameIdx = Math.min(
+          TOTAL_FRAMES - 1,
+          Math.max(0, Math.round(progress * (TOTAL_FRAMES - 1)))
+        )
+        checkAutoSnap(frameIdx + 1)
+      }, SNAP_DEBOUNCE_MS)
     }
     onResize = () => {
       if (resizeRaf !== null) return
@@ -455,6 +490,7 @@
     if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
     if (snapRafId !== null) cancelAnimationFrame(snapRafId)
     if (autoScrollTimer) clearTimeout(autoScrollTimer)
+    if (snapDebounceTimer) clearTimeout(snapDebounceTimer)
     if (onScroll) window.removeEventListener('scroll', onScroll)
     if (onResize) window.removeEventListener('resize', onResize)
   })
