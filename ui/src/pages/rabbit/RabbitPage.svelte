@@ -316,12 +316,13 @@
   }
 
   const ANIM_DURATION_MS = 800
-  const TRIGGER_COOLDOWN_MS = 600
+  const WHEEL_GESTURE_END_MS = 200
   const SWIPE_THRESHOLD_PX = 50
   let currentKeyframeIdx = 0
   let isAnimating = false
-  let lastTriggerTime = 0
   let animRafId: number | null = null
+  let wheelGestureLocked = false
+  let wheelGestureLockTimer: ReturnType<typeof setTimeout> | null = null
 
   function animateToKeyframe(targetIdx: number) {
     if (isAnimating) return
@@ -360,6 +361,14 @@
 
   function handleWheel(e: WheelEvent) {
     dismissSwipeHint()
+
+    // Refresh the gesture-end timer on every wheel event — trackpad inertia keeps firing
+    if (wheelGestureLockTimer) clearTimeout(wheelGestureLockTimer)
+    wheelGestureLockTimer = setTimeout(() => {
+      wheelGestureLocked = false
+      wheelGestureLockTimer = null
+    }, WHEEL_GESTURE_END_MS)
+
     const goingDown = e.deltaY > 0
     const maxIdx = KEYFRAMES.length - 1
 
@@ -369,10 +378,9 @@
 
     e.preventDefault()
 
-    const now = performance.now()
-    if (isAnimating || now - lastTriggerTime < TRIGGER_COOLDOWN_MS) return
-    lastTriggerTime = now
+    if (isAnimating || wheelGestureLocked) return
 
+    wheelGestureLocked = true
     animateToKeyframe(currentKeyframeIdx + (goingDown ? 1 : -1))
   }
 
@@ -397,10 +405,7 @@
     e.preventDefault()
 
     if (Math.abs(dy) < SWIPE_THRESHOLD_PX) return
-
-    const now = performance.now()
-    if (isAnimating || now - lastTriggerTime < TRIGGER_COOLDOWN_MS) return
-    lastTriggerTime = now
+    if (isAnimating) return
 
     animateToKeyframe(currentKeyframeIdx + (goingDown ? 1 : -1))
     touchActive = false
@@ -456,6 +461,7 @@
     if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
     if (animRafId !== null) cancelAnimationFrame(animRafId)
     if (hintTimer) clearTimeout(hintTimer)
+    if (wheelGestureLockTimer) clearTimeout(wheelGestureLockTimer)
     if (onScroll) window.removeEventListener('scroll', onScroll)
     if (onResize) window.removeEventListener('resize', onResize)
     if (scrollContainer) {
