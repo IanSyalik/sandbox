@@ -48,7 +48,7 @@
 
   @media (max-width: 768px) {
     .rabbit-section {
-      padding: 0 1rem max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+      padding: 0 1rem 0;
     }
 
     .rabbit-section--center {
@@ -60,9 +60,14 @@
       backdrop-filter: blur(60px) saturate(1.8);
       -webkit-backdrop-filter: blur(60px) saturate(1.8);
       border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 1.25rem 1.25rem 0 0;
+      padding: 1.1rem 1.15rem max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+      box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.25);
+    }
+
+    .rabbit-section--center .rabbit-section-card {
       border-radius: 1.25rem;
       padding: 1.1rem 1.15rem 1.25rem;
-      box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.25);
     }
   }
 

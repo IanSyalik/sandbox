@@ -98,16 +98,21 @@
 
 <style>
   .rabbit-nav {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 40;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
     color: #000;
-    transition: color 320ms ease;
+    transition: color 320ms ease, background-color 320ms ease;
   }
 
   .rabbit-nav--inverted {
     color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   .rabbit-nav-inner {

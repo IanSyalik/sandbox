@@ -359,7 +359,15 @@
     animRafId = requestAnimationFrame(step)
   }
 
+  function isInFlythroughRegion(): boolean {
+    if (!scrollContainer) return false
+    const rect = scrollContainer.getBoundingClientRect()
+    return rect.bottom > 32 && rect.top < window.innerHeight - 32
+  }
+
   function handleWheel(e: WheelEvent) {
+    if (!isInFlythroughRegion()) return
+
     dismissSwipeHint()
 
     // Refresh the gesture-end timer on every wheel event — trackpad inertia keeps firing
@@ -388,6 +396,7 @@
   let touchActive = false
 
   function handleTouchStart(e: TouchEvent) {
+    if (!isInFlythroughRegion()) return
     dismissSwipeHint()
     touchStartY = e.touches[0].clientY
     touchActive = true
@@ -395,6 +404,10 @@
 
   function handleTouchMove(e: TouchEvent) {
     if (!touchActive) return
+    if (!isInFlythroughRegion()) {
+      touchActive = false
+      return
+    }
     const dy = touchStartY - e.touches[0].clientY
     const goingDown = dy > 0
     const maxIdx = KEYFRAMES.length - 1
@@ -445,10 +458,10 @@
     window.addEventListener('scroll', onScroll, {passive: true})
     window.addEventListener('resize', onResize)
 
-    scrollContainer.addEventListener('wheel', handleWheel, {passive: false})
-    scrollContainer.addEventListener('touchstart', handleTouchStart, {passive: true})
-    scrollContainer.addEventListener('touchmove', handleTouchMove, {passive: false})
-    scrollContainer.addEventListener('touchend', handleTouchEnd, {passive: true})
+    window.addEventListener('wheel', handleWheel, {passive: false})
+    window.addEventListener('touchstart', handleTouchStart, {passive: true})
+    window.addEventListener('touchmove', handleTouchMove, {passive: false})
+    window.addEventListener('touchend', handleTouchEnd, {passive: true})
 
     hintTimer = setTimeout(() => {
       showSwipeHint = true
@@ -464,12 +477,10 @@
     if (wheelGestureLockTimer) clearTimeout(wheelGestureLockTimer)
     if (onScroll) window.removeEventListener('scroll', onScroll)
     if (onResize) window.removeEventListener('resize', onResize)
-    if (scrollContainer) {
-      scrollContainer.removeEventListener('wheel', handleWheel)
-      scrollContainer.removeEventListener('touchstart', handleTouchStart)
-      scrollContainer.removeEventListener('touchmove', handleTouchMove)
-      scrollContainer.removeEventListener('touchend', handleTouchEnd)
-    }
+    window.removeEventListener('wheel', handleWheel)
+    window.removeEventListener('touchstart', handleTouchStart)
+    window.removeEventListener('touchmove', handleTouchMove)
+    window.removeEventListener('touchend', handleTouchEnd)
   })
 </script>
 
@@ -549,7 +560,7 @@
 
   .scroll-story {
     position: relative;
-    height: calc(100dvh - 4rem);
+    height: 100dvh;
     overscroll-behavior: contain;
   }
 
