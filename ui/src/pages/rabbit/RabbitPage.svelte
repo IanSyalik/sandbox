@@ -301,9 +301,9 @@
     isOverPreorder = rect.top <= 64
   }
 
-  function opacityForStop(stop: Stop): number {
+  function opacityForStop(stop: Stop, p: number): number {
     const stopProgress = (stop.frame - 1) / (TOTAL_FRAMES - 1)
-    const dist = Math.abs(progress - stopProgress)
+    const dist = Math.abs(p - stopProgress)
     const fadeWindow = 0.085
     const v = 1 - dist / fadeWindow
     return Math.max(0, Math.min(1, v))
@@ -501,7 +501,7 @@
               title={stop.title}
               body={stop.body}
               align={stop.align ?? 'end'}
-              opacity={opacityForStop(stop)}
+              opacity={opacityForStop(stop, progress)}
             />
           {/each}
         </div>
