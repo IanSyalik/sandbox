@@ -323,6 +323,7 @@
   let animRafId: number | null = null
   let wheelGestureLocked = false
   let wheelGestureLockTimer: ReturnType<typeof setTimeout> | null = null
+  let lastWheelDirection: 1 | -1 | 0 = 0
 
   function animateToKeyframe(targetIdx: number) {
     if (isAnimating) return
@@ -370,14 +371,27 @@
 
     dismissSwipeHint()
 
+    const goingDown = e.deltaY > 0
+    const direction: 1 | -1 = goingDown ? 1 : -1
+
+    // Direction flip = brand-new gesture, drop any stale lock from prior inertia
+    if (lastWheelDirection !== 0 && lastWheelDirection !== direction) {
+      wheelGestureLocked = false
+      if (wheelGestureLockTimer) {
+        clearTimeout(wheelGestureLockTimer)
+        wheelGestureLockTimer = null
+      }
+    }
+    lastWheelDirection = direction
+
     // Refresh the gesture-end timer on every wheel event — trackpad inertia keeps firing
     if (wheelGestureLockTimer) clearTimeout(wheelGestureLockTimer)
     wheelGestureLockTimer = setTimeout(() => {
       wheelGestureLocked = false
       wheelGestureLockTimer = null
+      lastWheelDirection = 0
     }, WHEEL_GESTURE_END_MS)
 
-    const goingDown = e.deltaY > 0
     const maxIdx = KEYFRAMES.length - 1
 
     // At boundary — allow native scroll to exit the flythrough section
