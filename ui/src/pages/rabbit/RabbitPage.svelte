@@ -200,8 +200,7 @@
 
     // Critical: frame 1. Show the page as soon as it resolves.
     if (frameUrls[0]) {
-      const img = await loadImage(frameUrls[0])
-      frameImages[0] = img
+      frameImages[0] = await loadImage(frameUrls[0])
       tick()
     }
     isReady = true
@@ -324,6 +323,8 @@
   let wheelGestureLocked = false
   let wheelGestureLockTimer: ReturnType<typeof setTimeout> | null = null
   let lastWheelDirection: 1 | -1 | 0 = 0
+  let lastWheelTime = 0
+  let recentWheelMagnitudes: number[] = []
 
   function animateToKeyframe(targetIdx: number) {
     if (isAnimating) return
@@ -371,25 +372,44 @@
 
     dismissSwipeHint()
 
+    const now = performance.now()
+    const gap = now - lastWheelTime
+    const magnitude = Math.abs(e.deltaY)
     const goingDown = e.deltaY > 0
     const direction: 1 | -1 = goingDown ? 1 : -1
 
-    // Direction flip = brand-new gesture, drop any stale lock from prior inertia
-    if (lastWheelDirection !== 0 && lastWheelDirection !== direction) {
+    // New-burst detection: a clear pause (gap > 150ms) OR a magnitude spike
+    // (>1.4× recent peak with min threshold) means user started a fresh swipe.
+    // Trackpad inertia decays monotonically, so it never spikes — only real
+    // physical pushes do.
+    const recentMax = recentWheelMagnitudes.length
+      ? Math.max(...recentWheelMagnitudes)
+      : 0
+    const isGapBurst = gap > 150
+    const isMagnitudeBurst =
+      !isGapBurst && recentMax > 0 && magnitude > recentMax * 1.4 && magnitude > 15
+    const isNewBurst = isGapBurst || isMagnitudeBurst
+
+    if (isGapBurst) recentWheelMagnitudes = []
+    recentWheelMagnitudes.push(magnitude)
+    if (recentWheelMagnitudes.length > 5) recentWheelMagnitudes.shift()
+    lastWheelTime = now
+
+    // Direction flip OR fresh burst = drop stale lock from prior gesture/inertia
+    const directionFlip =
+      lastWheelDirection !== 0 && lastWheelDirection !== direction
+    if (directionFlip || (isNewBurst && !isAnimating)) {
       wheelGestureLocked = false
-      if (wheelGestureLockTimer) {
-        clearTimeout(wheelGestureLockTimer)
-        wheelGestureLockTimer = null
-      }
     }
     lastWheelDirection = direction
 
-    // Refresh the gesture-end timer on every wheel event — trackpad inertia keeps firing
+    // Safety net: release lock after a quiet period even if the heuristics miss
     if (wheelGestureLockTimer) clearTimeout(wheelGestureLockTimer)
     wheelGestureLockTimer = setTimeout(() => {
       wheelGestureLocked = false
       wheelGestureLockTimer = null
       lastWheelDirection = 0
+      recentWheelMagnitudes = []
     }, WHEEL_GESTURE_END_MS)
 
     const maxIdx = KEYFRAMES.length - 1
